@@ -12,6 +12,8 @@
 
 The detailed installation guides are currently in French. The Windows guide covers quests, presets, Python compatibility variants and optional base-game translation through DF-FR. The Linux guide covers native quests and presets, with the remaining requirements for native French localization.
 
+[Download the complete Linux translation package, beta 2](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.2).
+
 ## Beta scope
 
 | Component | Available download and validation |
@@ -19,7 +21,7 @@ The detailed installation guides are currently in French. The Windows guide cove
 | Quests and key hints | PGM Workshop package, DFHack required. A complete playthrough remains to be validated. |
 | Normal and PGM Full presets | Installation ZIP. Require original Workshop subscriptions and generated local variants. |
 | Compatibility variants | Python 3.10+ tool in the installation ZIP. Tested locally on Linux against Born Normally 9 and Accurate Domestic Animals 105. Windows execution remains to be checked. |
-| Native PGM Linux translation | Validation archive with a library and available local source. Translation data and a validated clean-install loader setup remain to be supplied. |
+| Native PGM Linux translation | Complete beta 2 payload with dictionary, models and a reversible installer. Real-game startup and uninstall checked in an isolated Linux copy. Complete playthrough pending. |
 | Native PGM Windows translation | In development. |
 | DF-FR + DFHack | Startup confirmed under GE-Proton11-12 with DF-FR 1.2.2 and DFHack 53.17-r1. Full PGM interoperability and native Windows testing remain pending. |
 
@@ -33,7 +35,7 @@ The `v0.1.0-beta.1` release is an initial snapshot. Its installation ZIP include
 
 Pour les quêtes seules, s’abonner à PGM et suivre le guide de sa plateforme. Pour le pack, s’abonner aussi à la collection et préparer les deux variantes locales avant d’appliquer Normal ou PGM Full.
 
-Le téléchargement Linux actuel du hook est incomplet pour une traduction sur installation neuve. Il manque les données et un parcours de chargement validé. Le hook PGM Windows reste à développer. Sous Windows, DF-FR est une option facultative pour traduire le jeu. La traduction PGM des menus de mods peut être activée ou désactivée indépendamment et sa couverture reste partielle.
+Le complément Linux bêta 2 fournit les données, le chargement via DFHack, un installateur et une restauration. Le démarrage et la désinstallation ont été vérifiés dans une copie isolée du jeu Linux. Une partie complète reste à tester. Le hook PGM Windows reste à développer. Sous Windows, DF-FR est une option facultative pour traduire le jeu. La traduction PGM des menus de mods peut être activée ou désactivée indépendamment et sa couverture reste partielle.
 
 ## Credits
 
