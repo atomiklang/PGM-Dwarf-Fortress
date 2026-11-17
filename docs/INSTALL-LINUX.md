@@ -1,6 +1,6 @@
 # Installer PGM sous Linux
 
-Ce guide couvre les quêtes et le modpack avec le jeu Linux natif. Le script de préparation des variantes a été testé sous Linux. La traduction native complète demande encore un paquet d’installation à finaliser.
+Ce guide couvre les quêtes et le modpack avec le jeu Linux natif. Le script de préparation des variantes a été testé sous Linux. Le complément de traduction natif est maintenant proposé dans une archive complète avec installateur et restauration.
 
 ## 1. Installer le jeu et DFHack
 
@@ -54,11 +54,32 @@ Vérifier l’ouverture du journal, la validation d’une première quête, puis
 
 Pour essayer une sélection de traductions des menus de mods, utiliser `pgm-traduction-mods activer`. Pour revenir à l’affichage précédent, utiliser `pgm-traduction-mods desactiver`. Ce réglage vaut pour la session. La couverture des textes reste partielle.
 
-## 6. État de la traduction native Linux
+## 6. Installer la traduction native Linux
 
-L’archive `PGM-Hook-Linux-53.17-pour-validation.zip` fournit la bibliothèque Linux et une source locale disponible. Il manque les données nécessaires à la traduction, notamment `traducfr/dictionnaire.csv`, ainsi qu’un parcours de chargement validé sur installation neuve. La correspondance exacte entre cette source et ce binaire doit aussi être vérifiée.
+Télécharger `PGM-Linux-0.1.0-beta.2.zip` depuis la nouvelle release, puis extraire l’archive. Dans le dossier contenant `installer.py`, jeu fermé, lancer
 
-Cette release permet donc de préparer les quêtes et les presets. Pour installer la traduction native PGM complète sur une nouvelle machine, un complément de distribution reste à finaliser. Copier seulement le fichier `.so` ne suffit pas à traduire le jeu.
+```sh
+python3 installer.py check --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
+python3 installer.py install --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
+```
+
+Adapter le chemin à la bibliothèque Steam. Si DFHack est installé ailleurs, ajouter `--dfhack "/chemin/vers/DFHack"` aux deux commandes. Python 3.10 ou supérieur est nécessaire.
+
+L’archive comprend le hook, le dictionnaire, les corrections, les modèles et les scripts de traduction DFHack. Le chargeur est celui de votre installation DFHack Linux. L’installateur vérifie les signatures du jeu, conserve les fichiers précédents et prépare le démarrage de la traduction des menus.
+
+Après lancement via Steam avec DFHack, contrôler `traducfr/traducfr.log` et tester F12 pour basculer entre français et anglais. Pour restaurer la configuration précédente, fermer le jeu et utiliser
+
+```sh
+python3 installer.py uninstall --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
+```
+
+Conserver `.pgm-linux-install` dans le dossier du jeu. Il contient les sauvegardes et l’état nécessaire à la restauration. Si un fichier a changé depuis l’installation, l’outil indique le conflit avant de restaurer.
+
+Le démarrage du vrai jeu Linux a été vérifié dans une copie isolée avec le Steam Linux Runtime. Le hook et le dictionnaire DFHack ont chargé, puis la désinstallation a restauré les fichiers précédents. Ce lancement hors du parcours Steam habituel a signalé l’absence d’identifiant Steam et une bibliothèque OpenGL manquante pour Stonesense. Le fonctionnement du Workshop, de Stonesense et une partie complète restent à valider. La reproduction exacte du binaire depuis la source locale jointe reste également à vérifier.
+
+Les crédits et la provenance du corpus DFint sont fournis avec l’archive. Les conditions de redistribution du corpus restent à préciser avec ses mainteneurs.
+
+[Télécharger le complément Linux](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.2).
 
 ## Windows sous Proton
 
