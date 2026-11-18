@@ -1,5 +1,7 @@
 # PGM [EN/FR] — Starter Quest Mods
 
+**Recommended download — [beta 3 security update](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).** Earlier installers and native hooks are superseded. See [the security review](SECURITY-REVIEW.md) for the fixes and remaining validation limits.
+
 **DFHack required.** PGM adds 78 English/French quests, dynamic shortcut hints and presets for its companion modpack. Your expedition leader guides you through building and running a fortress.
 
 ## Install
@@ -12,7 +14,7 @@
 
 The detailed installation guides are currently in French. The Windows guide covers quests, presets, Python compatibility variants and optional base-game translation through DF-FR. The Linux guide covers native quests and presets, with the remaining requirements for native French localization.
 
-[Download the complete Linux translation package, beta 2](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.2).
+[Download the complete Linux translation package, beta 2](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).
 
 ## Beta scope
 
@@ -21,7 +23,7 @@ The detailed installation guides are currently in French. The Windows guide cove
 | Quests and key hints | PGM Workshop package, DFHack required. A complete playthrough remains to be validated. |
 | Normal and PGM Full presets | Installation ZIP. Require original Workshop subscriptions and generated local variants. |
 | Compatibility variants | Python 3.10+ tool in the installation ZIP. Tested locally on Linux against Born Normally 9 and Accurate Domestic Animals 105. Windows execution remains to be checked. |
-| Native PGM Linux translation | Complete beta 2 payload with dictionary, models and a reversible installer. Real-game startup and uninstall checked in an isolated Linux copy. Complete playthrough pending. |
+| Native PGM Linux translation | Complete beta 3 payload with dictionary, models and a reversible installer. Real-game startup and uninstall checked in an isolated Linux copy. Complete playthrough pending. |
 | Native PGM Windows translation | In development. |
 | DF-FR + DFHack | Startup confirmed under GE-Proton11-12 with DF-FR 1.2.2 and DFHack 53.17-r1. Full PGM interoperability and native Windows testing remain pending. |
 
@@ -31,7 +33,7 @@ The `v0.1.0-beta.1` release is an initial snapshot. Its installation ZIP include
 
 ## Français
 
-**DFHack requis.** Les tutoriels ci-dessus expliquent l’installation des quêtes et du modpack, les dossiers Windows/Linux, les variantes locales, les presets et les commandes de vérification.
+**DFHack requis.** Le hook Linux bêta 3 est reconstruit depuis sa source avec vérification de version et protections mémoire. Deux compilations ont produit le même binaire. Les tutoriels ci-dessus expliquent l’installation des quêtes et du modpack, les dossiers Windows/Linux, les variantes locales, les presets et les commandes de vérification.
 
 Pour les quêtes seules, s’abonner à PGM et suivre le guide de sa plateforme. Pour le pack, s’abonner aussi à la collection et préparer les deux variantes locales avant d’appliquer Normal ou PGM Full.
 
