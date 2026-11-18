@@ -31,7 +31,7 @@ class App:
         box = ttk.Frame(window, padding=22)
         box.pack(fill='both', expand=True)
         ttk.Label(box, text='PGM · Starter Quest Mods', font=('', 20, 'bold')).pack(anchor='w')
-        ttk.Label(box, text='Bêta 1 · jeu 53.17 · DFHack requis · Windows / Linux x86-64').pack(anchor='w', pady=(2, 14))
+        ttk.Label(box, text='Bêta 2 · jeu 53.17 · DFHack requis · Windows / Linux x86-64').pack(anchor='w', pady=(2, 14))
         self.game = tk.StringVar(value=str(next(iter(core.game_candidates()), '')))
         self.hack = tk.StringVar()
         self.workshop = tk.StringVar()
@@ -186,7 +186,7 @@ class App:
                 raise ValueError('Choisis le dossier des mods locaux.')
             mods = Path(os.environ['APPDATA']) / 'Bay 12 Games/Dwarf Fortress/mods'
         else:
-            mods = game / 'mods'
+            mods = Path(os.environ.get('XDG_DATA_HOME', str(Path.home() / '.local/share'))) / 'Bay 12 Games/Dwarf Fortress/mods'
         spec = importlib.util.spec_from_file_location('pgm_variants', ROOT / 'preparer-variantes.py')
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
@@ -260,6 +260,9 @@ if __name__ == '__main__':
         root.update()
         assert len(app.buttons) == 9
         assert app.output.winfo_exists()
+        assert (ROOT / 'presets/mod-manager.json').is_file()
+        if app.system == 'Linux':
+            assert len(core.linux_engine(ROOT).read_manifest()) == 7
         root.destroy()
     else:
         root.mainloop()
