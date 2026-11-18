@@ -1,5 +1,14 @@
 # Installer PGM sous Windows
 
+**Télécharger pour Windows**
+
+[Télécharger INSTALL-Windows-PGM-0.1.0-beta.3.zip](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.3/INSTALL-Windows-PGM-0.1.0-beta.3.zip).
+
+Extraire entièrement le ZIP, ouvrir le dossier `PGM-Windows`, puis lire **START-HERE.txt**. Cet unique téléchargement contient les presets, l’outil de préparation et les guides. La traduction du jeu de base avec DF-FR est une étape facultative expliquée plus bas. 
+
+**Pour les quêtes seules**, installer DFHack, [s’abonner à PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386), puis ouvrir `traducfr-quetes` en forteresse.
+
+
 Ce guide couvre le mod, les quêtes et le modpack. Le hook natif PGM Windows est en développement. La traduction du jeu sous Windows utilise actuellement le parcours facultatif DF-FR.
 
 ## 1. Installer le jeu et DFHack
@@ -21,7 +30,7 @@ Pour les quêtes seules, passer à l’étape 5. Pour le modpack, poursuivre ave
 ## 3. Préparer le modpack et ses variantes locales
 
 1. S’abonner aux éléments de la collection PGM et attendre la fin des téléchargements.
-2. Télécharger `PGM-Installation-0.1.0-beta.3.zip` depuis la release GitHub, puis extraire tous ses fichiers dans un dossier facile à retrouver.
+2. Ouvrir le dossier extrait `PGM-Windows`, qui contient déjà les fichiers nécessaires.
 3. Installer Python 3.10 ou supérieur si nécessaire. Ouvrir un terminal dans le dossier extrait, où se trouve `preparer-variantes.py`.
 4. Repérer la bibliothèque Steam où les mods Workshop de Dwarf Fortress ont été téléchargés. Le dossier attendu se termine par `steamapps\workshop\content\975370` et contient notamment `3635878659` et `3072627813`.
 5. Exécuter la commande PowerShell suivante en remplaçant le premier chemin par le vôtre.
