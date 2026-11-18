@@ -1,5 +1,14 @@
 # Installer PGM sous Linux
 
+**Télécharger pour Linux**
+
+[Télécharger INSTALL-Linux-PGM-0.1.0-beta.3.zip](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.3/INSTALL-Linux-PGM-0.1.0-beta.3.zip).
+
+Extraire entièrement le ZIP, ouvrir le dossier `PGM-Linux`, puis lire **START-HERE.txt**. Cet unique téléchargement contient les presets, l’outil de préparation et les guides. Il contient aussi le complément de traduction Linux dans `traduction-linux`. 
+
+**Pour les quêtes seules**, installer DFHack, [s’abonner à PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386), puis ouvrir `traducfr-quetes` en forteresse.
+
+
 Ce guide couvre les quêtes et le modpack avec le jeu Linux natif. Le script de préparation des variantes a été testé sous Linux. Le complément de traduction natif est maintenant proposé dans une archive complète avec installateur et restauration.
 
 ## 1. Installer le jeu et DFHack
@@ -18,7 +27,7 @@ Pour les quêtes seules, passer à l’étape 5. Pour jouer au modpack, poursuiv
 
 ## 3. Télécharger les dépendances et créer les variantes
 
-S’abonner aux éléments de la collection. Télécharger `PGM-Installation-0.1.0-beta.3.zip` depuis GitHub, puis l’extraire. Ouvrir un terminal dans le dossier extrait où se trouve `preparer-variantes.py`.
+S’abonner aux éléments de la collection. Ouvrir le dossier extrait `PGM-Linux`, qui contient déjà les fichiers nécessaires. Ouvrir un terminal dans le dossier extrait où se trouve `preparer-variantes.py`.
 
 Vérifier que `python3 --version` fonctionne. Si Python est absent, installer Python 3.10 ou supérieur avec le gestionnaire de paquets de votre distribution.
 
@@ -56,7 +65,7 @@ Pour essayer une sélection de traductions des menus de mods, utiliser `pgm-trad
 
 ## 6. Installer la traduction native Linux
 
-Télécharger `PGM-Linux-0.1.0-beta.3.zip` depuis la nouvelle release, puis extraire l’archive. Dans le dossier contenant `installer.py`, jeu fermé, lancer
+Dans le dossier `PGM-Linux/traduction-linux`, qui contient `installer.py` et `payload`, jeu fermé, lancer
 
 ```sh
 python3 installer.py check --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
