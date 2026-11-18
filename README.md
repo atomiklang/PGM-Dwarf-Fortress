@@ -52,15 +52,15 @@ Pour les quêtes seules, DFHack et l’abonnement PGM suffisent. L’assistant s
 | PGM-Linux…zip | Native Linux translation alone / Traduction Linux seule, également intégrée à l’assistant Linux. |
 | PGM-Workshop…zip | Mod upload folder for the author and manual mod installation / Dossier de publication du mod pour l’auteur et installation manuelle. Steam subscribers receive the mod through Steam. |
 | …SHA256SUMS.txt | Optional archive integrity checks / Empreintes permettant de vérifier les archives téléchargées. |
-| Source code (zip / tar.gz) | GitHub repository snapshot for contributors / Copie automatique du dépôt pour les contributeurs. Use the player setup ZIP for installation. |
+| Source code (zip / tar.gz) | GitHub repository snapshot for contributors / Copie automatique du dépôt pour les contributeurs. Use the graphical assistant for installation. |
 
 [All beta 3 assets / Tous les fichiers de la bêta 3](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).
 
 ## Beta status / État de la bêta
 
-Reference configuration is DF 53.17 with DFHack 53.17-r1. Linux installation, native hook startup and restoration were tested in an isolated game copy. Windows execution and a complete playthrough remain to be validated. Assisted/Glory quest modes and Normal/Full modpack presets are independent choices.
+Reference configuration is DF 53.17 with DFHack 53.17-r1. Linux installation, native hook startup and restoration were tested in an isolated game copy. The assistant GUI starts in automated Windows and Ubuntu tests. A complete Windows playthrough remains to be validated. Assisted/Glory quest modes and Normal/Full modpack presets are independent choices.
 
-La référence est DF 53.17 avec DFHack 53.17-r1. L’installation Linux, le démarrage du hook et la restauration ont été vérifiés dans une copie isolée du jeu. Les essais Windows et une partie complète restent à réaliser. Les modes Aisé/Gloire sont indépendants des presets Normal/Full.
+La référence est DF 53.17 avec DFHack 53.17-r1. L’installation Linux, le démarrage du hook et la restauration ont été vérifiés dans une copie isolée du jeu. Le démarrage de l’assistant est vérifié automatiquement sur Windows et Ubuntu. Une partie complète Windows reste à tester. Les modes Aisé/Gloire sont indépendants des presets Normal/Full.
 
 Beta 3 supersedes the earlier installers and native hooks. [Security review / Rapport de sécurité](SECURITY-REVIEW.md).
 
