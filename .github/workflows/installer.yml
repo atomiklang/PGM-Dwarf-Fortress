@@ -62,4 +62,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create installer-v0.1.0-beta.1 release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "PGM Installer — Windows / Linux — beta 1" --notes-file installer/RELEASE-NOTES.md
+          gh release create installer-v0.1.0-beta.2 release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "PGM Installer — Windows / Linux — beta 2" --notes-file installer/RELEASE-NOTES.md
