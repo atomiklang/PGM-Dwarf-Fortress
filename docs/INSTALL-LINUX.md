@@ -18,7 +18,7 @@ Pour les quêtes seules, passer à l’étape 5. Pour jouer au modpack, poursuiv
 
 ## 3. Télécharger les dépendances et créer les variantes
 
-S’abonner aux éléments de la collection. Télécharger `PGM-Installation-0.1-preview.zip` depuis GitHub, puis l’extraire. Ouvrir un terminal dans le dossier extrait où se trouve `preparer-variantes.py`.
+S’abonner aux éléments de la collection. Télécharger `PGM-Installation-0.1.0-beta.3.zip` depuis GitHub, puis l’extraire. Ouvrir un terminal dans le dossier extrait où se trouve `preparer-variantes.py`.
 
 Vérifier que `python3 --version` fonctionne. Si Python est absent, installer Python 3.10 ou supérieur avec le gestionnaire de paquets de votre distribution.
 
@@ -36,7 +36,7 @@ Si une copie existante diffère, le script s’arrête et indique le chemin. Con
 
 Pour Steam Flatpak ou une bibliothèque déplacée, repérer les dossiers effectivement utilisés par votre installation. Le dossier utilisateur doit être celui où le jeu crée ses mods et ses sauvegardes. Vérifier ce chemin avant d’exécuter l’outil.
 
-[Collection PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587) · [Téléchargements](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.1).
+[Collection PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587) · [Téléchargements](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).
 
 ## 4. Appliquer les presets
 
@@ -56,7 +56,7 @@ Pour essayer une sélection de traductions des menus de mods, utiliser `pgm-trad
 
 ## 6. Installer la traduction native Linux
 
-Télécharger `PGM-Linux-0.1.0-beta.2.zip` depuis la nouvelle release, puis extraire l’archive. Dans le dossier contenant `installer.py`, jeu fermé, lancer
+Télécharger `PGM-Linux-0.1.0-beta.3.zip` depuis la nouvelle release, puis extraire l’archive. Dans le dossier contenant `installer.py`, jeu fermé, lancer
 
 ```sh
 python3 installer.py check --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
@@ -75,11 +75,11 @@ python3 installer.py uninstall --game "$HOME/.local/share/Steam/steamapps/common
 
 Conserver `.pgm-linux-install` dans le dossier du jeu. Il contient les sauvegardes et l’état nécessaire à la restauration. Si un fichier a changé depuis l’installation, l’outil indique le conflit avant de restaurer.
 
-Le démarrage du vrai jeu Linux a été vérifié dans une copie isolée avec le Steam Linux Runtime. Le hook et le dictionnaire DFHack ont chargé, puis la désinstallation a restauré les fichiers précédents. Ce lancement hors du parcours Steam habituel a signalé l’absence d’identifiant Steam et une bibliothèque OpenGL manquante pour Stonesense. Le fonctionnement du Workshop, de Stonesense et une partie complète restent à valider. La reproduction exacte du binaire depuis la source locale jointe reste également à vérifier.
+Le démarrage du vrai jeu Linux a été vérifié dans une copie isolée avec le Steam Linux Runtime. Le hook et le dictionnaire DFHack ont chargé, puis la désinstallation a restauré les fichiers précédents. Ce lancement hors du parcours Steam habituel a signalé l’absence d’identifiant Steam et une bibliothèque OpenGL manquante pour Stonesense. Le fonctionnement du Workshop, de Stonesense et une partie complète restent à valider. Le hook bêta 3 est reconstruit depuis la source jointe. Deux compilations ont produit le même binaire.
 
 Les crédits et la provenance du corpus DFint sont fournis avec l’archive. Les conditions de redistribution du corpus restent à préciser avec ses mainteneurs.
 
-[Télécharger le complément Linux](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.2).
+[Télécharger le complément Linux](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).
 
 ## Windows sous Proton
 
