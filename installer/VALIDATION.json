@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0-beta.2",
+  "date": "2026-11-18",
+  "github_run": "https://github.com/atomiklang/PGM-Dwarf-Fortress/actions/runs/44304578038",
+  "tests": {
+    "common": 15,
+    "linux_engine": 10,
+    "windows_source_gui": "passed",
+    "windows_frozen_gui": "passed",
+    "ubuntu_source_gui": "passed",
+    "ubuntu_frozen_gui": "passed",
+    "linux_host_frozen_gui": "passed; fontconfig warnings"
+  },
+  "scope": "GUI startup, presets and backend tests. No complete Windows gameplay test. No game files changed by host smoke test.",
+  "limitations": [
+    "Windows PGM native translation not included",
+    "Automatic dictionary update not implemented",
+    "New installer download does not automatically replace the running application"
+  ]
+}
