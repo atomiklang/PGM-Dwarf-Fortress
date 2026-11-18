@@ -1,95 +1,47 @@
 # Installer PGM sous Linux
 
-**Télécharger pour Linux**
+[**Télécharger l’installateur graphique**](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.2/PGM-Installer-Linux-0.1.0-beta.2.tar.gz)
 
-[Télécharger INSTALL-Linux-PGM-0.1.0-beta.3.zip](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.3/INSTALL-Linux-PGM-0.1.0-beta.3.zip).
+Télécharger l’archive Linux, l’extraire puis ouvrir **PGM-Installer**. Si nécessaire, autoriser l’exécution dans les propriétés du fichier.
 
-Extraire entièrement le ZIP, ouvrir le dossier `PGM-Linux`, puis lire **START-HERE.txt**. Cet unique téléchargement contient les presets, l’outil de préparation et les guides. Il contient aussi le complément de traduction Linux dans `traduction-linux`. 
+Python et Tkinter sont intégrés : aucune commande n’est nécessaire pour utiliser l’interface. Cibles : Windows x64 et Linux natif x86-64. Linux demande glibc 2.35 ou supérieure. Le démarrage de la fenêtre est testé automatiquement sur Windows et Ubuntu 22.04 ; les parties complètes restent à tester.
 
-**Pour les quêtes seules**, installer DFHack, [s’abonner à PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386), puis ouvrir `traducfr-quetes` en forteresse.
+## Avant d’ouvrir l’assistant
 
+1. Installer Dwarf Fortress **53.17** et **DFHack 53.17-r1** correspondant sur Steam. Lancer une fois le jeu avec DFHack, puis le fermer.
+2. S’abonner à [PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386). Pour le modpack, s’abonner aussi à la [collection PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587). Attendre la fin des téléchargements.
+3. Dans Steam, utiliser Dwarf Fortress → Gérer → Parcourir les fichiers locaux pour repérer le dossier du jeu.
 
-Ce guide couvre les quêtes et le modpack avec le jeu Linux natif. Le script de préparation des variantes a été testé sous Linux. Le complément de traduction natif est maintenant proposé dans une archive complète avec installateur et restauration.
+## Préparer le modpack
 
-## 1. Installer le jeu et DFHack
+1. Ouvrir l’assistant. Choisir le dossier du jeu s’il n’a pas été détecté. Le champ DFHack est utile sous Linux si sa bibliothèque n’est pas trouvée automatiquement.
+2. Pour le modpack, cliquer sur **Préparer les variantes du pack**. Si les mods sont dans une autre bibliothèque Steam, choisir le dossier se terminant par `steamapps/workshop/content/975370` dans le champ Workshop.
+3. Le dossier des mods locaux est normalement `%APPDATA%/Bay 12 Games/Dwarf Fortress/mods` sous Windows et `$XDG_DATA_HOME/Bay 12 Games/Dwarf Fortress/mods` sous Linux, généralement dans `~/.local/share`. Le champ dédié permet d’en choisir un autre.
+4. Cliquer sur **Installer les presets du pack**. Les presets personnels sont conservés. Si un preset personnel différent s’appelle déjà Normal ou PGM Full, l’assistant s’arrête sans l’écraser : résoudre ce conflit de nom avant de réessayer.
+5. Lancer le jeu avec DFHack. Avant de générer le monde, ouvrir `gui/mod-manager`, choisir **Normal** ou **PGM Full** et vérifier les dépendances manquantes. Normal retire certains ajouts exigeants ; Full propose les ajouts plus difficiles.
 
-Installer Dwarf Fortress et DFHack depuis Steam dans des versions compatibles. La configuration de référence de la bêta est DF 53.17 avec DFHack 53.17-r1. Lancer une fois le jeu, vérifier que DFHack se charge, puis fermer le jeu.
+Les variantes sont générées à partir de vos abonnements Born Normally **9** et Accurate Domestic Animals **105**. Une autre version demande de revoir l’adaptation. Une copie locale différente déjà présente est conservée ; l’assistant indique son chemin et s’arrête. Les originaux du Workshop ne sont pas modifiés.
 
-[DFHack sur Steam](https://store.steampowered.com/app/2346660/DFHack__Dwarf_Fortress_Modding_Engine/).
+## Quêtes
 
-## 2. Installer PGM
+Pour les quêtes seules, DFHack et l’abonnement PGM suffisent ; variantes et presets servent au modpack. Sélectionner PGM pour le nouveau monde, puis ouvrir `traducfr-quetes` en forteresse et choisir Aisé ou Gloire. `traducfr-quetes langue fr` met le journal en français.
 
-S’abonner au mod PGM et attendre la fin du téléchargement Steam. Sélectionner PGM dans les mods lors de la création d’un nouveau monde.
+`pgm-traduction-mods activer` active pour la session les traductions disponibles d’une sélection de libellés de mods DFHack. `pgm-traduction-mods desactiver` désactive cette couche. Les aides longues et tous les textes dynamiques ne sont pas encore entièrement couverts.
 
-Pour les quêtes seules, passer à l’étape 5. Pour jouer au modpack, poursuivre avec l’étape 3.
+## Traduction française Linux native, facultative
 
-[PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386).
+Jeu fermé, cliquer sur **Vérifier**, puis sur **Installer la traduction**. L’assistant vérifie l’exécutable exact pris en charge et les fichiers du paquet avant toute modification. Les fichiers précédents sont sauvegardés. F12 permet de basculer FR/EN dans le jeu. Pour retirer la traduction, fermer le jeu et cliquer sur **Désinstaller la traduction** dans le même assistant.
 
-## 3. Télécharger les dépendances et créer les variantes
+Ce parcours concerne le jeu Linux natif, pas la version Windows sous Proton. Un autre hook déjà présent demande une vérification manuelle : l’assistant s’arrête plutôt que de le remplacer.
 
-S’abonner aux éléments de la collection. Ouvrir le dossier extrait `PGM-Linux`, qui contient déjà les fichiers nécessaires. Ouvrir un terminal dans le dossier extrait où se trouve `preparer-variantes.py`.
+## Restaurer et mettre à jour
 
-Vérifier que `python3 --version` fonctionne. Si Python est absent, installer Python 3.10 ou supérieur avec le gestionnaire de paquets de votre distribution.
+**Restaurer les presets précédents** remet le fichier sauvegardé avant leur installation. **Désinstaller la traduction** restaure les fichiers de traduction Linux. Un fichier modifié depuis l’installation est conservé et demande une vérification manuelle.
 
-L’exemple suivant correspond à une bibliothèque Steam classique. Remplacer le chemin Workshop si Steam ou les téléchargements du jeu se trouvent sur un autre disque.
+**Chercher une mise à jour** vérifie les versions publiées. **Télécharger la mise à jour** récupère un exécutable vérifié ; ouvrir ensuite le dossier de téléchargement puis la nouvelle version. **Le remplacement automatique de l’application et la mise à jour automatique du dictionnaire ne sont pas encore disponibles dans cette bêta.** Pour changer la traduction Linux, restaurer l’ancienne installation puis installer la nouvelle, jeu fermé. Conserver l’ancien exécutable jusqu’à validation. Steam continue de mettre à jour les mods Workshop.
 
-```sh
-python3 preparer-variantes.py \
-  --workshop "$HOME/.local/share/Steam/steamapps/workshop/content/975370" \
-  --mods "$HOME/.local/share/Bay 12 Games/Dwarf Fortress/mods"
-```
+## En cas de problème
 
-Le dossier Workshop doit contenir `3635878659` et `3072627813`. Le script crée les variantes `born_normally_linux` et `pgm_accurate_domestic_graphics` à partir de Born Normally version 9 et Accurate Domestic Animals version 105.
+Utiliser **Enregistrer le rapport** pour conserver les messages localement. Rien n’est envoyé automatiquement. Fermer le jeu avant toute modification, ne pas lancer l’assistant Linux avec sudo et conserver les sauvegardes. Après une interruption, conserver le rapport et l’état d’installation avant de réessayer ou de retirer manuellement un verrou.
 
-Si une copie existante diffère, le script s’arrête et indique le chemin. Conserver cette copie avant de la déplacer puis de relancer. Chaque variante est préparée séparément. Si la seconde échoue, la première peut déjà être installée. La relance reconnaît les copies identiques.
-
-Pour Steam Flatpak ou une bibliothèque déplacée, repérer les dossiers effectivement utilisés par votre installation. Le dossier utilisateur doit être celui où le jeu crée ses mods et ses sauvegardes. Vérifier ce chemin avant d’exécuter l’outil.
-
-[Collection PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587) · [Téléchargements](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).
-
-## 4. Appliquer les presets
-
-Depuis Steam, ouvrir les fichiers locaux de Dwarf Fortress. Dans le dossier du jeu, repérer `dfhack-config`.
-
-Faire une copie de `dfhack-config/mod-manager.json` s’il existe déjà. Sur une installation neuve, copier `presets/mod-manager.json` de l’archive à cet emplacement. Pour conserver des presets personnels actifs, fusionner les entrées des deux listes JSON.
-
-Redémarrer le jeu. À la création du monde, ouvrir le gestionnaire de mods DFHack et appliquer **Normal** ou **PGM Full**. Contrôler les dépendances manquantes avant de générer le monde. Normal écarte certains ajouts exigeants. Full propose le pack complet et une difficulté accrue.
-
-## 5. Tester le journal
-
-En forteresse, ouvrir le lanceur DFHack et saisir `traducfr-quetes`. Choisir Aisé ou Gloire. Pour le français, saisir `traducfr-quetes langue fr`.
-
-Vérifier l’ouverture du journal, la validation d’une première quête, puis sauvegarder et recharger pour contrôler le suivi. Si la commande est inconnue, vérifier que Steam a téléchargé PGM et que DFHack s’exécute, puis redémarrer.
-
-Pour essayer une sélection de traductions des menus de mods, utiliser `pgm-traduction-mods activer`. Pour revenir à l’affichage précédent, utiliser `pgm-traduction-mods desactiver`. Ce réglage vaut pour la session. La couverture des textes reste partielle.
-
-## 6. Installer la traduction native Linux
-
-Dans le dossier `PGM-Linux/traduction-linux`, qui contient `installer.py` et `payload`, jeu fermé, lancer
-
-```sh
-python3 installer.py check --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
-python3 installer.py install --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
-```
-
-Adapter le chemin à la bibliothèque Steam. Si DFHack est installé ailleurs, ajouter `--dfhack "/chemin/vers/DFHack"` aux deux commandes. Python 3.10 ou supérieur est nécessaire.
-
-L’archive comprend le hook, le dictionnaire, les corrections, les modèles et les scripts de traduction DFHack. Le chargeur est celui de votre installation DFHack Linux. L’installateur vérifie les signatures du jeu, conserve les fichiers précédents et prépare le démarrage de la traduction des menus.
-
-Après lancement via Steam avec DFHack, contrôler `traducfr/traducfr.log` et tester F12 pour basculer entre français et anglais. Pour restaurer la configuration précédente, fermer le jeu et utiliser
-
-```sh
-python3 installer.py uninstall --game "$HOME/.local/share/Steam/steamapps/common/Dwarf Fortress"
-```
-
-Conserver `.pgm-linux-install` dans le dossier du jeu. Il contient les sauvegardes et l’état nécessaire à la restauration. Si un fichier a changé depuis l’installation, l’outil indique le conflit avant de restaurer.
-
-Le démarrage du vrai jeu Linux a été vérifié dans une copie isolée avec le Steam Linux Runtime. Le hook et le dictionnaire DFHack ont chargé, puis la désinstallation a restauré les fichiers précédents. Ce lancement hors du parcours Steam habituel a signalé l’absence d’identifiant Steam et une bibliothèque OpenGL manquante pour Stonesense. Le fonctionnement du Workshop, de Stonesense et une partie complète restent à valider. Le hook bêta 3 est reconstruit depuis la source jointe. Deux compilations ont produit le même binaire.
-
-Les crédits et la provenance du corpus DFint sont fournis avec l’archive. Les conditions de redistribution du corpus restent à préciser avec ses mainteneurs.
-
-[Télécharger le complément Linux](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).
-
-## Windows sous Proton
-
-Pour le jeu Windows sous Proton, suivre le [guide Windows](INSTALL-WINDOWS.md), notamment la section sur le préfixe Proton et les composants Windows. Le test de démarrage DF-FR + DFHack réalisé sous Proton ne valide pas une partie complète du pack.
+[Notes de l’installateur](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/installer-v0.1.0-beta.2) · [Fichiers de préparation manuelle](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.3/PGM-Installation-0.1.0-beta.3.zip) · [Paquet Linux manuel](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.3/PGM-Linux-0.1.0-beta.3.zip)
