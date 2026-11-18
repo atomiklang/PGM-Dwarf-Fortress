@@ -1,0 +1,33 @@
+PGM — INSTALLATEUR BÊTA 1
+
+Windows : télécharger et ouvrir le .exe. Python n’est pas nécessaire.
+Linux x86-64 : extraire l’archive tar.gz puis ouvrir PGM-Installer.
+Si le bureau ne le lance pas, autoriser son exécution dans les propriétés du fichier.
+Ne pas lancer avec sudo. Linux nécessite glibc 2.35 ou plus récent.
+
+1. Installer le jeu 53.17 et DFHack correspondant sur Steam. Les lancer une fois et fermer le jeu.
+2. S’abonner à PGM et aux mods souhaités de la collection Steam.
+3. Ouvrir cet assistant et vérifier le dossier du jeu.
+4. Pour le pack complet, préparer les variantes puis installer les presets.
+   Si Steam utilise une autre bibliothèque, sélectionner aussi le dossier Workshop.
+5. Sous Linux natif, vérifier puis installer la traduction si souhaité.
+6. Lancer le jeu avec DFHack et choisir le preset lors de la génération d’un monde.
+
+PGM : https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386
+Collection : https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587
+Guides : https://github.com/atomiklang/PGM-Dwarf-Fortress
+
+Windows : cet assistant prépare le pack et les presets. Il ne fournit pas de hook PGM Windows.
+La traduction du jeu Windows utilise le parcours facultatif DF-FR expliqué dans le guide.
+Les quêtes PGM nécessitent DFHack et l’abonnement Steam à PGM.
+
+Mises à jour : Steam met à jour les mods Workshop. L’assistant peut rechercher et télécharger
+une nouvelle version de lui-même avec vérification SHA-256. Ouvrir ensuite la nouvelle version.
+La mise à jour automatique de la traduction et le remplacement automatique de l’assistant
+ne sont pas encore disponibles. Pour changer la traduction Linux, restaurer l’ancienne
+installation avant d’installer la nouvelle, jeu fermé. Conserver le précédent installateur.
+
+Les fichiers modifiés depuis l’installation ne sont pas écrasés silencieusement.
+Le bouton de rapport enregistre les messages localement. Rien n’est envoyé automatiquement.
+Bêta : lancement de l’interface testé automatiquement sur Windows et Ubuntu ;
+partie complète sur Windows et autres distributions Linux à tester.
