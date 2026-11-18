@@ -8,7 +8,7 @@ import tempfile
 import urllib.parse
 import urllib.request
 
-VERSION = '0.1.0-beta.1'
+VERSION = '0.1.0-beta.2'
 PAYLOAD_VERSION = '0.1.0-beta.3'
 REPO = 'atomiklang/PGM-Dwarf-Fortress'
 API = f'https://api.github.com/repos/{REPO}/releases'
