@@ -1,7 +1,7 @@
 ## Download / Télécharger
 
-- **Windows x64:** download and run **PGM-Installer-Windows-0.1.0-beta.1.exe**. No Python installation needed.
-- **Linux x86-64:** download **PGM-Installer-Linux-0.1.0-beta.1.tar.gz**, extract it, then open **PGM-Installer**. No Python installation needed. Requires glibc 2.35 or newer; built and smoke-tested on Ubuntu 22.04. Other distributions still need user testing.
+- **Windows x64:** download and run **PGM-Installer-Windows-0.1.0-beta.2.exe**. No Python installation needed.
+- **Linux x86-64:** download **PGM-Installer-Linux-0.1.0-beta.2.tar.gz**, extract it, then open **PGM-Installer**. No Python installation needed. Requires glibc 2.35 or newer; built and smoke-tested on Ubuntu 22.04. Other distributions still need user testing.
 
 This experimental assistant prepares local modpack variants, installs/restores Normal and Full presets, and installs/restores the **native Linux 53.17 French translation**. Install the game, matching DFHack and Workshop subscriptions through Steam first. Quests are distributed by the PGM Steam item.
 
