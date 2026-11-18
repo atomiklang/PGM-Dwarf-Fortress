@@ -1,4 +1,4 @@
-PGM — INSTALLATEUR BÊTA 1
+PGM — INSTALLATEUR BÊTA 2
 
 Windows : télécharger et ouvrir le .exe. Python n’est pas nécessaire.
 Linux x86-64 : extraire l’archive tar.gz puis ouvrir PGM-Installer.
