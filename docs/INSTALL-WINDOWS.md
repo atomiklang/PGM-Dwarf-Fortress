@@ -21,7 +21,7 @@ Pour les quêtes seules, passer à l’étape 5. Pour le modpack, poursuivre ave
 ## 3. Préparer le modpack et ses variantes locales
 
 1. S’abonner aux éléments de la collection PGM et attendre la fin des téléchargements.
-2. Télécharger `PGM-Installation-0.1-preview.zip` depuis la release GitHub, puis extraire tous ses fichiers dans un dossier facile à retrouver.
+2. Télécharger `PGM-Installation-0.1.0-beta.3.zip` depuis la release GitHub, puis extraire tous ses fichiers dans un dossier facile à retrouver.
 3. Installer Python 3.10 ou supérieur si nécessaire. Ouvrir un terminal dans le dossier extrait, où se trouve `preparer-variantes.py`.
 4. Repérer la bibliothèque Steam où les mods Workshop de Dwarf Fortress ont été téléchargés. Le dossier attendu se termine par `steamapps\workshop\content\975370` et contient notamment `3635878659` et `3072627813`.
 5. Exécuter la commande PowerShell suivante en remplaçant le premier chemin par le vôtre.
@@ -36,7 +36,7 @@ L’outil crée `born_normally_linux` et `pgm_accurate_domestic_graphics` à par
 
 Si une variante existe déjà avec un contenu différent, l’outil affiche son chemin et s’arrête. Conserver cette copie avant de la déplacer et de réessayer. Si la seconde variante échoue, la première peut déjà être installée. Relancer la même commande est possible.
 
-[Collection Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587) · [Release GitHub](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.1) · [Python pour Windows](https://www.python.org/downloads/windows/).
+[Collection Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587) · [Release GitHub](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3) · [Python pour Windows](https://www.python.org/downloads/windows/).
 
 ## 4. Installer les presets et créer le monde
 
