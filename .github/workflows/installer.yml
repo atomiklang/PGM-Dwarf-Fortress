@@ -22,7 +22,9 @@ jobs:
           python-version: '3.12'
       - name: Install build dependencies
         run: python -m pip install pyinstaller==6.22.3
-      - name: Fetch verified PGM payloads
+      - name: Download pinned content19 and experimental Windows19
+        run: python fetch_verified_bundle.py
+      - name: Verify embedded build manifest
         run: python prepare_build.py
       - name: Tests
         run: python -m unittest discover -s tests
@@ -37,6 +39,8 @@ jobs:
         run: python app.py --smoke-test
       - name: Build
         run: python build.py
+      - name: Verify embedded data
+        run: python verify_frozen.py
       - name: Package and verify executable
         run: python package_build.py
       - uses: actions/upload-artifact@v4
@@ -58,8 +62,8 @@ jobs:
           pattern: PGM-Installer-*
           path: release
           merge-multiple: true
-      - name: Publish beta installers
+      - name: Publish verified beta4 installers
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create installer-v0.1.0-beta.2 release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "PGM Installer — Windows / Linux — beta 2" --notes-file installer/RELEASE-NOTES.md
+          gh release create installer-v0.1.0-beta.4 release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "PGM Installer — Windows / Linux — beta 4" --notes-file installer/RELEASE-NOTES.md

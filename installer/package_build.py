@@ -7,15 +7,14 @@ import shutil
 import subprocess
 import tarfile
 from core import VERSION
+from smoke_gui import run as smoke_test
 root = Path(__file__).resolve().parent
 release = root / 'release'
 release.mkdir(exist_ok=True)
 windows = platform.system() == 'Windows'
 exe = root / 'dist' / ('PGM-Installer.exe' if windows else 'PGM-Installer')
 command = [str(exe), '--smoke-test']
-if not windows:
-    command = ['xvfb-run', '-a'] + command
-subprocess.run(command, check=True, timeout=90)
+smoke_test(command)
 name = f'PGM-Installer-Windows-{VERSION}.exe' if windows else f'PGM-Installer-Linux-{VERSION}.bin'
 target = release / name
 shutil.copy2(exe, target)

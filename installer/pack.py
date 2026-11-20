@@ -80,12 +80,16 @@ def install(game, bundled):
     with locked(game):
         path = target(game, 'dfhack-config/mod-manager.json')
         statefile = target(game, '.pgm-presets-state.json')
+        previous = None
         if statefile.exists():
-            state = json.loads(statefile.read_text())
-            if path.exists() and digest(path.read_bytes()) == state['installed_hash']:
-                return 'Presets PGM déjà installés. Les restaurer avant de changer de version.'
-            raise ValueError('Installation précédente ou interrompue détectée. Restaurer les presets d’abord.')
-        original = path.read_bytes() if path.exists() else None
+            previous = json.loads(statefile.read_text())
+            if not path.exists() or digest(path.read_bytes()) != previous['installed_hash']:
+                raise ValueError('Installation précédente ou interrompue détectée. Restaurer les presets d’abord.')
+            original = base64.b64decode(previous['original'], validate=True) if previous['original'] is not None else None
+            if previous.get('format') != 1 or (original is not None and digest(original) != previous['original_hash']):
+                raise ValueError('Sauvegarde des presets invalide.')
+        else:
+            original = path.read_bytes() if path.exists() else None
         current = json.loads(original) if original else []
         if not isinstance(current, list) or not all(isinstance(p, dict) for p in current):
             raise ValueError('Presets existants non reconnus : aucun remplacement.')
@@ -101,6 +105,10 @@ def install(game, bundled):
                     copy['default'] = False
                 merged.append(copy)
         data = json.dumps(merged, ensure_ascii=False, indent=2).encode()
+        if previous is not None:
+            if digest(data) != previous['installed_hash']:
+                raise ValueError('Une autre version des presets est installée. Restaurer les presets précédents, puis installer cette version.')
+            return 'Presets PGM déjà installés et identiques à ce paquet.'
         state = {'format': 1, 'original': base64.b64encode(original).decode() if original is not None else None,
                  'original_hash': digest(original) if original is not None else None, 'installed_hash': digest(data)}
         write(statefile, json.dumps(state).encode())

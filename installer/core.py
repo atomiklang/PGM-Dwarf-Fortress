@@ -3,13 +3,14 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 from pathlib import Path
 import tempfile
 import urllib.parse
 import urllib.request
 
-VERSION = '0.1.0-beta.2'
-PAYLOAD_VERSION = '0.1.0-beta.3'
+VERSION = '0.1.0-beta.4'
+PAYLOAD_VERSION = '0.1.0-beta.19'
 REPO = 'atomiklang/PGM-Dwarf-Fortress'
 API = f'https://api.github.com/repos/{REPO}/releases'
 MAX_DOWNLOAD = 64 * 1024 * 1024
@@ -29,11 +30,24 @@ def fetch(url, limit):
     return data
 
 
+def version_key(version):
+    match = re.fullmatch(r'(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-beta\.(\d+))?', version)
+    if not match:
+        raise ValueError('Version de publication non reconnue : ' + version)
+    major, minor, patch, beta = match.groups()
+    return (int(major), int(minor or 0), int(patch or 0), beta is None, int(beta or 0))
+
+
+def newer_than(candidate, current):
+    return version_key(candidate) > version_key(current)
+
+
 def release_for(system):
     # Beta releases are prereleases, so /latest would incorrectly omit them.
     releases = json.loads(fetch(API + '?per_page=30', 2 * 1024 * 1024))
     prefix = 'PGM-Installer-Windows-' if system == 'Windows' else 'PGM-Installer-Linux-'
     suffix = '.exe' if system == 'Windows' else '.bin'
+    candidates = []
     for release in releases:
         if release.get('draft'):
             continue
@@ -46,8 +60,12 @@ def release_for(system):
                 checksum = asset.get('digest', '')
                 if not checksum or not checksum.startswith('sha256:') or len(checksum) != 71:
                     raise ValueError('Cette publication ne fournit pas de empreinte SHA-256 exploitable.')
-                return {'version': release['tag_name'].removeprefix('installer-v').removeprefix('v'), 'name': name,
+                candidate = {'version': release['tag_name'].removeprefix('installer-v').removeprefix('v'), 'name': name,
                         'url': url, 'digest': checksum[7:], 'page': release['html_url']}
+                version_key(candidate['version'])
+                candidates.append(candidate)
+    if candidates:
+        return max(candidates, key=lambda a: version_key(a['version']))
     raise ValueError('Aucun installateur publié pour ce système. Consulte la page des publications PGM.')
 
 
@@ -138,3 +156,13 @@ def game_closed(game):
                         raise ValueError('Ferme Dwarf Fortress avant de modifier ses fichiers.')
             finally:
                 kernel.CloseHandle(handle)
+
+
+def windows_engine(root):
+    path = Path(root) / 'traduction-windows' / 'installer.py'
+    if not path.is_file():
+        raise ValueError('Le module Windows expérimental n’est pas inclus dans cette application.')
+    spec = importlib.util.spec_from_file_location('pgm_windows_engine', path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module

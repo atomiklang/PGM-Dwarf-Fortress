@@ -73,3 +73,14 @@ class Presets(unittest.TestCase):
         with self.assertRaises(ValueError):
             pack.install(self.game, self.bundle)
         self.assertEqual(elsewhere.read_bytes(), b'original')
+
+    def test_new_bundle_is_not_falsely_reported_installed(self):
+        pack.install(self.game, self.bundle)
+        before = self.path.read_bytes()
+        self.bundle.write_text(json.dumps([{'name':'Normal','default':True,'modlist':[{'id':'new','version':1}]}]))
+        with self.assertRaisesRegex(ValueError, 'autre version'):
+            pack.install(self.game, self.bundle)
+        self.assertEqual(self.path.read_bytes(), before)
+        pack.restore(self.game)
+        pack.install(self.game, self.bundle)
+        self.assertEqual(json.loads(self.path.read_text())[0]['modlist'][0]['id'], 'new')

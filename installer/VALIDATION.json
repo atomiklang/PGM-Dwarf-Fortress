@@ -1,20 +1,22 @@
 {
-  "version": "0.1.0-beta.2",
-  "date": "2026-11-18",
-  "github_run": "https://github.com/atomiklang/PGM-Dwarf-Fortress/actions/runs/44304578038",
-  "tests": {
-    "common": 15,
-    "linux_engine": 10,
-    "windows_source_gui": "passed",
-    "windows_frozen_gui": "passed",
-    "ubuntu_source_gui": "passed",
-    "ubuntu_frozen_gui": "passed",
-    "linux_host_frozen_gui": "passed; fontconfig warnings"
+  "assistant": "0.1.0-beta.4",
+  "linux_payload": "0.1.0-beta.19",
+  "unit_tests": {
+    "command": "python3 -m unittest discover -s tests",
+    "passed": 39
   },
-  "scope": "GUI startup, presets and backend tests. No complete Windows gameplay test. No game files changed by host smoke test.",
+  "bundle_verified": true,
+  "python_compile_passed": true,
+  "gui_test": false,
+  "frozen_build_test": false,
+  "windows_native_test": false,
+  "published": false,
   "limitations": [
-    "Windows PGM native translation not included",
-    "Automatic dictionary update not implemented",
-    "New installer download does not automatically replace the running application"
-  ]
+    "Windows game tests under Proton only; no native Windows gameplay validation.",
+    "Frozen Windows/Linux builds and GUI startup will be validated by target OS CI before installer publication.",
+    "Migration power-loss recovery is manual; receipt and previous generation retained.",
+    "Changed presets require restore then reinstall."
+  ],
+  "linux_engine_tests_passed": 10,
+  "windows_payload": "0.1.0-beta.19 experimental"
 }

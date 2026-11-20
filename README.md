@@ -1,69 +1,41 @@
 # PGM [EN/FR] — Starter Quest Mods
 
-78 quests to help you learn Dwarf Fortress, with your expedition leader as a guide. **DFHack required.**
+## English — choose your download
 
-## Install PGM / Installer PGM
+**85 quests in English and French** guide you from your first seven dwarves through survival, industry, trade, defense and the growth of your fortress. **DFHack is required.**
 
-**Graphical installer beta — no Python or terminal needed / Installateur graphique bêta — sans Python ni terminal**
-
-| System / Système | Download / Téléchargement | Tutorial / Tutoriel |
+| Your system | Download | Guide |
 | --- | --- | --- |
-| **Windows x64** | [**Download the Windows .exe**](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.2/PGM-Installer-Windows-0.1.0-beta.2.exe) | [English](docs/INSTALL-WINDOWS-EN.md) · [Français](docs/INSTALL-WINDOWS.md) |
-| **Linux x86-64** | [**Download the Linux archive**](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.2/PGM-Installer-Linux-0.1.0-beta.2.tar.gz) | [English](docs/INSTALL-LINUX-EN.md) · [Français](docs/INSTALL-LINUX.md) |
+| Windows 64-bit | [PGM-Installer-Windows-0.1.0-beta.4.exe](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Windows-0.1.0-beta.4.exe) | [English guide](docs/INSTALL.en.md#windows) |
+| Native Linux x86-64 | [PGM-Installer-Linux-0.1.0-beta.4.bin](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Linux-0.1.0-beta.4.bin) | [English guide](docs/INSTALL.en.md#linux) |
 
-**Windows:** open the .exe. **Linux:** extract the archive and open **PGM-Installer**. Python and the window toolkit are included. Linux requires glibc 2.35 or newer. Install Dwarf Fortress, matching DFHack and Workshop subscriptions through Steam first, then close the game.
+Linux alternative: [.tar.gz archive](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Linux-0.1.0-beta.4.tar.gz). Choose one Linux download; you do not need both. Python is included.
 
-**Windows :** ouvrir le .exe. **Linux :** extraire l’archive puis ouvrir **PGM-Installer**. Python et les composants graphiques sont inclus. Linux demande glibc 2.35 ou supérieure. Installer le jeu, DFHack correspondant et les abonnements Workshop via Steam, puis fermer le jeu avant de lancer l’installation.
+Install matching Dwarf Fortress and DFHack versions, subscribe to [PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386) and, for the modpack, the [collection](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587). Let Steam finish downloading, close the game, then open the assistant.
 
-The assistant prepares compatibility variants, installs/restores presets and handles the native Linux French translation. Windows game translation uses the optional DF-FR route in the guide. Native PGM Windows translation is not included. Updates currently download a verified new installer to open afterward; automatic dictionary updates are not implemented yet.
+Choose **Normal (74 mods)** for an easier introduction or **PGM Full (87 mods)** for the complete, more demanding pack. Advanced Agriculture, Orchards and Fantastic Trees belong to Full. Choose the quest mode separately: **Assisted** provides supplies at selected milestones; **Glory** uses points and ranks. You can use the quests without the companion pack.
 
-L’assistant prépare les variantes, installe/restaure les presets et gère la traduction Linux native. La traduction du jeu Windows passe par DF-FR suivant le guide. La recherche de mise à jour télécharge un nouvel installateur vérifié à ouvrir ensuite ; la mise à jour automatique du dictionnaire reste à développer.
+In fortress mode, open the DFHack launcher, run `traducfr-quetes` and choose your language. PGM also includes configurable interface improvements and optional French localization for the base game and companion mods. Translation aims to cover the whole game; procedural dialogue and rare screens can still contain English.
 
-[Installer release notes / Notes de l’installateur](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/installer-v0.1.0-beta.2) · [Sources](installer/README.md)
+**Beta status:** Linux content is 0.1.0-beta.19. Windows translation is experimental, disabled by default and tested only under Proton GE 11-12. Native Windows play and Linux-equivalent rendering are not validated. Choose either DF-FR or native PGM translation; quests and presets remain independent. See [release notes](docs/RELEASE-NOTES.md).
 
-## English — start here
+## Français — choisir son téléchargement
 
-1. Install Dwarf Fortress and a matching version of [DFHack on Steam](https://store.steampowered.com/app/2346660/DFHack__Dwarf_Fortress_Modding_Engine/).
-2. Subscribe to [PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386) and the [PGM modpack collection](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587). Wait for Steam to finish downloading.
-3. Download the graphical assistant from the table above. Prepare the local variants and install the presets using its buttons.
-4. Before generating a world, open `gui/mod-manager` in DFHack and choose **Normal** or **PGM Full**. Check for missing dependencies.
-5. In fortress mode, open `traducfr-quetes` in DFHack. Choose Assisted or Glory.
+PGM propose une **traduction française du jeu et des mods du pack**, avec **85 quêtes FR/EN** pour découvrir Dwarf Fortress. **DFHack est obligatoire.** La traduction vise l’ensemble du jeu ; la bêta ne garantit pas la traduction de tous les dialogues procéduraux ou écrans rares.
 
-For quests alone, install DFHack, subscribe to PGM and open the journal in fortress mode. The assistant is useful for the companion modpack and optional translation.
+| Ton système | Télécharger | Installation |
+| --- | --- | --- |
+| Windows 64 bits | [Assistant Windows (.exe)](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Windows-0.1.0-beta.4.exe) | [Guide Windows](docs/INSTALL-WINDOWS.fr.md) |
+| Linux natif x86-64 | [Assistant Linux (.bin)](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Linux-0.1.0-beta.4.bin) | [Guide Linux](docs/INSTALL-LINUX.fr.md) |
 
-## Français — commencer ici
+Alternative Linux : [archive .tar.gz](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Linux-0.1.0-beta.4.tar.gz). Un seul téléchargement suffit. Aucun Python à installer.
 
-1. Installer Dwarf Fortress et une version correspondante de [DFHack sur Steam](https://store.steampowered.com/app/2346660/DFHack__Dwarf_Fortress_Modding_Engine/).
-2. S’abonner à [PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386) et à la [collection du modpack](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587). Attendre la fin des téléchargements.
-3. Télécharger l’assistant Windows ou Linux dans le tableau ci-dessus. Préparer les variantes locales et installer les presets avec ses boutons.
-4. Avant de générer le monde, ouvrir `gui/mod-manager` dans DFHack et choisir **Normal** ou **PGM Full**. Vérifier les dépendances manquantes.
-5. En forteresse, ouvrir `traducfr-quetes` dans DFHack et choisir Aisé ou Gloire. La commande `traducfr-quetes langue fr` met le journal en français.
+Commence avec **Normal (74 mods)** ou choisis **PGM Full (87 mods)** pour tous les ajouts et une partie plus exigeante. Advanced Agriculture, Orchards et Fantastic Trees sont réservés à Full. Les modes de quêtes **Aisé** et **Gloire** se choisissent indépendamment du preset.
 
-Pour les quêtes seules, DFHack et l’abonnement PGM suffisent. L’assistant sert au modpack et à la traduction facultative.
+### Pourquoi PGM ?
 
-## Which asset do I need? / À quoi servent les fichiers ?
+Je joue sous Linux. Sur de longues sessions, l’anglais de Dwarf Fortress me fatiguait et essayer de tout comprendre finissait par me donner mal au crâne. J’ai commencé une traduction pour mon installation, puis les quêtes et le pack ont grandi pour partager ce que j’apprenais et rendre les premières heures plus accessibles.
 
-| File / Fichier | Purpose / Utilisation |
-| --- | --- |
-| **PGM-Installer-Windows…exe** | **Recommended Windows assistant / Assistant Windows conseillé.** |
-| **PGM-Installer-Linux…tar.gz** | **Recommended Linux assistant / Assistant Linux conseillé.** |
-| PGM-Installer-Linux…bin | Standalone Linux executable / Exécutable Linux seul. |
-| PGM-Installation…zip | Common preparation files alone / Fichiers de préparation seuls, également intégrés à l’assistant. |
-| PGM-Linux…zip | Native Linux translation alone / Traduction Linux seule, également intégrée à l’assistant Linux. |
-| PGM-Workshop…zip | Mod upload folder for the author and manual mod installation / Dossier de publication du mod pour l’auteur et installation manuelle. Steam subscribers receive the mod through Steam. |
-| …SHA256SUMS.txt | Optional archive integrity checks / Empreintes permettant de vérifier les archives téléchargées. |
-| Source code (zip / tar.gz) | GitHub repository snapshot for contributors / Copie automatique du dépôt pour les contributeurs. Use the graphical assistant for installation. |
+Merci à [DFint](https://github.com/dfint) et aux contributeurs français dont le travail a servi de base à ma traduction locale, à Zartuf pour [DF-FR](https://steamcommunity.com/sharedfiles/filedetails/?id=3828139224), à Trainzack pour les graphismes crédités et à tous les auteurs des mods. DF-FR est un choix Windows facultatif. Choisis DF-FR ou la traduction native PGM : l’assistant refuse cette dernière si DF-FR est détecté. Les quêtes et presets sont indépendants ; la compatibilité complète en partie reste à valider. La traduction Windows PGM est expérimentale, désactivée par défaut et testée sous Proton uniquement.
 
-[All beta 3 assets / Tous les fichiers de la bêta 3](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.3).
-
-## Beta status / État de la bêta
-
-Reference configuration is DF 53.17 with DFHack 53.17-r1. Linux installation, native hook startup and restoration were tested in an isolated game copy. The assistant GUI starts in automated Windows and Ubuntu tests. A complete Windows playthrough remains to be validated. Assisted/Glory quest modes and Normal/Full modpack presets are independent choices.
-
-La référence est DF 53.17 avec DFHack 53.17-r1. L’installation Linux, le démarrage du hook et la restauration ont été vérifiés dans une copie isolée du jeu. Le démarrage de l’assistant est vérifié automatiquement sur Windows et Ubuntu. Une partie complète Windows reste à tester. Les modes Aisé/Gloire sont indépendants des presets Normal/Full.
-
-Beta 3 supersedes the earlier installers and native hooks. [Security review / Rapport de sécurité](SECURITY-REVIEW.md).
-
-## Credits / Crédits
-
-Thanks to Zartuf for [DF-FR](https://steamcommunity.com/sharedfiles/filedetails/?id=3828139224), to [DFint](https://github.com/dfint) and its French translation contributors, to Trainzack for the credited interface artwork, and to the companion mod authors. Credits and provenance are included in the packages. DFint corpus redistribution terms remain to be clarified with its maintainers.
+[Notes de version](docs/RELEASE-NOTES.md) · [Toutes les publications](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases)

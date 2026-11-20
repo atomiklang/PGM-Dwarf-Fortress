@@ -28,10 +28,12 @@ class App:
         self.downloaded = None
         self.buttons = []
         self.system = platform.system()
+        self.windows_available = (ROOT / 'traduction-windows/installer.py').is_file()
+        self.experimental = tk.BooleanVar(value=False)
         box = ttk.Frame(window, padding=22)
         box.pack(fill='both', expand=True)
         ttk.Label(box, text='PGM · Starter Quest Mods', font=('', 20, 'bold')).pack(anchor='w')
-        ttk.Label(box, text='Bêta 2 · jeu 53.17 · DFHack requis · Windows / Linux x86-64').pack(anchor='w', pady=(2, 14))
+        ttk.Label(box, text=f'Assistant {core.VERSION} · contenu {core.PAYLOAD_VERSION} · jeu 53.17 · DFHack requis').pack(anchor='w', pady=(2, 14))
         self.game = tk.StringVar(value=str(next(iter(core.game_candidates()), '')))
         self.hack = tk.StringVar()
         self.workshop = tk.StringVar()
@@ -42,13 +44,20 @@ class App:
         self.row(box, 'Dossier des mods locaux (facultatif si détecté)', self.mods)
         note = ('Linux natif : installation de la traduction et restauration des fichiers d’origine.'
                 if self.system == 'Linux' else
-                'Windows : préparation du modpack disponible. Traduction native PGM non intégrée ici.')
+                ('Windows : préparation du modpack et traduction PGM expérimentale facultative (Proton ; Windows natif non validé).'
+                 if self.windows_available else 'Windows : préparation du modpack disponible. Traduction PGM non incluse ici.'))
         ttk.Label(box, text=note, wraplength=700).pack(anchor='w', pady=10)
         actions = ttk.Frame(box)
         actions.pack(fill='x')
-        for label, action in [('Vérifier', self.check), ('Installer la traduction', self.install),
+        for label, action in [('Vérifier', self.check), ('Installer / mettre à jour', self.install),
                               ('Désinstaller la traduction', self.uninstall)]:
             self.button(actions, label, lambda f=action: self.run(f), linux=True)
+        if self.system == 'Windows' and self.windows_available:
+            ttk.Checkbutton(box, text='Activer la traduction Windows expérimentale (testée sous Proton, Windows natif non validé)', variable=self.experimental).pack(anchor='w')
+            win_actions = ttk.Frame(box)
+            win_actions.pack(fill='x', pady=8)
+            for label, action in [('Vérifier Windows', self.windows_check), ('Installer Windows expérimental', self.windows_install), ('Restaurer Windows', self.windows_restore)]:
+                self.button(win_actions, label, lambda f=action: self.run(f))
         presets = ttk.Frame(box)
         presets.pack(fill='x', pady=(8, 0))
         self.button(presets, 'Installer les presets du pack', lambda: self.run(self.presets))
@@ -67,6 +76,7 @@ class App:
         ttk.Button(bottom, text='Enregistrer le rapport', command=self.report).pack(side='right')
         window.protocol('WM_DELETE_WINDOW', self.close)
         self.log('Ferme le jeu avant toute modification. Les fichiers locaux modifiés sont protégés.\n'
+                 'Pour mettre à jour : télécharge et ouvre la nouvelle application, choisis ton jeu, puis Installer / mettre à jour.\n'
                  'Steam gère les mises à jour des mods Workshop. Cet outil gère les fichiers complémentaires.\n')
         window.after(100, self.poll)
 
@@ -99,6 +109,7 @@ class App:
         if self.busy:
             return
         # Tk values must be read on the UI thread.
+        self.selected_experimental = self.experimental.get()
         self.selected_game = self.game.get()
         self.selected_hack = self.hack.get()
         self.selected_workshop = self.workshop.get()
@@ -153,7 +164,12 @@ class App:
 
     def mutate(self, remove=False):
         engine, game, hack = self.engine()
+        if not remove:
+            import linux_upgrade
+            return linux_upgrade.run(engine, game, hack)
         # The existing CLI provides its validated state, lock, backup and rollback.
+        if (game / engine.STATE_DIR / 'migration.json').exists():
+            raise ValueError('Migration interrompue : conserve le dossier .pgm-linux-install et demande une restauration.')
         old = sys.argv
         sys.argv = ['installer', 'uninstall' if remove else 'install', '--game', str(game)]
         if hack:
@@ -168,6 +184,34 @@ class App:
 
     def uninstall(self):
         return self.mutate(True)
+
+    def windows_context(self):
+        if self.system != 'Windows' or not self.windows_available:
+            raise ValueError('Module Windows expérimental absent de cette application.')
+        if not self.selected_game:
+            raise ValueError('Choisis le dossier du jeu.')
+        game = Path(self.selected_game).expanduser().resolve()
+        def closed():
+            core.game_closed(game)
+            return True
+        return core.windows_engine(ROOT), game, closed
+
+    def windows_check(self):
+        engine, game, closed = self.windows_context()
+        engine.check(game, ROOT / 'traduction-windows/payload', ROOT / 'traduction-windows/payload-sha256.json', closed)
+        return 'Module Windows expérimental vérifié. Aucun fichier modifié.'
+
+    def windows_install(self):
+        if not self.selected_experimental:
+            raise ValueError('Coche « Activer la traduction Windows expérimentale » avant l’installation.')
+        engine, game, closed = self.windows_context()
+        engine.install(game, ROOT / 'traduction-windows/payload', ROOT / 'traduction-windows/payload-sha256.json', closed)
+        return 'Traduction Windows expérimentale installée. Vérifie son rendu en jeu.'
+
+    def windows_restore(self):
+        engine, game, closed = self.windows_context()
+        engine.uninstall(game, closed)
+        return 'Fichiers Windows précédents restaurés.'
 
     def variants(self):
         import importlib.util
@@ -214,9 +258,15 @@ class App:
         return pack.restore(self.checked_game())
 
     def updates(self):
-        self.asset = core.release_for(self.system)
-        return (('Tu disposes déjà de cette version. ' if self.asset['version'] == core.VERSION else 'Installateur disponible : ') + self.asset['version'] + '\nVersion embarquée : ' + core.VERSION +
-                '\nLe téléchargement est vérifié avant enregistrement. Aucun fichier téléchargé n’est exécuté automatiquement.')
+        self.asset = None
+        candidate = core.release_for(self.system)
+        if not core.newer_than(candidate['version'], core.VERSION):
+            return ('Aucune version plus récente publiée. Version actuelle : ' + core.VERSION +
+                    '\nDernière version publiée : ' + candidate['version'])
+        self.asset = candidate
+        return ('Nouvel installateur disponible : ' + candidate['version'] +
+                '\nVersion actuelle : ' + core.VERSION +
+                '\nLe téléchargement est vérifié. Il ne sera pas exécuté automatiquement.')
 
     def get_update(self):
         if not self.asset:
@@ -226,7 +276,7 @@ class App:
         if folder:
             def download():
                 self.downloaded = core.download(self.asset, folder)
-                return str(self.downloaded) + '\nTéléchargement vérifié. Ouvre-le après avoir fermé cet assistant. La traduction déjà installée n’est pas remplacée automatiquement.'
+                return str(self.downloaded) + '\nTéléchargement vérifié. Ouvre-le après avoir fermé cet assistant. Lance la nouvelle application téléchargée, sélectionne le même dossier du jeu puis clique sur « Installer / mettre à jour ». L’ancienne application n’est pas nécessaire.'
             self.run(download)
 
     def open_download(self):
@@ -258,11 +308,13 @@ if __name__ == '__main__':
     app = App(root)
     if '--smoke-test' in sys.argv:
         root.update()
-        assert len(app.buttons) == 9
+        assert len(app.buttons) == (12 if app.system == 'Windows' and app.windows_available else 9)
         assert app.output.winfo_exists()
         assert (ROOT / 'presets/mod-manager.json').is_file()
         if app.system == 'Linux':
             assert len(core.linux_engine(ROOT).read_manifest()) == 7
+        if app.system == 'Windows' and app.windows_available:
+            assert callable(core.windows_engine(ROOT).install)
         root.destroy()
     else:
         root.mainloop()

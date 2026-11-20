@@ -57,5 +57,18 @@ class Updates(unittest.TestCase):
         with self.assertRaises(ValueError):
             core.fetch('http://github.com/file', 10)
 
+    def test_version_order_never_downgrades(self):
+        self.assertFalse(core.newer_than('0.1.0-beta.2','0.1.0-beta.3'))
+        self.assertFalse(core.newer_than('0.1.0-beta.3','0.1.0-beta.3'))
+        self.assertTrue(core.newer_than('0.1.0-beta.10','0.1.0-beta.9'))
+        self.assertTrue(core.newer_than('0.1.0','0.1.0-beta.99'))
+        self.assertFalse(core.newer_than('0.1.0-beta.99','0.1.0'))
+        with self.assertRaises(ValueError):core.newer_than('unknown','0.1.0')
+
+    def test_release_order_does_not_pick_older_publication(self):
+        releases=[{'tag_name':'installer-v0.1.0-beta.'+str(n),'assets':[self.asset()],'html_url':'https://github.com'} for n in [2,10,3]]
+        with patch('core.fetch',return_value=json.dumps(releases).encode()):
+            self.assertEqual(core.release_for('Linux')['version'],'0.1.0-beta.10')
+
 if __name__ == '__main__':
     unittest.main()
