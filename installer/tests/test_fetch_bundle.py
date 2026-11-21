@@ -5,7 +5,11 @@ class BundleArchive(unittest.TestCase):
  def archive(self,names):
   b=io.BytesIO()
   with zipfile.ZipFile(b,'w') as z:
-   for name in names:z.writestr(name,b'x')
+   for name in names:
+    info=zipfile.ZipInfo();info.filename=name;info.orig_filename=name
+    z.writestr(info,b'x')
+  with zipfile.ZipFile(io.BytesIO(b.getvalue())) as z:
+   self.assertEqual(z.namelist(),names)
   return b.getvalue()
  def test_accepts_own_build_data(self):
   with tempfile.TemporaryDirectory() as d:
