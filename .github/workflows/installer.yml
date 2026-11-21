@@ -1,5 +1,8 @@
 name: Build PGM installers
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/installer.yml']
   workflow_dispatch:
 permissions:
   contents: read
