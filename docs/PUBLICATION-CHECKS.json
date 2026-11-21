@@ -1,0 +1,134 @@
+{
+  "updated": "2026-11-21",
+  "content_release": {
+    "tag": "v0.1.0-beta.19",
+    "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/v0.1.0-beta.19",
+    "assets": [
+      {
+        "name": "LISEZMOI.txt",
+        "digest": "sha256:7f194864132d7796c1d66130901452c577a7785404c46d24a6e0c04c7d20e469",
+        "state": "uploaded",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.19/LISEZMOI.txt"
+      },
+      {
+        "name": "PGM-Assistant-Data-0.1.0-beta.4.zip",
+        "digest": "sha256:a01432b7c271d75cd0e4a780dad7b32b99b9281382de5fd8e1d5eb8d357684e2",
+        "state": "uploaded",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.19/PGM-Assistant-Data-0.1.0-beta.4.zip"
+      },
+      {
+        "name": "PGM-Linux-Traduction-0.1.0-beta.19.zip",
+        "digest": "sha256:2c478ab4860888345669e6baaae977f0e6d55aa2e0060b5361da564bfacd1532",
+        "state": "uploaded",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.19/PGM-Linux-Traduction-0.1.0-beta.19.zip"
+      },
+      {
+        "name": "PGM-Windows-Traduction-0.1.0-beta.19-experimental.zip",
+        "digest": "sha256:d3d8258f4fcf8f71830b308659719788bdeb01b5afab07c44ea646d0d66b0c6f",
+        "state": "uploaded",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.19/PGM-Windows-Traduction-0.1.0-beta.19-experimental.zip"
+      },
+      {
+        "name": "PGM-Workshop-0.1.0-beta.19.zip",
+        "digest": "sha256:611c80177adecab2121d4287eed03a9e9024a34022fefc2c59d1a0cb61708541",
+        "state": "uploaded",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.19/PGM-Workshop-0.1.0-beta.19.zip"
+      },
+      {
+        "name": "SHA256SUMS.txt",
+        "digest": "sha256:b9f02723a67a9c74f60f93fe33ac744ca76353c77118686d77cc4ce5ee441f5a",
+        "state": "uploaded",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/v0.1.0-beta.19/SHA256SUMS.txt"
+      }
+    ]
+  },
+  "installer_release": {
+    "tag": "installer-v0.1.0-beta.4",
+    "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/tag/installer-v0.1.0-beta.4",
+    "assets": [
+      {
+        "name": "PGM-Installer-Linux-0.1.0-beta.4.bin",
+        "size": 28724160,
+        "digest": "sha256:da8634705fe3e998910af0f3db906563ddb992cc530314d36a57f28236c3e65c",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Linux-0.1.0-beta.4.bin"
+      },
+      {
+        "name": "PGM-Installer-Linux-0.1.0-beta.4.tar.gz",
+        "size": 28475259,
+        "digest": "sha256:5e756cc288bbe98808ae3c110c13b5cf5091dc537e2e520e924c6b8e1779a884",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Linux-0.1.0-beta.4.tar.gz"
+      },
+      {
+        "name": "PGM-Installer-Windows-0.1.0-beta.4.exe",
+        "size": 13190983,
+        "digest": "sha256:0743d37d21d79d4530fb7a67eebfce21ca3e36b068c847a3810e17758f354b31",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/PGM-Installer-Windows-0.1.0-beta.4.exe"
+      },
+      {
+        "name": "SHA256SUMS-Linux.txt",
+        "size": 209,
+        "digest": "sha256:9baae89e783a7e684d0b8dc3d03d840ae3e9fc1df40b4aa63884c257d6449ba1",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/SHA256SUMS-Linux.txt"
+      },
+      {
+        "name": "SHA256SUMS-Windows.txt",
+        "size": 106,
+        "digest": "sha256:d76f361ec7d52e07cc19073cc81455924e3ffcc541bd71e8b83860f29473ec3f",
+        "url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.4/SHA256SUMS-Windows.txt"
+      }
+    ]
+  },
+  "build": {
+    "run_url": "https://github.com/atomiklang/PGM-Dwarf-Fortress/actions/runs/44854666338",
+    "commit": "86a4c4a445a0593afc436031dc7c92b06eb879c9",
+    "conclusion": "success",
+    "linux": {
+      "os": "Ubuntu 22.04",
+      "common_tests": 39,
+      "engine_tests": 10,
+      "frozen_data_files": 25,
+      "gui_source_and_executable": true
+    },
+    "windows": {
+      "os": "Windows Server 2022",
+      "tests_run": 39,
+      "passed": 34,
+      "skipped_linux_only": 5,
+      "frozen_data_files": 11,
+      "gui_source_and_executable": true
+    },
+    "evidence": {
+      "windows": [
+        "2026-11-21T02:13:45.3464638Z Ran 39 tests in 0.381s",
+        "2026-11-21T02:13:45.3464977Z OK (skipped=5)",
+        "2026-11-21T02:13:59.2384300Z Frozen executable matches all 11 bundled data files."
+      ],
+      "linux": [
+        "2026-11-21T02:13:33.1176111Z Ran 39 tests in 0.287s",
+        "2026-11-21T02:13:33.9243861Z Ran 10 tests in 0.731s",
+        "2026-11-21T02:13:52.2987587Z Frozen executable matches all 25 bundled data files."
+      ]
+    }
+  },
+  "download_check": {
+    "all_five_assets_sha256_verified": true,
+    "linux_downloaded_executable_startup": "passed on Fedora 44 container with isolated Xvfb; unrestricted local process required for display IPC"
+  },
+  "steam": {
+    "item_id": 3841490386,
+    "EResult": 1,
+    "legal_required": false,
+    "manifest_sha256": "bdadf43473b4b9c2d7900457cd86054f2bd577c5310bb3d04c4ca4c4f162682a",
+    "collection_id": 3817551587,
+    "collection_items": 64,
+    "added_dependency": 2901921699,
+    "moderation": "Steam may temporarily hide edited descriptions while checking links"
+  },
+  "limits": [
+    "Windows game tests under Proton only; no native Windows gameplay validation.",
+    "No complete playthrough or exhaustive procedural dialogue coverage.",
+    "Native PGM and DF-FR translation are alternative installations; full cohabitation not validated.",
+    "Power failure during Linux migration requires assisted recovery.",
+    "DFint corpus redistribution terms remain to be clarified."
+  ]
+}

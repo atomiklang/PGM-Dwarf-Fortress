@@ -1,22 +1,30 @@
 {
   "assistant": "0.1.0-beta.4",
   "linux_payload": "0.1.0-beta.19",
+  "windows_payload": "0.1.0-beta.19 experimental",
   "unit_tests": {
-    "command": "python3 -m unittest discover -s tests",
-    "passed": 39
+    "linux_passed": 39,
+    "windows_passed": 34,
+    "windows_linux_only_skipped": 5
   },
+  "linux_engine_tests_passed": 10,
   "bundle_verified": true,
-  "python_compile_passed": true,
-  "gui_test": false,
-  "frozen_build_test": false,
-  "windows_native_test": false,
-  "published": false,
+  "gui_test": {
+    "ubuntu_22_04": true,
+    "windows_server_2022": true,
+    "downloaded_fedora_44": true
+  },
+  "frozen_build_test": true,
+  "windows_native_installer_startup": true,
+  "windows_native_gameplay": false,
+  "published": true,
+  "proof": "https://github.com/atomiklang/PGM-Dwarf-Fortress/blob/main/docs/PUBLICATION-CHECKS.json",
+  "workflow": "https://github.com/atomiklang/PGM-Dwarf-Fortress/actions/runs/44854666338",
   "limitations": [
     "Windows game tests under Proton only; no native Windows gameplay validation.",
-    "Frozen Windows/Linux builds and GUI startup will be validated by target OS CI before installer publication.",
-    "Migration power-loss recovery is manual; receipt and previous generation retained.",
-    "Changed presets require restore then reinstall."
-  ],
-  "linux_engine_tests_passed": 10,
-  "windows_payload": "0.1.0-beta.19 experimental"
+    "No complete playthrough or exhaustive procedural dialogue coverage.",
+    "Native PGM and DF-FR translation are alternative installations; full cohabitation not validated.",
+    "Power failure during Linux migration requires assisted recovery.",
+    "DFint corpus redistribution terms remain to be clarified."
+  ]
 }
