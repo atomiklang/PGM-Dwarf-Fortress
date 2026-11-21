@@ -15,7 +15,7 @@ def unpack(data,target):
   seen=set()
   for e in entries:
    p=PurePosixPath(e.filename)
-   if p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0] not in TOP or '\\' in e.filename or ':' in e.filename:raise ValueError('Unsafe archive path')
+   if p.is_absolute() or '..' in p.parts or not p.parts or p.parts[0] not in TOP or '\\' in e.orig_filename or ':' in e.filename:raise ValueError('Unsafe archive path')
    if p.as_posix() in seen or stat.S_ISLNK(e.external_attr>>16):raise ValueError('Duplicate or linked archive path')
    seen.add(p.as_posix())
    if e.is_dir():continue
