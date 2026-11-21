@@ -9,6 +9,6 @@ reader=CArchiveReader(str(exe))
 for name,expected in receipt['files'].items():
     if sys.platform == 'win32' and name.startswith('traduction-linux/'):
         continue
-    data=reader.extract(name)
+    data=reader.extract(str(Path(name)))
     if hashlib.sha256(data).hexdigest()!=expected:raise ValueError('Bundled data mismatch: '+name)
 print('Frozen executable matches all',sum(not (sys.platform == 'win32' and n.startswith('traduction-linux/')) for n in receipt['files']),'bundled data files.')
