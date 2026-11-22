@@ -8,19 +8,27 @@ def context(root, system, game, hack=''):
         raise ValueError('Map navigation supports Linux and Windows only.')
     if not game:
         raise ValueError('Select your game folder first.')
-    game=Path(game).expanduser().resolve()
+    path=Path(root)/'navigation/navigation_installer.py'
+    spec=importlib.util.spec_from_file_location('pgm_navigation_engine',path)
+    engine=importlib.util.module_from_spec(spec);spec.loader.exec_module(engine)
+    def selected(value):
+        raw=Path(value).expanduser().absolute()
+        # Windows junctions must be checked before resolve() removes them.
+        # Linux home aliases are canonicalized, but explicit root links refused.
+        if system=='Windows':engine.safe(raw)
+        elif raw.is_symlink():raise ValueError('Select the actual folder, not a symbolic link.')
+        return raw.resolve()
+    game=selected(game)
     expected='libdfhack.so' if system=='Linux' else 'dfhack.dll'
     if hack:
-        chosen=Path(hack).expanduser().resolve()
+        chosen=selected(hack)
         candidates=[chosen, chosen/'hack']
     else:
         candidates=[game/'hack', game.parent/'DFHack/hack']
     found=next((p for p in candidates if (p/expected).is_file()),None)
     if found is None:
         raise ValueError('Select the matching DFHack folder for this operating system.')
-    path=Path(root)/'navigation/navigation_installer.py'
-    spec=importlib.util.spec_from_file_location('pgm_navigation_engine',path)
-    engine=importlib.util.module_from_spec(spec);spec.loader.exec_module(engine)
+    engine.safe(found)
     return engine,game,found.resolve(),system.lower()
 
 
@@ -36,5 +44,5 @@ def run(root,system,game,hack,action,closed,experimental=False):
     if action=='install':
         engine.install(game,hack,platform=platform,payload_root=Path(root)/'navigation',game_closed=closed)
         return 'Map navigation installed. Open a world map, then run gui/worldmap-zoom in DFHack.'
-    engine.uninstall(game,hack,platform=platform,game_closed=closed)
+    engine.uninstall(game,hack,game_closed=closed)
     return 'Previous navigation files restored. Translation and presets were not changed.'

@@ -37,8 +37,12 @@ def safe(path):
     """Reject links at every existing component, including dangling links."""
     path = Path(os.path.abspath(path))
     for item in (path, *path.parents):
-        if item.is_symlink():
-            raise Refused('Symbolic link refused: ' + str(item))
+        try:
+            attributes = item.lstat()
+        except FileNotFoundError:
+            continue
+        if item.is_symlink() or getattr(attributes, 'st_file_attributes', 0) & 0x400:
+            raise Refused('Symbolic link or Windows reparse point refused: ' + str(item))
     return path
 
 

@@ -35,7 +35,7 @@ class NavigationBridge(unittest.TestCase):
             hack=root/'DFHack/hack';hack.mkdir(parents=True);(hack/'libdfhack.so').write_bytes(b'fixture')
             bundle=Path(__file__).resolve().parents[1]
             _,selected_game,selected_hack,platform=bridge.context(bundle,'Linux',str(game))
-            self.assertEqual(selected_hack,hack);self.assertEqual(platform,'linux')
+            self.assertEqual(selected_hack,hack.resolve());self.assertEqual(platform,'linux')
 
     def test_check_is_read_only(self):
         engine=Mock();engine.inspect.return_value={'payload':{'file':b'fixture'}};closed=Mock()
