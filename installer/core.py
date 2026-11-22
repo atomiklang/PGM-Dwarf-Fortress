@@ -9,7 +9,7 @@ import tempfile
 import urllib.parse
 import urllib.request
 
-VERSION = '0.1.0-beta.4'
+VERSION = '0.1.0-beta.5'
 PAYLOAD_VERSION = '0.1.0-beta.19'
 REPO = 'atomiklang/PGM-Dwarf-Fortress'
 API = f'https://api.github.com/repos/{REPO}/releases'
@@ -19,21 +19,21 @@ MAX_DOWNLOAD = 64 * 1024 * 1024
 def fetch(url, limit):
     parsed = urllib.parse.urlparse(url)
     if parsed.scheme != 'https' or parsed.hostname not in {'api.github.com', 'github.com'}:
-        raise ValueError('Adresse de téléchargement non autorisée.')
+        raise ValueError('Download address is not allowed.')
     request = urllib.request.Request(url, headers={'User-Agent': 'PGM-Installer', 'Accept': 'application/vnd.github+json'})
     with urllib.request.urlopen(request, timeout=30) as response:
         if urllib.parse.urlparse(response.url).scheme != 'https':
-            raise ValueError('Redirection non sécurisée.')
+            raise ValueError('Unsafe download redirect.')
         data = response.read(limit + 1)
     if len(data) > limit:
-        raise ValueError('Téléchargement trop volumineux.')
+        raise ValueError('Download exceeds the size limit.')
     return data
 
 
 def version_key(version):
     match = re.fullmatch(r'(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-beta\.(\d+))?', version)
     if not match:
-        raise ValueError('Version de publication non reconnue : ' + version)
+        raise ValueError('Unrecognized release version: ' + version)
     major, minor, patch, beta = match.groups()
     return (int(major), int(minor or 0), int(patch or 0), beta is None, int(beta or 0))
 
@@ -56,7 +56,7 @@ def release_for(system):
             if name.startswith(prefix) and name.endswith(suffix) and Path(name).name == name:
                 url = asset.get('browser_download_url', '')
                 if not url.startswith(f'https://github.com/{REPO}/releases/download/'):
-                    raise ValueError('Le fichier ne provient pas du dépôt PGM.')
+                    raise ValueError('This file does not come from the PGM repository.')
                 checksum = asset.get('digest', '')
                 if not checksum or not checksum.startswith('sha256:') or len(checksum) != 71:
                     raise ValueError('Cette publication ne fournit pas de empreinte SHA-256 exploitable.')
@@ -66,7 +66,7 @@ def release_for(system):
                 candidates.append(candidate)
     if candidates:
         return max(candidates, key=lambda a: version_key(a['version']))
-    raise ValueError('Aucun installateur publié pour ce système. Consulte la page des publications PGM.')
+    raise ValueError('No installer has been released for this system. Check the PGM releases page.')
 
 
 def download(asset, folder):
@@ -76,10 +76,10 @@ def download(asset, folder):
         raise ValueError('Nom de fichier invalide.')
     target = folder / name
     if target.exists() or target.is_symlink():
-        raise ValueError('Ce fichier existe déjà. Choisis un autre dossier ou conserve-le ailleurs.')
+        raise ValueError('This file already exists. Select another folder or move the existing file first.')
     data = fetch(asset['url'], MAX_DOWNLOAD)
     if hashlib.sha256(data).hexdigest() != asset['digest']:
-        raise ValueError('Téléchargement endommagé : empreinte SHA-256 différente.')
+        raise ValueError('Download damaged: SHA-256 checksum mismatch.')
     fd, temporary = tempfile.mkstemp(prefix='.pgm-', dir=folder)
     try:
         with os.fdopen(fd, 'wb') as handle:
@@ -130,7 +130,7 @@ def game_closed(game):
             except (OSError, RuntimeError):
                 continue
             if exe.parent == game and exe.name in ('dwarfort', 'Dwarf Fortress.exe'):
-                raise ValueError('Ferme Dwarf Fortress avant de modifier ses fichiers.')
+                raise ValueError('Close Dwarf Fortress before changing its files.')
     else:
         import ctypes
         from ctypes import wintypes
@@ -143,7 +143,7 @@ def game_closed(game):
         pids = (wintypes.DWORD * 16384)()
         used = wintypes.DWORD()
         if not psapi.EnumProcesses(pids, ctypes.sizeof(pids), ctypes.byref(used)) or used.value >= ctypes.sizeof(pids):
-            raise ValueError('Impossible de vérifier si le jeu est fermé.')
+            raise ValueError('Unable to verify whether the game is closed.')
         for pid in pids[:used.value // ctypes.sizeof(wintypes.DWORD)]:
             handle = kernel.OpenProcess(0x1000, False, pid)
             if not handle:
@@ -153,7 +153,7 @@ def game_closed(game):
                 size = wintypes.DWORD(len(name))
                 if kernel.QueryFullProcessImageNameW(handle, 0, name, ctypes.byref(size)):
                     if Path(name.value).resolve() == game / 'Dwarf Fortress.exe':
-                        raise ValueError('Ferme Dwarf Fortress avant de modifier ses fichiers.')
+                        raise ValueError('Close Dwarf Fortress before changing its files.')
             finally:
                 kernel.CloseHandle(handle)
 
@@ -161,7 +161,7 @@ def game_closed(game):
 def windows_engine(root):
     path = Path(root) / 'traduction-windows' / 'installer.py'
     if not path.is_file():
-        raise ValueError('Le module Windows expérimental n’est pas inclus dans cette application.')
+        raise ValueError('This build does not include the experimental Windows module.')
     spec = importlib.util.spec_from_file_location('pgm_windows_engine', path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

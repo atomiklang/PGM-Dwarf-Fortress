@@ -1,7 +1,8 @@
-Assistant bêta 4 — contenu Linux bêta 19
+# Unpublished candidate 0.1.0-beta.5
 
-Installer / mettre à jour migre une traduction Linux déjà gérée sans avoir besoin de l’ancien assistant. Les modifications personnelles sont refusées et conservées. Une erreur d’écriture déclenche un retour à la version précédente. Sauvegarde originale conservée.
+- English interface, file dialogs, status messages, errors and update instructions on Linux and Windows.
+- Separate optional world map navigation panel with preflight, installation and restoration.
+- Windows navigation requires experimental opt-in and is validated under Proton only.
+- Existing translation content, modpack presets and released installers remain unchanged.
 
-Télécharge et ouvre la nouvelle application, choisis le même jeu fermé, puis Installer / mettre à jour. Le téléchargement seul ne change pas la traduction.
-
-Paquets exécutables à reconstruire et vérifier sur leur système cible. Les tests locaux ne constituent pas une validation Windows native.
+Linux executable and native Windows executable validations are separate. Do not treat a Proton gameplay test as native Windows gameplay validation.

@@ -106,6 +106,9 @@ def bundle_manifest(root):
     if windows.exists():
         verify_windows(root)
         files += [p for p in windows.rglob('*') if p.is_file() and '__pycache__' not in p.parts]
+    navigation=root/'navigation'
+    if navigation.exists():
+        files += [p for p in navigation.rglob('*') if p.is_file() and '__pycache__' not in p.parts]
     if not files or any(p.is_symlink() for p in files):
         raise ValueError('Unexpected symlink in build bundle')
     return {p.relative_to(root).as_posix():digest(p) for p in sorted(files)}

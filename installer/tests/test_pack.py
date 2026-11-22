@@ -78,7 +78,7 @@ class Presets(unittest.TestCase):
         pack.install(self.game, self.bundle)
         before = self.path.read_bytes()
         self.bundle.write_text(json.dumps([{'name':'Normal','default':True,'modlist':[{'id':'new','version':1}]}]))
-        with self.assertRaisesRegex(ValueError, 'autre version'):
+        with self.assertRaisesRegex(ValueError, 'Another preset version'):
             pack.install(self.game, self.bundle)
         self.assertEqual(self.path.read_bytes(), before)
         pack.restore(self.game)
