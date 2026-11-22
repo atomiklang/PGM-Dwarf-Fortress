@@ -1,0 +1,2 @@
+# Preserve validated payload bytes on Windows checkouts.
+* -text
