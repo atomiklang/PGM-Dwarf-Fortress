@@ -12,6 +12,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import core
 import pack
+import navigation_bridge
 
 ROOT = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
 
@@ -19,7 +20,7 @@ ROOT = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
 class App:
     def __init__(self, window):
         self.window = window
-        window.title('PGM — Installation et mises à jour')
+        window.title('PGM — Installation and updates')
         window.geometry('900x750')
         window.minsize(860, 700)
         self.events = queue.Queue()
@@ -30,54 +31,57 @@ class App:
         self.system = platform.system()
         self.windows_available = (ROOT / 'traduction-windows/installer.py').is_file()
         self.experimental = tk.BooleanVar(value=False)
+        self.navigation_experimental = tk.BooleanVar(value=False)
+        self.navigation_window = None
         box = ttk.Frame(window, padding=22)
         box.pack(fill='both', expand=True)
         ttk.Label(box, text='PGM · Starter Quest Mods', font=('', 20, 'bold')).pack(anchor='w')
-        ttk.Label(box, text=f'Assistant {core.VERSION} · contenu {core.PAYLOAD_VERSION} · jeu 53.17 · DFHack requis').pack(anchor='w', pady=(2, 14))
+        ttk.Label(box, text=f'Assistant {core.VERSION} · content {core.PAYLOAD_VERSION} · game 53.17 · DFHack required').pack(anchor='w', pady=(2, 14))
         self.game = tk.StringVar(value=str(next(iter(core.game_candidates()), '')))
         self.hack = tk.StringVar()
         self.workshop = tk.StringVar()
         self.mods = tk.StringVar()
-        self.row(box, 'Dossier de Dwarf Fortress', self.game)
-        self.row(box, 'Dossier de DFHack (facultatif si détecté)', self.hack)
-        self.row(box, 'Dossier Workshop content/975370 (facultatif si détecté)', self.workshop)
-        self.row(box, 'Dossier des mods locaux (facultatif si détecté)', self.mods)
-        note = ('Linux natif : installation de la traduction et restauration des fichiers d’origine.'
+        self.row(box, 'Dwarf Fortress folder', self.game)
+        self.row(box, 'DFHack folder (optional if detected)', self.hack)
+        self.row(box, 'Workshop content/975370 folder (optional if detected)', self.workshop)
+        self.row(box, 'Local mods folder (optional if detected)', self.mods)
+        note = ('Native Linux: install the French translation or restore the original files.'
                 if self.system == 'Linux' else
-                ('Windows : préparation du modpack et traduction PGM expérimentale facultative (Proton ; Windows natif non validé).'
-                 if self.windows_available else 'Windows : préparation du modpack disponible. Traduction PGM non incluse ici.'))
+                ('Windows: modpack setup and optional experimental PGM French translation (tested under Proton; native Windows gameplay unverified).'
+                 if self.windows_available else 'Windows: modpack setup available. PGM French translation is not included in this build.'))
         ttk.Label(box, text=note, wraplength=700).pack(anchor='w', pady=10)
         actions = ttk.Frame(box)
         actions.pack(fill='x')
-        for label, action in [('Vérifier', self.check), ('Installer / mettre à jour', self.install),
-                              ('Désinstaller la traduction', self.uninstall)]:
+        for label, action in [('Check files', self.check), ('Install / update', self.install),
+                              ('Remove translation', self.uninstall)]:
             self.button(actions, label, lambda f=action: self.run(f), linux=True)
         if self.system == 'Windows' and self.windows_available:
-            ttk.Checkbutton(box, text='Activer la traduction Windows expérimentale (testée sous Proton, Windows natif non validé)', variable=self.experimental).pack(anchor='w')
+            ttk.Checkbutton(box, text='Enable experimental Windows French translation (tested under Proton; native Windows gameplay unverified)', variable=self.experimental).pack(anchor='w')
             win_actions = ttk.Frame(box)
             win_actions.pack(fill='x', pady=8)
-            for label, action in [('Vérifier Windows', self.windows_check), ('Installer Windows expérimental', self.windows_install), ('Restaurer Windows', self.windows_restore)]:
+            for label, action in [('Check Windows files', self.windows_check), ('Install experimental translation', self.windows_install), ('Restore Windows files', self.windows_restore)]:
                 self.button(win_actions, label, lambda f=action: self.run(f))
         presets = ttk.Frame(box)
         presets.pack(fill='x', pady=(8, 0))
-        self.button(presets, 'Installer les presets du pack', lambda: self.run(self.presets))
-        self.button(presets, 'Restaurer les presets précédents', lambda: self.run(self.restore_presets))
+        self.button(presets, 'Install modpack presets', lambda: self.run(self.presets))
+        self.button(presets, 'Restore previous presets', lambda: self.run(self.restore_presets))
         extras = ttk.Frame(box)
         extras.pack(fill='x', pady=8)
-        self.button(extras, 'Préparer les variantes du pack', lambda: self.run(self.variants))
-        self.button(extras, 'Chercher une mise à jour', lambda: self.run(self.updates))
-        self.button(extras, 'Télécharger la mise à jour', self.get_update)
-        self.button(extras, 'Ouvrir le téléchargement', self.open_download)
-        self.output = tk.Text(box, height=12, wrap='word', state='disabled')
+        self.button(extras, 'Prepare modpack variants', lambda: self.run(self.variants))
+        self.button(extras, 'Check for updates', lambda: self.run(self.updates))
+        self.button(extras, 'Download update', self.get_update)
+        self.button(extras, 'Open download folder', self.open_download)
+        self.output = tk.Text(box, height=6, wrap='word', state='disabled')
         self.output.pack(fill='both', expand=True, pady=8)
         bottom = ttk.Frame(box)
         bottom.pack(fill='x')
-        ttk.Button(bottom, text='Guide d’installation', command=self.guide).pack(side='left')
-        ttk.Button(bottom, text='Enregistrer le rapport', command=self.report).pack(side='right')
+        ttk.Button(bottom, text='Installation guide', command=self.guide).pack(side='left')
+        ttk.Button(bottom, text='Save report', command=self.report).pack(side='right')
+        self.button(bottom, 'World map navigation…', self.navigation_dialog)
         window.protocol('WM_DELETE_WINDOW', self.close)
-        self.log('Ferme le jeu avant toute modification. Les fichiers locaux modifiés sont protégés.\n'
-                 'Pour mettre à jour : télécharge et ouvre la nouvelle application, choisis ton jeu, puis Installer / mettre à jour.\n'
-                 'Steam gère les mises à jour des mods Workshop. Cet outil gère les fichiers complémentaires.\n')
+        self.log('Close the game before making changes. Modified local files are protected.\n'
+                 'To update: download and open the new installer, select your game folder, then choose Install / update.\n'
+                 'Steam updates Workshop mods. This installer manages the additional files.\n')
         window.after(100, self.poll)
 
     def row(self, parent, title, variable):
@@ -89,7 +93,7 @@ class App:
             folder = filedialog.askdirectory()
             if folder:
                 variable.set(folder)
-        ttk.Button(row, text='Parcourir…', command=choose).pack(side='right', padx=(8, 0))
+        ttk.Button(row, text='Browse…', command=choose).pack(side='right', padx=(8, 0))
 
     def button(self, parent, label, action, linux=False):
         button = ttk.Button(parent, text=label, command=action)
@@ -110,6 +114,7 @@ class App:
             return
         # Tk values must be read on the UI thread.
         self.selected_experimental = self.experimental.get()
+        self.selected_navigation_experimental = self.navigation_experimental.get()
         self.selected_game = self.game.get()
         self.selected_hack = self.hack.get()
         self.selected_workshop = self.workshop.get()
@@ -122,9 +127,9 @@ class App:
             try:
                 with contextlib.redirect_stdout(stream):
                     result = action()
-                self.events.put(stream.getvalue() + str(result or 'Opération terminée.'))
+                self.events.put(stream.getvalue() + str(result or 'Operation completed.'))
             except Exception as error:
-                self.events.put(stream.getvalue() + 'Opération arrêtée : ' + str(error))
+                self.events.put(stream.getvalue() + 'Operation stopped: ' + str(error))
             finally:
                 self.events.put(None)
         threading.Thread(target=work, daemon=True).start()
@@ -144,13 +149,37 @@ class App:
             pass
         self.window.after(100, self.poll)
 
+    def navigation_dialog(self):
+        if self.navigation_window and self.navigation_window.winfo_exists():
+            self.navigation_window.deiconify();self.navigation_window.lift();return
+        panel = tk.Toplevel(self.window)
+        self.navigation_window = panel
+        panel.title('PGM — World map navigation')
+        panel.geometry('700x300');panel.minsize(680,280)
+        panel.protocol('WM_DELETE_WINDOW',panel.withdraw)
+        box=ttk.Frame(panel,padding=20);box.pack(fill='both',expand=True)
+        ttk.Label(box,text='Optional world map zoom and pan',font=('',15,'bold')).pack(anchor='w')
+        ttk.Label(box,text='Use the mouse wheel to zoom and drag with the middle mouse button to pan. '
+                  'Left-click selection stays enabled. DFHack is required. This option is independent of the French translation and modpack presets.',wraplength=640).pack(anchor='w',pady=12)
+        if self.system=='Windows':
+            ttk.Checkbutton(box,text='Enable experimental Windows navigation (tested under Proton only)',variable=self.navigation_experimental).pack(anchor='w',pady=8)
+        ttk.Label(box,text='Close the game first. Use the game and DFHack folders selected in the main window. '
+                  'Only the exact tested game/DFHack files are accepted.',wraplength=640).pack(anchor='w',pady=8)
+        row=ttk.Frame(box);row.pack(fill='x',pady=8)
+        for label,action in [('Check before install','check'),('Install navigation','install'),('Restore previous files','restore')]:
+            self.button(row,label,lambda action=action:self.run(lambda:self.navigation(action)))
+
+    def navigation(self,action):
+        return navigation_bridge.run(ROOT,self.system,self.selected_game,self.selected_hack,action,
+                                     core.game_closed,self.selected_navigation_experimental)
+
     def engine(self):
         if self.system != 'Linux':
-            raise ValueError('La traduction native Windows reste à valider.')
+            raise ValueError('Native Windows translation still needs validation.')
         if not self.selected_game:
-            raise ValueError('Choisis le dossier du jeu.')
+            raise ValueError('Select your game folder.')
         if os.geteuid() == 0:
-            raise ValueError('Lance PGM avec ton compte habituel, sans sudo.')
+            raise ValueError('Run PGM with your normal account, without sudo.')
         return core.linux_engine(ROOT), Path(self.selected_game).expanduser().resolve(), (
             Path(self.selected_hack).expanduser().resolve() if self.selected_hack else None)
 
@@ -160,7 +189,7 @@ class App:
             engine.make_plan_without_init(game, hack)
         else:
             engine.make_plan(game, hack)
-        return 'Jeu et traduction vérifiés. Aucun fichier du jeu modifié.'
+        return 'Game and translation checked. No game files were changed.'
 
     def mutate(self, remove=False):
         engine, game, hack = self.engine()
@@ -169,7 +198,7 @@ class App:
             return linux_upgrade.run(engine, game, hack)
         # The existing CLI provides its validated state, lock, backup and rollback.
         if (game / engine.STATE_DIR / 'migration.json').exists():
-            raise ValueError('Migration interrompue : conserve le dossier .pgm-linux-install et demande une restauration.')
+            raise ValueError('Interrupted migration: keep the .pgm-linux-install folder and request recovery assistance.')
         old = sys.argv
         sys.argv = ['installer', 'uninstall' if remove else 'install', '--game', str(game)]
         if hack:
@@ -187,9 +216,9 @@ class App:
 
     def windows_context(self):
         if self.system != 'Windows' or not self.windows_available:
-            raise ValueError('Module Windows expérimental absent de cette application.')
+            raise ValueError('This build does not include the experimental Windows module.')
         if not self.selected_game:
-            raise ValueError('Choisis le dossier du jeu.')
+            raise ValueError('Select your game folder.')
         game = Path(self.selected_game).expanduser().resolve()
         def closed():
             core.game_closed(game)
@@ -199,35 +228,35 @@ class App:
     def windows_check(self):
         engine, game, closed = self.windows_context()
         engine.check(game, ROOT / 'traduction-windows/payload', ROOT / 'traduction-windows/payload-sha256.json', closed)
-        return 'Module Windows expérimental vérifié. Aucun fichier modifié.'
+        return 'Experimental Windows module checked. No files were changed.'
 
     def windows_install(self):
         if not self.selected_experimental:
-            raise ValueError('Coche « Activer la traduction Windows expérimentale » avant l’installation.')
+            raise ValueError('Enable the experimental Windows translation option before installing.')
         engine, game, closed = self.windows_context()
         engine.install(game, ROOT / 'traduction-windows/payload', ROOT / 'traduction-windows/payload-sha256.json', closed)
-        return 'Traduction Windows expérimentale installée. Vérifie son rendu en jeu.'
+        return 'Experimental Windows French translation installed. Check its appearance in the game.'
 
     def windows_restore(self):
         engine, game, closed = self.windows_context()
         engine.uninstall(game, closed)
-        return 'Fichiers Windows précédents restaurés.'
+        return 'Previous Windows files restored.'
 
     def variants(self):
         import importlib.util
         if not self.selected_game:
-            raise ValueError('Choisis le dossier du jeu.')
+            raise ValueError('Select your game folder.')
         game = Path(self.selected_game).resolve()
         executable = 'Dwarf Fortress.exe' if self.system == 'Windows' else 'dwarfort'
         if not (game / executable).is_file():
-            raise ValueError('Ce dossier ne contient pas le jeu attendu.')
+            raise ValueError('This folder does not contain the expected game executable.')
         core.game_closed(game)
         workshop = Path(self.selected_workshop).expanduser().resolve() if self.selected_workshop else game.parent.parent / 'workshop/content/975370'
         if self.selected_mods:
             mods = Path(self.selected_mods).expanduser().resolve()
         elif self.system == 'Windows':
             if not os.environ.get('APPDATA'):
-                raise ValueError('Choisis le dossier des mods locaux.')
+                raise ValueError('Select your local mods folder.')
             mods = Path(os.environ['APPDATA']) / 'Bay 12 Games/Dwarf Fortress/mods'
         else:
             mods = Path(os.environ.get('XDG_DATA_HOME', str(Path.home() / '.local/share'))) / 'Bay 12 Games/Dwarf Fortress/mods'
@@ -236,22 +265,22 @@ class App:
         spec.loader.exec_module(module)
         module.prepare(workshop / '3635878659', mods, 'born_normally_linux', 'vanilla_born_normally', 9)
         module.prepare(workshop / '3072627813', mods, 'pgm_accurate_domestic_graphics', 'accurate_domestic_animal_graphics', 105, animals=True)
-        return 'Variantes préparées. Tu peux maintenant installer les presets du pack.'
+        return 'Variants prepared. You can now install the modpack presets.'
 
     def checked_game(self):
         if not self.selected_game:
-            raise ValueError('Choisis le dossier du jeu.')
+            raise ValueError('Select your game folder.')
         game = Path(self.selected_game).expanduser().resolve()
         executable = 'Dwarf Fortress.exe' if self.system == 'Windows' else 'dwarfort'
         if not (game / executable).is_file():
-            raise ValueError('Ce dossier ne contient pas le jeu attendu.')
+            raise ValueError('This folder does not contain the expected game executable.')
         core.game_closed(game)
         return game
 
     def presets(self):
         game = self.checked_game()
         if not (game / 'dfhack-config').is_dir():
-            raise ValueError('Lance d’abord le jeu avec DFHack, puis ferme-le.')
+            raise ValueError('Launch the game with DFHack once, then close it.')
         return pack.install(game, ROOT / 'presets/mod-manager.json')
 
     def restore_presets(self):
@@ -261,22 +290,22 @@ class App:
         self.asset = None
         candidate = core.release_for(self.system)
         if not core.newer_than(candidate['version'], core.VERSION):
-            return ('Aucune version plus récente publiée. Version actuelle : ' + core.VERSION +
-                    '\nDernière version publiée : ' + candidate['version'])
+            return ('No newer release is available. Current version: ' + core.VERSION +
+                    '\nLatest release: ' + candidate['version'])
         self.asset = candidate
-        return ('Nouvel installateur disponible : ' + candidate['version'] +
-                '\nVersion actuelle : ' + core.VERSION +
-                '\nLe téléchargement est vérifié. Il ne sera pas exécuté automatiquement.')
+        return ('New installer available: ' + candidate['version'] +
+                '\nCurrent version: ' + core.VERSION +
+                '\nThe download will be verified. It will not run automatically.')
 
     def get_update(self):
         if not self.asset:
-            messagebox.showinfo('PGM', 'Cherche d’abord une mise à jour.')
+            messagebox.showinfo('PGM', 'Check for updates first.')
             return
-        folder = filedialog.askdirectory(title='Enregistrer le paquet de mise à jour')
+        folder = filedialog.askdirectory(title='Save update package')
         if folder:
             def download():
                 self.downloaded = core.download(self.asset, folder)
-                return str(self.downloaded) + '\nTéléchargement vérifié. Ouvre-le après avoir fermé cet assistant. Lance la nouvelle application téléchargée, sélectionne le même dossier du jeu puis clique sur « Installer / mettre à jour ». L’ancienne application n’est pas nécessaire.'
+                return str(self.downloaded) + '\nDownload verified. Close this installer, open the downloaded installer, select the same game folder, then choose Install / update. You do not need the old installer.'
             self.run(download)
 
     def open_download(self):
@@ -285,20 +314,20 @@ class App:
         if self.downloaded:
             webbrowser.open(self.downloaded.parent.as_uri())
         else:
-            messagebox.showinfo('PGM', 'Télécharge d’abord une mise à jour.')
+            messagebox.showinfo('PGM', 'Download an update first.')
 
     def guide(self):
         name = 'LINUX' if self.system == 'Linux' else 'WINDOWS'
         webbrowser.open(f'https://github.com/{core.REPO}/blob/main/docs/INSTALL-{name}.md')
 
     def report(self):
-        filename = filedialog.asksaveasfilename(defaultextension='.txt', initialfile='PGM-rapport.txt')
+        filename = filedialog.asksaveasfilename(defaultextension='.txt', initialfile='PGM-report.txt')
         if filename:
             Path(filename).write_text(self.output.get('1.0', 'end'), encoding='utf-8')
 
     def close(self):
         if self.busy:
-            messagebox.showinfo('PGM', 'Attends la fin de l’opération avant de fermer.')
+            messagebox.showinfo('PGM', 'Wait for the current operation to finish before closing.')
         else:
             self.window.destroy()
 
@@ -308,8 +337,11 @@ if __name__ == '__main__':
     app = App(root)
     if '--smoke-test' in sys.argv:
         root.update()
-        assert len(app.buttons) == (12 if app.system == 'Windows' and app.windows_available else 9)
+        assert len(app.buttons) == (13 if app.system == 'Windows' and app.windows_available else 10)
         assert app.output.winfo_exists()
+        app.navigation_dialog();root.update()
+        assert app.navigation_window.winfo_exists()
+        assert not app.navigation_experimental.get()
         assert (ROOT / 'presets/mod-manager.json').is_file()
         if app.system == 'Linux':
             assert len(core.linux_engine(ROOT).read_manifest()) == 7

@@ -20,16 +20,16 @@ def install(engine, game, dfhack):
     for name,record in state['files'].items():
         path=engine.checked_target(game,name)
         if not path.exists() or engine.digest(path.read_bytes())!=record['installed']:
-            raise ValueError('Fichier personnel modifié, conservé : '+name)
+            raise ValueError('Modified personal file preserved: '+name)
         previous[name]=path.read_bytes()
         if record['original'] is not None:
             backup=engine.checked_target(game,engine.STATE_DIR+'/backups/'+state['backup']+'/'+name)
             if engine.digest(backup.read_bytes())!=record['original']:
-                raise ValueError('Sauvegarde originale endommagée : '+name)
+                raise ValueError('Original backup damaged: '+name)
     if not set(plan).issubset(state['files']):
-        raise ValueError('Périmètre de migration inconnu.')
+        raise ValueError('Unknown migration scope.')
     if all(previous[name]==data for name,data in plan.items()):
-        return 'Traduction déjà à jour.'
+        return 'Translation is already up to date.'
     updated=copy.deepcopy(state)
     # Persistent receipt and previous generation allow manual recovery after power loss.
     generation=engine.uuid.uuid4().hex
@@ -51,7 +51,7 @@ def install(engine, game, dfhack):
         recovery.unlink()
         raise
     recovery.unlink()
-    return 'Traduction mise à jour. Sauvegarde originale conservée pour la désinstallation.'
+    return 'Translation updated. Original backup retained for restoration.'
 
 def run(engine,game,dfhack):
     import fcntl

@@ -12,7 +12,8 @@ args = [sys.executable, '-m', 'PyInstaller', '--clean', '--noconfirm', '--onefil
         '--specpath', str(root / 'build'),
         '--add-data', str(root / 'preparer-variantes.py') + sep + '.',
         '--add-data', str(root / 'presets') + sep + 'presets',
-        '--hidden-import', 'argparse', '--hidden-import', 'stat', '--hidden-import', 'shutil']
+        '--add-data', str(root/'navigation') + sep + 'navigation',
+        '--hidden-import', 'navigation_bridge', '--hidden-import', 'argparse', '--hidden-import', 'stat', '--hidden-import', 'shutil']
 if sys.platform == 'linux':
     args += ['--hidden-import', 'fcntl', '--hidden-import', 'csv', '--hidden-import', 'uuid', '--hidden-import', 'struct', '--hidden-import', 'linux_upgrade', '--add-data', str(root / 'traduction-linux') + sep + 'traduction-linux']
 if (root / 'traduction-windows').exists():

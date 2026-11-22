@@ -22,7 +22,7 @@ if not windows:
     target.chmod(0o755)
     with tarfile.open(release / f'PGM-Installer-Linux-{VERSION}.tar.gz', 'w:gz') as archive:
         archive.add(target, arcname='PGM-Installer')
-        archive.add(root / 'LISEZMOI.txt', arcname='LISEZMOI.txt')
+        archive.add(root / 'LISEZMOI.txt', arcname='README.txt')
 filename = 'SHA256SUMS-Windows.txt' if windows else 'SHA256SUMS-Linux.txt'
 (release / filename).write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.name + '\n'
                                        for p in sorted(release.iterdir()) if p.is_file() and not p.name.startswith('SHA256SUMS')), encoding='utf-8')

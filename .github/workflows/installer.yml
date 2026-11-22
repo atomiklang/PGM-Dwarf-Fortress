@@ -1,72 +1,12 @@
-name: Build PGM installers
+# Legacy beta4 pipeline retired. Existing releases4/19 remain immutable.
+name: Archived installer4 pipeline
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/installer.yml', 'installer/**']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-22.04, windows-2022]
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: installer
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install build dependencies
-        run: python -m pip install pyinstaller==6.22.3
-      - name: Download pinned content19 and experimental Windows19
-        run: python fetch_verified_bundle.py
-      - name: Verify embedded build manifest
-        run: python prepare_build.py
-      - name: Tests
-        run: python -m unittest discover -s tests
-      - name: Linux installer tests
-        if: runner.os == 'Linux'
-        run: python -m unittest discover -s traduction-linux/tests -p test_installer.py
-      - name: GUI smoke test Linux
-        if: runner.os == 'Linux'
-        run: xvfb-run -a python app.py --smoke-test
-      - name: GUI smoke test Windows
-        if: runner.os == 'Windows'
-        run: python app.py --smoke-test
-      - name: Build
-        run: python build.py
-      - name: Verify embedded data
-        run: python verify_frozen.py
-      - name: Package and verify executable
-        run: python package_build.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: PGM-Installer-${{ runner.os }}
-          path: installer/release/*
-          if-no-files-found: error
-  publish:
-    needs: build
+  retired:
+    if: ${{ false }}
     runs-on: ubuntu-22.04
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: PGM-Installer-*
-          path: release
-          merge-multiple: true
-      - name: Publish verified beta4 installers
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create installer-v0.1.0-beta.4 release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "PGM Installer — Windows / Linux — beta 4" --notes-file installer/RELEASE-NOTES.md
+      - run: echo Legacy pipeline retired

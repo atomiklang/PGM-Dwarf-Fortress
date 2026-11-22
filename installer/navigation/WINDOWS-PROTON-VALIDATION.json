@@ -1,0 +1,31 @@
+{
+  "platform": "Windows executable under Proton-GE on Linux; NOT native Windows",
+  "passed": true,
+  "proof": "../proton-test/1795351540172521403/result.json",
+  "plugin_sha256": "c3717f462c29211a3dfbd961661623bc2c6161fed043a2d2bdabd8daa4e1f52c",
+  "runtime_sha256": {
+    "Dwarf Fortress.exe": "3436f0553d6fa17b25716f8b1f034b52e3d9dc30be7f3ddac67cd0ff731d7b16",
+    "hack/dfhack.dll": "11149a679257079f532fce7868397d4de6f23db9d4ccee2ae4d1ebfe9f1fd846"
+  },
+  "checks": {
+    "gestures": 174,
+    "resize": 9,
+    "focus": 7
+  },
+  "renderer": "direct3d",
+  "sdl_restore_errors": 0,
+  "real_resize": [
+    1000,
+    700
+  ],
+  "capture4x_inspected": true,
+  "manual_save_open_required": true,
+  "installed_in_player_game": false,
+  "published": false,
+  "limits": [
+    "Native Windows gameplay untested",
+    "Windows embark map untested",
+    "Installer integration not completed",
+    "Original Windows DLL does not contain PGM Linux SDL fixes"
+  ]
+}

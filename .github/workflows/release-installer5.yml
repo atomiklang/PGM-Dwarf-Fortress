@@ -1,0 +1,73 @@
+name: Publish reviewed PGM installer5
+on:
+  push:
+    branches: [candidate/release-installer5]
+    paths: ['installer/**', '.github/workflows/release-installer5.yml']
+permissions:
+  contents: read
+concurrency:
+  group: release-installer5
+  cancel-in-progress: false
+jobs:
+  linux:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: installer
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Ensure Tk and virtual display runtime
+        run: sudo apt-get update && sudo apt-get install -y xvfb xauth python3-tk libtk8.6 libtcl8.6
+      - run: python -m pip install pyinstaller==6.22.3
+      - run: python prepare_release_bundle.py
+      - run: python -m unittest discover -s tests
+      - run: xvfb-run -a python app.py --smoke-test
+      - run: python build.py
+      - run: python verify_frozen.py
+      - run: python package_build.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer5-linux-reviewed-build
+          path: installer/release/*
+          if-no-files-found: error
+  publish:
+    needs: linux
+    if: github.repository == 'atomiklang/PGM-Dwarf-Fortress' && github.ref == 'refs/heads/candidate/release-installer5'
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: installer5-linux-reviewed-build
+          path: release
+      - name: Promote exact previously tested Windows artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python installer/promote_windows.py
+      - name: Verify complete five-file release
+        run: |
+          cd release
+          sha256sum -c SHA256SUMS-Linux.txt
+          sha256sum -c SHA256SUMS-Windows.txt
+          test -f PGM-Installer-Linux-0.1.0-beta.5.bin
+          test -f PGM-Installer-Linux-0.1.0-beta.5.tar.gz
+          test -f PGM-Installer-Windows-0.1.0-beta.5.exe
+      - name: Create new beta5 only; refuse an existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view installer-v0.1.0-beta.5 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then exit 1; fi
+          gh release create installer-v0.1.0-beta.5 release/PGM-Installer-Linux-0.1.0-beta.5.bin release/PGM-Installer-Linux-0.1.0-beta.5.tar.gz release/PGM-Installer-Windows-0.1.0-beta.5.exe release/SHA256SUMS-Linux.txt release/SHA256SUMS-Windows.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "PGM Installer beta5 — English interface and optional map navigation" --notes-file docs/RELEASE-INSTALLER5.md

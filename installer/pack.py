@@ -42,7 +42,7 @@ def locked(game):
     try:
         fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
     except FileExistsError:
-        raise ValueError('Une autre opération PGM est en cours. Si elle a été interrompue, conserver le rapport avant de retirer .pgm-presets.lock.')
+        raise ValueError('Another PGM operation is running. If it was interrupted, keep the report before removing .pgm-presets.lock.')
     try:
         os.close(fd)
         yield
@@ -55,7 +55,7 @@ def restore(game):
     with locked(game):
         statefile = target(game, '.pgm-presets-state.json')
         if not statefile.exists():
-            return 'Aucun preset à restaurer.'
+            return 'No presets to restore.'
         state = json.loads(statefile.read_text())
         path = target(game, 'dfhack-config/mod-manager.json')
         current = path.read_bytes() if path.exists() else None
@@ -63,13 +63,13 @@ def restore(game):
         if state.get('format') != 1 or (original is not None and digest(original) != state['original_hash']):
             raise ValueError('Sauvegarde des presets invalide.')
         if current is not None and digest(current) not in (state['installed_hash'], state['original_hash']):
-            raise ValueError('Les presets ont été modifiés depuis l’installation. Ils sont conservés ; fusion manuelle nécessaire.')
+            raise ValueError('Presets have changed since installation. They were preserved; merge them manually.')
         if original is None:
             path.unlink(missing_ok=True)
         else:
             write(path, original)
         statefile.unlink()
-    return 'Presets précédents restaurés.'
+    return 'Previous presets restored.'
 
 
 def install(game, bundled):
@@ -84,7 +84,7 @@ def install(game, bundled):
         if statefile.exists():
             previous = json.loads(statefile.read_text())
             if not path.exists() or digest(path.read_bytes()) != previous['installed_hash']:
-                raise ValueError('Installation précédente ou interrompue détectée. Restaurer les presets d’abord.')
+                raise ValueError('A previous or interrupted installation was found. Restore the presets first.')
             original = base64.b64decode(previous['original'], validate=True) if previous['original'] is not None else None
             if previous.get('format') != 1 or (original is not None and digest(original) != previous['original_hash']):
                 raise ValueError('Sauvegarde des presets invalide.')
@@ -97,7 +97,7 @@ def install(game, bundled):
         for preset in incoming:
             same = [p for p in current if p.get('name') == preset['name']]
             if same and same != [preset]:
-                raise ValueError('Un preset personnel porte déjà le nom ' + preset['name'] + '. Il est conservé.')
+                raise ValueError('A personal preset already uses the name ' + preset['name'] + '. It was preserved.')
             if not same:
                 copy = dict(preset)
                 # Keep the player's existing default when merging a populated file.
@@ -107,8 +107,8 @@ def install(game, bundled):
         data = json.dumps(merged, ensure_ascii=False, indent=2).encode()
         if previous is not None:
             if digest(data) != previous['installed_hash']:
-                raise ValueError('Une autre version des presets est installée. Restaurer les presets précédents, puis installer cette version.')
-            return 'Presets PGM déjà installés et identiques à ce paquet.'
+                raise ValueError('Another preset version is installed. Restore the previous presets before installing this version.')
+            return 'PGM presets are already installed and match this package.'
         state = {'format': 1, 'original': base64.b64encode(original).decode() if original is not None else None,
                  'original_hash': digest(original) if original is not None else None, 'installed_hash': digest(data)}
         write(statefile, json.dumps(state).encode())
@@ -121,4 +121,4 @@ def install(game, bundled):
                 write(path, original)
             statefile.unlink(missing_ok=True)
             raise
-    return 'Presets Normal et PGM Full installés. Les presets personnels sont conservés.'
+    return 'Normal and PGM Full presets installed. Personal presets were preserved.'

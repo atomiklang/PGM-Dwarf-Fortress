@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "feature": "worldmap-navigation",
+  "prototype_only": true,
+  "platforms": {
+    "linux": {
+      "available": true,
+      "files": {
+        "dfhack-config/scripts/gui/worldmap-zoom.lua": {
+          "source": "source/dfhack-config/scripts/gui/worldmap-zoom.lua",
+          "sha256": "23ba27504527dea48f715b3deb3ae4b71f5a844d441a6c8cafc387b90c2f27b2",
+          "known_existing_sha256": [
+            "0a4f8be41015ccc9af50ae00a406bb91e6b67bdc6590a3aa17e3de93df3e61bc",
+            "23ba27504527dea48f715b3deb3ae4b71f5a844d441a6c8cafc387b90c2f27b2",
+            "480c85a7506b7a3804ab6c08d70b724a25571f2ec350f08766b3e45a7d8e9908",
+            "9bca98cb80acb0c28be141fdc886fd8a927d24d0199d305bbeda1e2a73ee2a75"
+          ]
+        },
+        "dfhack-config/scripts/worldmap-zoom.lua": {
+          "source": "source/dfhack-config/scripts/worldmap-zoom.lua",
+          "sha256": "833f49b21ee3107dafef4065b92ab75f29ac7c3dcdccf90fc921e9ccb7b81a9a",
+          "known_existing_sha256": [
+            "833f49b21ee3107dafef4065b92ab75f29ac7c3dcdccf90fc921e9ccb7b81a9a"
+          ]
+        },
+        "hack/lua/plugins/worldmap-zoom-render.lua": {
+          "source": "source/hack/lua/plugins/worldmap-zoom-render.lua",
+          "sha256": "9fa69a6d1c6298c28bc5164520b7b281796c99d83686006ecbe2a856949d43af",
+          "known_existing_sha256": [
+            "9fa69a6d1c6298c28bc5164520b7b281796c99d83686006ecbe2a856949d43af"
+          ]
+        },
+        "hack/lua/worldmap-zoom/camera.lua": {
+          "source": "source/hack/lua/worldmap-zoom/camera.lua",
+          "sha256": "a21acd1fa5bfea6dc276d29dfcae81f03ca05747f9b4d66e10a10c2e756d447b",
+          "known_existing_sha256": [
+            "a21acd1fa5bfea6dc276d29dfcae81f03ca05747f9b4d66e10a10c2e756d447b"
+          ]
+        },
+        "hack/lua/worldmap-zoom/context.lua": {
+          "source": "source/hack/lua/worldmap-zoom/context.lua",
+          "sha256": "ade7e628aeac700838c0dcbe78cad0158eed62017d7b7085952d0de55af2541c",
+          "known_existing_sha256": [
+            "ade7e628aeac700838c0dcbe78cad0158eed62017d7b7085952d0de55af2541c"
+          ]
+        },
+        "hack/lua/worldmap-zoom/gesture.lua": {
+          "source": "source/hack/lua/worldmap-zoom/gesture.lua",
+          "sha256": "13184d7b99116fc786412afc51d66abfca246ce1c154c2c5c9cd60077564a283",
+          "known_existing_sha256": [
+            "13184d7b99116fc786412afc51d66abfca246ce1c154c2c5c9cd60077564a283"
+          ]
+        },
+        "hack/lua/worldmap-zoom/input.lua": {
+          "source": "source/hack/lua/worldmap-zoom/input.lua",
+          "sha256": "cb4620194dc7620dc0efd8713ca394b860bf2694fb8895c79240c2b25e34176d",
+          "known_existing_sha256": [
+            "cb4620194dc7620dc0efd8713ca394b860bf2694fb8895c79240c2b25e34176d"
+          ]
+        },
+        "hack/plugins/worldmap-zoom-render.plug.so": {
+          "source": "output/worldmap-zoom-render.plug.so",
+          "sha256": "b9b9e4210e8548b753571c2304ea978963f462bb25c302fd3c20bb1dc15dbbd1",
+          "known_existing_sha256": [
+            "b9b9e4210e8548b753571c2304ea978963f462bb25c302fd3c20bb1dc15dbbd1",
+            "e8c432c0029f11abd08ac38d69b126625aa3745803d2049e4b6c9a37f0f45d4c"
+          ]
+        },
+        "hack/lua/worldmap-zoom/ui.lua": {
+          "source": "source/hack/lua/worldmap-zoom/ui.lua",
+          "sha256": "fa1337774d5dd3b0d8416c70aa64d29acd97e9b0f6e1d959e0592a1caf64d1fe",
+          "known_existing_sha256": [
+            "29a300666dfc0d06d7eeb89037430298512b304673c771687116a0690191ed2d",
+            "fa1337774d5dd3b0d8416c70aa64d29acd97e9b0f6e1d959e0592a1caf64d1fe"
+          ]
+        }
+      },
+      "runtime": {
+        "dwarfort": "ad07aacd951442603090d6d74a718ab2c451b7a5e42f5e5441920a26dc69bb9f",
+        "hack/libdfhack.so": "bd15b728fe7ac176ed382fb152c097ebc0b79300a78dc73196fc2f55b0507868",
+        "hack/liblua53.so": "57121ca93d6bab2e0b9eb513ab9699ec323a7acd79f0e36a05f33f52dab1896e"
+      }
+    },
+    "windows": {
+      "available": true,
+      "files": {
+        "dfhack-config/scripts/gui/worldmap-zoom.lua": {
+          "source": "source/dfhack-config/scripts/gui/worldmap-zoom.lua",
+          "sha256": "23ba27504527dea48f715b3deb3ae4b71f5a844d441a6c8cafc387b90c2f27b2",
+          "known_existing_sha256": [
+            "0a4f8be41015ccc9af50ae00a406bb91e6b67bdc6590a3aa17e3de93df3e61bc",
+            "23ba27504527dea48f715b3deb3ae4b71f5a844d441a6c8cafc387b90c2f27b2",
+            "480c85a7506b7a3804ab6c08d70b724a25571f2ec350f08766b3e45a7d8e9908",
+            "9bca98cb80acb0c28be141fdc886fd8a927d24d0199d305bbeda1e2a73ee2a75"
+          ]
+        },
+        "dfhack-config/scripts/worldmap-zoom.lua": {
+          "source": "source/dfhack-config/scripts/worldmap-zoom.lua",
+          "sha256": "833f49b21ee3107dafef4065b92ab75f29ac7c3dcdccf90fc921e9ccb7b81a9a",
+          "known_existing_sha256": [
+            "833f49b21ee3107dafef4065b92ab75f29ac7c3dcdccf90fc921e9ccb7b81a9a"
+          ]
+        },
+        "hack/lua/plugins/worldmap-zoom-render.lua": {
+          "source": "source/hack/lua/plugins/worldmap-zoom-render.lua",
+          "sha256": "9fa69a6d1c6298c28bc5164520b7b281796c99d83686006ecbe2a856949d43af",
+          "known_existing_sha256": [
+            "9fa69a6d1c6298c28bc5164520b7b281796c99d83686006ecbe2a856949d43af"
+          ]
+        },
+        "hack/lua/worldmap-zoom/camera.lua": {
+          "source": "source/hack/lua/worldmap-zoom/camera.lua",
+          "sha256": "a21acd1fa5bfea6dc276d29dfcae81f03ca05747f9b4d66e10a10c2e756d447b",
+          "known_existing_sha256": [
+            "a21acd1fa5bfea6dc276d29dfcae81f03ca05747f9b4d66e10a10c2e756d447b"
+          ]
+        },
+        "hack/lua/worldmap-zoom/context.lua": {
+          "source": "source/hack/lua/worldmap-zoom/context.lua",
+          "sha256": "ade7e628aeac700838c0dcbe78cad0158eed62017d7b7085952d0de55af2541c",
+          "known_existing_sha256": [
+            "ade7e628aeac700838c0dcbe78cad0158eed62017d7b7085952d0de55af2541c"
+          ]
+        },
+        "hack/lua/worldmap-zoom/gesture.lua": {
+          "source": "source/hack/lua/worldmap-zoom/gesture.lua",
+          "sha256": "13184d7b99116fc786412afc51d66abfca246ce1c154c2c5c9cd60077564a283",
+          "known_existing_sha256": [
+            "13184d7b99116fc786412afc51d66abfca246ce1c154c2c5c9cd60077564a283"
+          ]
+        },
+        "hack/lua/worldmap-zoom/input.lua": {
+          "source": "source/hack/lua/worldmap-zoom/input.lua",
+          "sha256": "cb4620194dc7620dc0efd8713ca394b860bf2694fb8895c79240c2b25e34176d",
+          "known_existing_sha256": [
+            "cb4620194dc7620dc0efd8713ca394b860bf2694fb8895c79240c2b25e34176d"
+          ]
+        },
+        "hack/lua/worldmap-zoom/ui.lua": {
+          "source": "source/hack/lua/worldmap-zoom/ui.lua",
+          "sha256": "fa1337774d5dd3b0d8416c70aa64d29acd97e9b0f6e1d959e0592a1caf64d1fe",
+          "known_existing_sha256": [
+            "29a300666dfc0d06d7eeb89037430298512b304673c771687116a0690191ed2d",
+            "fa1337774d5dd3b0d8416c70aa64d29acd97e9b0f6e1d959e0592a1caf64d1fe"
+          ]
+        },
+        "hack/plugins/worldmap-zoom-render.plug.dll": {
+          "source": "output/worldmap-zoom-render.plug.dll",
+          "sha256": "c3717f462c29211a3dfbd961661623bc2c6161fed043a2d2bdabd8daa4e1f52c",
+          "known_existing_sha256": [
+            "c3717f462c29211a3dfbd961661623bc2c6161fed043a2d2bdabd8daa4e1f52c"
+          ]
+        }
+      },
+      "runtime": {
+        "Dwarf Fortress.exe": "3436f0553d6fa17b25716f8b1f034b52e3d9dc30be7f3ddac67cd0ff731d7b16",
+        "hack/dfhack.dll": "11149a679257079f532fce7868397d4de6f23db9d4ccee2ae4d1ebfe9f1fd846",
+        "hack/lua53.dll": "65834494a4d411f1d92157e06d1ca0be1f1c7636afbee75991bf866be8d38ece"
+      },
+      "validation_scope": "Experimental: tested under Proton only, native Windows gameplay unverified"
+    }
+  },
+  "policy": "DFHack plugin only; no loader replacement. Refresh hashes after GUI finalization before freezing any bundle."
+}
