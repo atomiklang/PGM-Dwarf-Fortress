@@ -1,0 +1,47 @@
+# Compile l'extension DFHack « pgm-motion » (marche + gestes PGM) pour Windows x64 avec MSVC,
+# contre DFHack 53.17-r1 (commit 3bc63a22). Lancement manuel uniquement ; produit un artefact, ne publie rien.
+name: pgm-motion Windows
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: pgm
+      - name: DFHack 53.17-r1 (commit vérifié)
+        uses: actions/checkout@v4
+        with:
+          repository: DFHack/dfhack
+          ref: 3bc63a220af608e1cf20b123dc45bc0a22e296ab
+          submodules: recursive
+          path: dfhack
+      - name: Ajouter le plugin PGM à l'arbre DFHack
+        shell: bash
+        run: |
+          test "$(git -C dfhack/library/xml rev-parse HEAD)" = "611369f12c5f214e0f8114900398ba74e8a2dd2f"
+          cp pgm/windows-build/pgm-motion/pgm-motion.cpp pgm/windows-build/pgm-motion/gait.h pgm/windows-build/pgm-motion/visual_animation.h dfhack/plugins/
+          echo 'dfhack_plugin(pgm-motion pgm-motion.cpp LINK_LIBRARIES lua)' >> dfhack/plugins/CMakeLists.custom.txt
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - name: Configurer et compiler seulement pgm-motion
+        shell: bash
+        run: |
+          cmake -S dfhack -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCS=OFF -DBUILD_TESTS=OFF
+          cmake --build build --target pgm-motion --parallel
+      - name: Empreinte
+        shell: bash
+        run: |
+          f=$(find build -name 'pgm-motion.plug.dll' | head -1)
+          sha256sum "$f" | tee pgm-motion.sha256
+          cp "$f" pgm-motion.plug.dll
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pgm-motion-windows-x64
+          path: |
+            pgm-motion.plug.dll
+            pgm-motion.sha256
