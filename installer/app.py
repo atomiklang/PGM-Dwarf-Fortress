@@ -368,7 +368,7 @@ if __name__ == '__main__':
     app = App(root)
     if '--smoke-test' in sys.argv:
         root.update()
-        assert len(app.buttons) == (13 if app.system == 'Windows' and app.windows_available else 10)
+        assert len(app.buttons) == (14 if app.system == "Windows" and app.windows_available else 11)
         assert app.output.winfo_exists()
         app.navigation_dialog();root.update()
         assert app.navigation_window.winfo_exists()
