@@ -1,8 +1,10 @@
 # Compile l'extension DFHack « pgm-motion » (marche + gestes PGM) pour Windows x64 avec MSVC,
-# contre DFHack 53.17-r1 (commit 3bc63a22). Lancement manuel uniquement ; produit un artefact, ne publie rien.
+# contre DFHack 53.17-r1 (commit 3bc63a22). Se lance sur la branche pgm-motion-windows seulement ; produit un artefact, ne publie rien.
 name: pgm-motion Windows
 on:
   workflow_dispatch:
+  push:
+    branches: [pgm-motion-windows]
 permissions:
   contents: read
 jobs:
