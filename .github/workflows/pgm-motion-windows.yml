@@ -26,7 +26,7 @@ jobs:
         run: |
           test "$(git -C dfhack/library/xml rev-parse HEAD)" = "611369f12c5f214e0f8114900398ba74e8a2dd2f"
           cp pgm/windows-build/pgm-motion/pgm-motion.cpp pgm/windows-build/pgm-motion/gait.h pgm/windows-build/pgm-motion/visual_animation.h dfhack/plugins/
-          echo 'dfhack_plugin(pgm-motion pgm-motion.cpp LINK_LIBRARIES lua)' >> dfhack/plugins/CMakeLists.custom.txt
+          printf '%s\n' 'dfhack_plugin(pgm-motion pgm-motion.cpp LINK_LIBRARIES lua)' 'target_include_directories(pgm-motion PRIVATE ${SDL2_INCLUDE_DIRS})' >> dfhack/plugins/CMakeLists.custom.txt
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x64
