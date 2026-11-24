@@ -2,11 +2,11 @@
 
 **DFHack is required.** Reference versions: Dwarf Fortress 53.17 and DFHack 53.17-r1. Subscribe to [PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386); for the companion pack, also subscribe to the [collection](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587). Wait for Steam downloads to finish. Run the game once with DFHack, then close it.
 
-The beta5 assistant interface is English. The game’s optional French translation and FR/EN quests are separate.
+The beta6 assistant interface is English. The game’s optional French translation and FR/EN quests are separate.
 
 ## Windows
 
-Download and open [PGM-Installer-Windows-0.1.0-beta.5.exe](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Windows-0.1.0-beta.5.exe). Windows 64-bit; no separate Python installation needed.
+Download and open [PGM-Installer-Windows-0.1.0-beta.6.exe](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Windows-0.1.0-beta.6.exe). Windows 64-bit; no separate Python installation needed.
 
 Optional Windows translation is **experimental and disabled by default**. With the game closed, choose **Check Windows files**, enable **Enable experimental Windows French translation (tested under Proton; native Windows gameplay unverified)**, then choose **Install experimental translation**. Use **Restore Windows files** to restore previous files.
 
@@ -16,7 +16,7 @@ Choose either optional [DF-FR](https://steamcommunity.com/sharedfiles/filedetail
 
 ## Linux
 
-Download [PGM-Installer-Linux-0.1.0-beta.5.bin](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.bin), allow execution in its file properties and open it. Alternatively, extract the [.tar.gz archive](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.tar.gz) and open PGM-Installer. Choose one download. Python is included.
+Download [PGM-Installer-Linux-0.1.0-beta.6.bin](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.bin), allow execution in its file properties and open it. Alternatively, extract the [.tar.gz archive](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.tar.gz) and open PGM-Installer. Choose one download. Python is included.
 
 Native Linux x86-64 with glibc 2.35 or later is required. This route is for the native game, not Windows under Proton. Do not run the assistant as administrator. Optional French translation uses Linux content 0.1.0-beta.19: with the game closed, choose **Check files**, then **Install / update**. F12 switches FR/EN in game.
 

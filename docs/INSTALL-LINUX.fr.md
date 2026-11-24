@@ -1,6 +1,6 @@
 # Installer PGM sous Linux
 
-**Télécharge [PGM-Installer-Linux-0.1.0-beta.5.bin](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.bin).** Il contient l’assistant et son environnement : aucun Python à installer. Alternative : extraire [l’archive .tar.gz](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.tar.gz), puis ouvrir PGM-Installer.
+**Télécharge [PGM-Installer-Linux-0.1.0-beta.6.bin](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.bin).** Il contient l’assistant et son environnement : aucun Python à installer. Alternative : extraire [l’archive .tar.gz](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.tar.gz), puis ouvrir PGM-Installer.
 
 Ce guide concerne Linux natif x86-64, avec glibc 2.35 ou plus récente, et Dwarf Fortress 53.17 avec DFHack 53.17-r1. La version Windows du jeu sous Proton suit un autre parcours.
 

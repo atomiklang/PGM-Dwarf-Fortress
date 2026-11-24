@@ -1,6 +1,6 @@
 # PGM [EN/FR] — Starter Quest Mods
 
-Installer beta5 now uses an English interface. Translation and quest content remains beta19; the game’s optional French translation is a separate feature. Map navigation is optional and independent.
+Installer beta6: latest French translation (content beta21), optional world-map navigation and a new optional animations & speed module. Each feature installs and uninstalls on its own.
 
 ## English — choose your download
 
@@ -8,10 +8,10 @@ Installer beta5 now uses an English interface. Translation and quest content rem
 
 | Your system | Download | Guide |
 | --- | --- | --- |
-| Windows 64-bit | [PGM-Installer-Windows-0.1.0-beta.5.exe](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Windows-0.1.0-beta.5.exe) | [English guide](docs/INSTALL.en.md#windows) |
-| Native Linux x86-64 | [PGM-Installer-Linux-0.1.0-beta.5.bin](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.bin) | [English guide](docs/INSTALL.en.md#linux) |
+| Windows 64-bit | [PGM-Installer-Windows-0.1.0-beta.6.exe](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Windows-0.1.0-beta.6.exe) | [English guide](docs/INSTALL.en.md#windows) |
+| Native Linux x86-64 | [PGM-Installer-Linux-0.1.0-beta.6.bin](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.bin) | [English guide](docs/INSTALL.en.md#linux) |
 
-Linux alternative: [.tar.gz archive](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.tar.gz). Choose one Linux download; you do not need both. Python is included.
+Linux alternative: [.tar.gz archive](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.tar.gz). Choose one Linux download; you do not need both. Python is included.
 
 Install matching Dwarf Fortress and DFHack versions, subscribe to [PGM](https://steamcommunity.com/sharedfiles/filedetails/?id=3841490386) and, for the modpack, the [collection](https://steamcommunity.com/sharedfiles/filedetails/?id=3817551587). Let Steam finish downloading, close the game, then open the assistant.
 
@@ -27,10 +27,10 @@ PGM propose une **traduction française du jeu et des mods du pack**, avec **85 
 
 | Ton système | Télécharger | Installation |
 | --- | --- | --- |
-| Windows 64 bits | [Assistant Windows (.exe)](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Windows-0.1.0-beta.5.exe) | [Guide Windows](docs/INSTALL-WINDOWS.fr.md) |
-| Linux natif x86-64 | [Assistant Linux (.bin)](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.bin) | [Guide Linux](docs/INSTALL-LINUX.fr.md) |
+| Windows 64 bits | [Assistant Windows (.exe)](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Windows-0.1.0-beta.6.exe) | [Guide Windows](docs/INSTALL-WINDOWS.fr.md) |
+| Linux natif x86-64 | [Assistant Linux (.bin)](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.bin) | [Guide Linux](docs/INSTALL-LINUX.fr.md) |
 
-Alternative Linux : [archive .tar.gz](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.5/PGM-Installer-Linux-0.1.0-beta.5.tar.gz). Un seul téléchargement suffit. Aucun Python à installer.
+Alternative Linux : [archive .tar.gz](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Linux-0.1.0-beta.6.tar.gz). Un seul téléchargement suffit. Aucun Python à installer.
 
 Commence avec **Normal (74 mods)** ou choisis **PGM Full (87 mods)** pour tous les ajouts et une partie plus exigeante. Advanced Agriculture, Orchards et Fantastic Trees sont réservés à Full. Les modes de quêtes **Aisé** et **Gloire** se choisissent indépendamment du preset.
 
