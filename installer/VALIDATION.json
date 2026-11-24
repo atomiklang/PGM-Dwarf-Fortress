@@ -1,30 +1,66 @@
 {
-  "assistant": "0.1.0-beta.4",
-  "linux_payload": "0.1.0-beta.19",
-  "windows_payload": "0.1.0-beta.19 experimental",
-  "unit_tests": {
-    "linux_passed": 39,
-    "windows_passed": 34,
-    "windows_linux_only_skipped": 5
-  },
-  "linux_engine_tests_passed": 10,
-  "bundle_verified": true,
-  "gui_test": {
-    "ubuntu_22_04": true,
-    "windows_server_2022": true,
-    "downloaded_fedora_44": true
-  },
-  "frozen_build_test": true,
-  "windows_native_installer_startup": true,
-  "windows_native_gameplay": false,
+  "candidate_version": "0.1.0-beta.5",
   "published": true,
-  "proof": "https://github.com/atomiklang/PGM-Dwarf-Fortress/blob/main/docs/PUBLICATION-CHECKS.json",
-  "workflow": "https://github.com/atomiklang/PGM-Dwarf-Fortress/actions/runs/44854666338",
-  "limitations": [
-    "Windows game tests under Proton only; no native Windows gameplay validation.",
-    "No complete playthrough or exhaustive procedural dialogue coverage.",
-    "Native PGM and DF-FR translation are alternative installations; full cohabitation not validated.",
-    "Power failure during Linux migration requires assisted recovery.",
-    "DFint corpus redistribution terms remain to be clarified."
-  ]
+  "language": "English",
+  "game_translation_changed": false,
+  "navigation_optional": true,
+  "windows_navigation_opt_in": true,
+  "unit_tests": {
+    "linux": {
+      "passed": true,
+      "total": 47,
+      "skipped_native_windows_only": 1
+    },
+    "windows": {
+      "passed": true,
+      "total": 47,
+      "skipped_linux_only": 5
+    }
+  },
+  "gui_layout": {
+    "linux_branch": true,
+    "windows_branch_simulated_on_linux": true,
+    "clipped_button_fix": "Reduced requested log height to allow all Windows controls to remain visible"
+  },
+  "linux": {
+    "built": true,
+    "frozen_bundle_hashes_verified": 40,
+    "ubuntu_source_smoke": true,
+    "ubuntu_frozen_smoke": true,
+    "host_native_frozen_smoke": true,
+    "host_fontconfig_warnings": true,
+    "files": {
+      "PGM-Installer-Linux-0.1.0-beta.5.bin": "e68f1135ccc42a0986b9cca3a07cea2985a75ec6bd18f1e421a7ff4030814136",
+      "PGM-Installer-Linux-0.1.0-beta.5.tar.gz": "53e90696678084e1cd5c8c409cc6889e4d2da9367410dc6426ea770dd7411dab"
+    }
+  },
+  "windows": {
+    "native_build": true,
+    "native_source_startup": true,
+    "native_frozen_startup": true,
+    "native_layout": true,
+    "junction_test": true,
+    "frozen_bundle_files_verified": 26,
+    "workflow_run": 45047022625,
+    "job": 137283749652,
+    "commit": "ff7727226958df4765cbc4e2ef52353ba57492b4",
+    "artifact_sha256": "d8bfd3fb2f9d5767e177e8d2f5acba7636d5bd3204e0f7b24fc067a4e56383f3",
+    "downloaded_and_verified": true,
+    "native_gameplay_validated": false
+  },
+  "live_game_install_performed": false,
+  "release_files": {
+    "PGM-Installer-Linux-0.1.0-beta.5.bin": "e68f1135ccc42a0986b9cca3a07cea2985a75ec6bd18f1e421a7ff4030814136",
+    "PGM-Installer-Linux-0.1.0-beta.5.tar.gz": "53e90696678084e1cd5c8c409cc6889e4d2da9367410dc6426ea770dd7411dab",
+    "PGM-Installer-Windows-0.1.0-beta.5.exe": "941c969b29c4277e843c47b66befd98263b4ce66e2ff3495dbb5d05cf4fe5b3f"
+  },
+  "review_fixes": [
+    "Restore bridge API exercised with actual engine, no unsupported platform kwarg",
+    "NTFS junctions/reparse points rejected before resolution",
+    "Windows8.3 paths compared after canonicalization in test",
+    "Navigation bytes preserved by gitattributes on Windows checkout"
+  ],
+  "release_tag": "installer-v0.1.0-beta.5",
+  "public_release_validation": "Dossiers/Publication20/downloaded/VERIFIED.json",
+  "public_linux_rebuilt_on_ci": true
 }

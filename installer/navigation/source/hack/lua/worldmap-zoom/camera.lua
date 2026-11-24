@@ -13,10 +13,11 @@ function Camera.new(width, height, cols, rows, native_x, native_y)
     return self
 end
 
+-- PGM v26 : comme la carte native, le centre de la vue peut aller jusqu'au bord du monde
+-- (avant, la vue entière devait rester dans la carte, ce qui bloquait le glisser près des bords).
 function Camera:constrain()
-    local vw, vh = self.cols / self.zoom, self.rows / self.zoom
-    self.cx = self.width <= vw and self.width / 2 or clamp(self.cx, vw / 2, self.width - vw / 2)
-    self.cy = self.height <= vh and self.height / 2 or clamp(self.cy, vh / 2, self.height - vh / 2)
+    self.cx = clamp(self.cx, 0, self.width)
+    self.cy = clamp(self.cy, 0, self.height)
 end
 
 function Camera:set_zoom(z)

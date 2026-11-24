@@ -1,0 +1,15 @@
+{
+  "package": "0.1.0-beta.17-local",
+  "native_engine": "v3.12-workshops-1 unchanged",
+  "reviewed_static_additions_and_overrides": 2803,
+  "explicit_material_aliases": 7674,
+  "dictionary_entries": 50174,
+  "mods_in_static_inventory": 13,
+  "static_unique_strings": 7517,
+  "fff_descriptions": 203,
+  "instrument_descriptions": 126,
+  "proof": "Dossiers/Validation dialogues17/essai-linux-retour/result.json",
+  "published": false,
+  "new_dialogue_entries_reviewed": 26,
+  "new_dialogue_models": 14
+}

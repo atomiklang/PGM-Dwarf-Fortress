@@ -7,7 +7,8 @@ local context = require('worldmap-zoom.context')
 local input = require('worldmap-zoom.input')
 local Gesture = require('worldmap-zoom.gesture')
 local ui = require('worldmap-zoom.ui')
-preferred_language=preferred_language or 'fr'
+-- PGM v26 : suit la langue choisie par F12 (traducfr), sauf si le joueur a appuyé sur L dans le zoom
+preferred_language=preferred_language_manuel or ((os.getenv('TRADUCFR_EN') == '1' or rawget(_G, 'PGM_WINDOWS_FR') == false) and 'en' or 'fr')
 local ok_backend,backend = pcall(require,'plugins.worldmap-zoom-render')
 if not ok_backend or type(backend.prepare)~='function' then
     qerror(ui.dftext('missing',preferred_language))
@@ -46,12 +47,13 @@ function ZoomScreen:init()
             },
         },
     }
-    self:zoom(2)
+    self:zoom(remembered_zoom or 1)
 end
 
 function ZoomScreen:toggle_language()
     self.language=self.language=='fr' and 'en' or 'fr'
     preferred_language=self.language
+    preferred_language_manuel=self.language
     self.subviews.controls.frame_title=ui.dftext('title',self.language)
 end
 
@@ -92,7 +94,11 @@ function ZoomScreen:update_gesture(status)
     status=status or backend.status()
     local e,g=df.global.enabler,df.global.gps
     local x,y=g.precise_mouse_x,g.precise_mouse_y
-    local down=e[gesture.button=='left' and 'mouse_lbut_down' or 'mouse_mbut_down']~=0
+    -- PGM : DF ne garde pas toujours *_down pendant l'appui (surtout la molette) ;
+    -- le bouton est tenu si l'un des deux indicateurs l'est.
+    local down
+    if gesture.button=='left' then down=e.mouse_lbut_down~=0 or e.mouse_lbut~=0
+    else down=e.mouse_mbut_down~=0 or e.mouse_mbut~=0 end
     local valid=self:hasFocus() and status.window_focused and status.focus_epoch==gesture.focus_epoch and
         e.mouse_focus and e.tracking_on~=0 and x>=0 and y>=0
     local before_x,before_y=self.camera.cx,self.camera.cy
@@ -198,10 +204,27 @@ function ZoomScreen:render(dc)
 end
 
 function ZoomScreen:onInput(keys)
-    if keys.LEAVESCREEN or keys._MOUSE_R then self:dismiss();return true end
+    if keys.LEAVESCREEN or keys._MOUSE_R then
+        -- PGM: Esc / right-click behave like the native map (close it), not only the zoom layer.
+        local native=self.context.screen
+        local key=keys.LEAVESCREEN and 'LEAVESCREEN' or {_MOUSE_R=true,_MOUSE_R_DOWN=true}
+        self:dismiss()
+        esc_debug={requested=true}
+        local function try(n)
+            local top=dfhack.gui.getDFViewscreen(true)
+            esc_debug['try'..n]=tostring(top and top._type)
+            if not df.viewscreen_worldst:is_instance(top) and not df.viewscreen_choose_start_sitest:is_instance(top) then return end
+            if n==1 then gui.simulateInput(top,key)
+            elseif n==2 then gui.simulateInput(top,{_MOUSE_R=true,_MOUSE_R_DOWN=true})
+            elseif n==3 then dfhack.screen.dismiss(top);return end
+            if n<3 then dfhack.timeout(2,'frames',function() try(n+1) end) end
+        end
+        dfhack.timeout(1,'frames',function() try(1) end)
+        return true
+    end
     if self.gesture then self:update_gesture();return true end
     if gui.Screen.onInput(self,keys) then return true end
-    if keys._MOUSE_L or keys._MOUSE_M then
+    if keys._MOUSE_L or keys._MOUSE_M or keys._MOUSE_M_DOWN then
         if not self.did_render_parent then return true end
         local g=df.global.gps
         local ui=backend.ui_hit(g.mouse_x,g.mouse_y)
@@ -212,6 +235,7 @@ function ZoomScreen:onInput(keys)
             local status=backend.status()
             if status.window_focused then
                 self.gesture=Gesture.new(keys._MOUSE_L and 'left' or 'middle',x,y,self.camera)
+                self.gesture_started=dfhack.getTickCount()
                 self.gesture.focus_epoch=status.focus_epoch
             end
         elseif keys._MOUSE_L then
@@ -231,6 +255,7 @@ function ZoomScreen:onInput(keys)
 end
 
 function ZoomScreen:onDismiss()
+    remembered_zoom=self.camera and self.camera.zoom or remembered_zoom
     self:cancel_gesture()
     pcall(backend.set_camera,false,0,1,0,0)
     df.global.gps.force_full_display_count=2

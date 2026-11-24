@@ -1,0 +1,747 @@
+[
+  {
+    "default": true,
+    "modlist": [
+      {
+        "id": "vanilla_text",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_languages",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_descriptors",
+        "version": 5315
+      },
+      {
+        "id": "vanilla_materials",
+        "version": 5208
+      },
+      {
+        "id": "smooth_floors_look_constructed",
+        "version": 11
+      },
+      {
+        "id": "vanilla_environment",
+        "version": 5301
+      },
+      {
+        "id": "vanilla_plants",
+        "version": 5009
+      },
+      {
+        "id": "vanilla_items",
+        "version": 5301
+      },
+      {
+        "id": "vanilla_buildings",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_bodies",
+        "version": 5315
+      },
+      {
+        "id": "vanilla_creatures",
+        "version": 5316
+      },
+      {
+        "id": "vanilla_creatures_extinct",
+        "version": 5316
+      },
+      {
+        "id": "vanilla_entities",
+        "version": 5301
+      },
+      {
+        "id": "vanilla_reactions",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_interactions",
+        "version": 5101
+      },
+      {
+        "id": "vanilla_descriptors_graphics",
+        "version": 5306
+      },
+      {
+        "id": "vanilla_plants_graphics",
+        "version": 5106
+      },
+      {
+        "id": "vanilla_items_graphics",
+        "version": 5316
+      },
+      {
+        "id": "vanilla_buildings_graphics",
+        "version": 5306
+      },
+      {
+        "id": "vanilla_creatures_extinct_graphics",
+        "version": 5315
+      },
+      {
+        "id": "vanilla_interactions_graphics",
+        "version": 5101
+      },
+      {
+        "id": "vanilla_world_map",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_music",
+        "version": 5306
+      },
+      {
+        "id": "vanilla_procedural",
+        "version": 5316
+      },
+      {
+        "id": "rebooter_library",
+        "version": 4
+      },
+      {
+        "id": "pgm_accurate_domestic_graphics",
+        "version": 105
+      },
+      {
+        "id": "FANTASTIC_FANTASY_FORTRESS",
+        "version": 43
+      },
+      {
+        "id": "Vanilla_Weapon_Overhaul",
+        "version": 26
+      },
+      {
+        "id": "VWO_FFF",
+        "version": 4
+      },
+      {
+        "id": "Biodiversity_Booster",
+        "version": 4
+      },
+      {
+        "id": "Biodiversity_Booster_FFF",
+        "version": 4
+      },
+      {
+        "id": "caldfir_metallic",
+        "version": 17
+      },
+      {
+        "id": "trainzack_better_instruments",
+        "version": 2000009
+      },
+      {
+        "id": "niemst_grind_bones_and_shells_into_flux",
+        "version": 5024
+      },
+      {
+        "id": "sxtxixtxcxh_refuel",
+        "version": 106
+      },
+      {
+        "id": "burn_organic_waste",
+        "version": 10
+      },
+      {
+        "id": "Decoration_Emporium",
+        "version": 3
+      },
+      {
+        "id": "born_normally_linux",
+        "version": 9
+      },
+      {
+        "id": "dragon_size_fix",
+        "version": 1
+      },
+      {
+        "id": "vattic_pool_spawn_fix",
+        "version": 1
+      },
+      {
+        "id": "quick_fix_pale_birch",
+        "version": 10
+      },
+      {
+        "id": "better_birch_trees",
+        "version": 330
+      },
+      {
+        "id": "Civilized_Attacks_Only",
+        "version": 1
+      },
+      {
+        "id": "site_leader_fix",
+        "version": 102
+      },
+      {
+        "id": "site_ownership_fix",
+        "version": 102
+      },
+      {
+        "id": "lotsa_names_7a",
+        "version": 7
+      },
+      {
+        "id": "cooler_world_names",
+        "version": 5
+      },
+      {
+        "id": "armed_dwarves",
+        "version": 2
+      },
+      {
+        "id": "detailed_environment",
+        "version": 24
+      },
+      {
+        "id": "detailed_weather",
+        "version": 18
+      },
+      {
+        "id": "lightly_detailed_grass",
+        "version": 2
+      },
+      {
+        "id": "soft_hills",
+        "version": 19
+      },
+      {
+        "id": "ketaros_stonesvariations",
+        "version": 10
+      },
+      {
+        "id": "deon_placeholder_seeds",
+        "version": 100
+      },
+      {
+        "id": "shaped_gloves",
+        "version": 2
+      },
+      {
+        "id": "metal_plate_floor",
+        "version": 102
+      },
+      {
+        "id": "dark_floors",
+        "version": 11
+      },
+      {
+        "id": "dark_depths",
+        "version": 1
+      },
+      {
+        "id": "dark_wells",
+        "version": 10
+      },
+      {
+        "id": "obvious_engravings",
+        "version": 1
+      },
+      {
+        "id": "reduced_grey_zfog_mod",
+        "version": 1
+      },
+      {
+        "id": "flowing_water",
+        "version": 10
+      },
+      {
+        "id": "flowing_waves",
+        "version": 13
+      },
+      {
+        "id": "better_combat_log",
+        "version": 2
+      },
+      {
+        "id": "real_month_display",
+        "version": 101
+      },
+      {
+        "id": "audible_alerts",
+        "version": 1007
+      },
+      {
+        "id": "better_prepare_carefully",
+        "version": 8
+      },
+      {
+        "id": "military-reequip",
+        "version": 2
+      },
+      {
+        "id": "breeding_fix",
+        "version": 1
+      },
+      {
+        "id": "clickable_happiness_overlay",
+        "version": 6
+      },
+      {
+        "id": "soundsense_original",
+        "version": 2
+      },
+      {
+        "id": "deon_earthen_ui",
+        "version": 110
+      },
+      {
+        "id": "alternate_work_icons",
+        "version": 2
+      },
+      {
+        "id": "topples_workshop_icons",
+        "version": 62
+      },
+      {
+        "id": "loire_multihaul",
+        "version": 3
+      },
+      {
+        "id": "item-tagger",
+        "version": 10
+      },
+      {
+        "id": "smelt_by_product",
+        "version": 2
+      },
+      {
+        "id": "traducfr",
+        "version": 100
+      }
+    ],
+    "name": "Normal",
+    "vanilla_mods": [
+      "vanilla_text",
+      "vanilla_languages",
+      "vanilla_descriptors",
+      "vanilla_materials",
+      "vanilla_environment",
+      "vanilla_plants",
+      "vanilla_items",
+      "vanilla_buildings",
+      "vanilla_bodies",
+      "vanilla_creatures",
+      "vanilla_creatures_extinct",
+      "vanilla_entities",
+      "vanilla_reactions",
+      "vanilla_interactions",
+      "vanilla_descriptors_graphics",
+      "vanilla_plants_graphics",
+      "vanilla_items_graphics",
+      "vanilla_buildings_graphics",
+      "vanilla_creatures_graphics",
+      "vanilla_creatures_extinct_graphics",
+      "vanilla_interactions_graphics",
+      "vanilla_world_map",
+      "vanilla_interface",
+      "vanilla_music",
+      "vanilla_procedural"
+    ]
+  },
+  {
+    "default": false,
+    "modlist": [
+      {
+        "id": "vanilla_text",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_languages",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_descriptors",
+        "version": 5315
+      },
+      {
+        "id": "vanilla_materials",
+        "version": 5208
+      },
+      {
+        "id": "smooth_floors_look_constructed",
+        "version": 11
+      },
+      {
+        "id": "vanilla_environment",
+        "version": 5301
+      },
+      {
+        "id": "vanilla_plants",
+        "version": 5009
+      },
+      {
+        "id": "vanilla_items",
+        "version": 5301
+      },
+      {
+        "id": "vanilla_buildings",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_bodies",
+        "version": 5315
+      },
+      {
+        "id": "vanilla_creatures",
+        "version": 5316
+      },
+      {
+        "id": "vanilla_creatures_extinct",
+        "version": 5316
+      },
+      {
+        "id": "vanilla_entities",
+        "version": 5301
+      },
+      {
+        "id": "vanilla_reactions",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_interactions",
+        "version": 5101
+      },
+      {
+        "id": "vanilla_descriptors_graphics",
+        "version": 5306
+      },
+      {
+        "id": "vanilla_plants_graphics",
+        "version": 5106
+      },
+      {
+        "id": "vanilla_items_graphics",
+        "version": 5316
+      },
+      {
+        "id": "vanilla_buildings_graphics",
+        "version": 5306
+      },
+      {
+        "id": "vanilla_creatures_extinct_graphics",
+        "version": 5315
+      },
+      {
+        "id": "vanilla_interactions_graphics",
+        "version": 5101
+      },
+      {
+        "id": "vanilla_world_map",
+        "version": 5001
+      },
+      {
+        "id": "vanilla_music",
+        "version": 5306
+      },
+      {
+        "id": "vanilla_procedural",
+        "version": 5316
+      },
+      {
+        "id": "rebooter_library",
+        "version": 4
+      },
+      {
+        "id": "pgm_accurate_domestic_graphics",
+        "version": 105
+      },
+      {
+        "id": "FANTASTIC_FANTASY_FORTRESS",
+        "version": 43
+      },
+      {
+        "id": "Vanilla_Weapon_Overhaul",
+        "version": 26
+      },
+      {
+        "id": "VWO_FFF",
+        "version": 4
+      },
+      {
+        "id": "Biodiversity_Booster",
+        "version": 4
+      },
+      {
+        "id": "Biodiversity_Booster_FFF",
+        "version": 4
+      },
+      {
+        "id": "Skilled_Animals_&_Megabeasts",
+        "version": 6
+      },
+      {
+        "id": "SA&M_FFF",
+        "version": 3
+      },
+      {
+        "id": "caldfir_metallic",
+        "version": 17
+      },
+      {
+        "id": "trainzack_better_instruments",
+        "version": 2000009
+      },
+      {
+        "id": "niemst_grind_bones_and_shells_into_flux",
+        "version": 5024
+      },
+      {
+        "id": "sxtxixtxcxh_refuel",
+        "version": 106
+      },
+      {
+        "id": "burn_organic_waste",
+        "version": 10
+      },
+      {
+        "id": "Decoration_Emporium",
+        "version": 3
+      },
+      {
+        "id": "born_normally_linux",
+        "version": 9
+      },
+      {
+        "id": "Vanilla_Sun_Elves_Playable",
+        "version": 9679
+      },
+      {
+        "id": "Vanilla_Moon_Elves_Playable",
+        "version": 9678
+      },
+      {
+        "id": "Vanilla_Wood_Elves",
+        "version": 9779
+      },
+      {
+        "id": "Vanilla_Drow",
+        "version": 579
+      },
+      {
+        "id": "Vanilla_Mountain_Orc",
+        "version": 1002
+      },
+      {
+        "id": "better_vampires",
+        "version": 1
+      },
+      {
+        "id": "march_of_wrath",
+        "version": 2200
+      },
+      {
+        "id": "meteorite",
+        "version": 1
+      },
+      {
+        "id": "fantastic_trees",
+        "version": 1
+      },
+      {
+        "id": "dragon_size_fix",
+        "version": 1
+      },
+      {
+        "id": "vattic_pool_spawn_fix",
+        "version": 1
+      },
+      {
+        "id": "quick_fix_pale_birch",
+        "version": 10
+      },
+      {
+        "id": "better_birch_trees",
+        "version": 330
+      },
+      {
+        "id": "Civilized_Attacks_Only",
+        "version": 1
+      },
+      {
+        "id": "site_leader_fix",
+        "version": 102
+      },
+      {
+        "id": "site_ownership_fix",
+        "version": 102
+      },
+      {
+        "id": "lotsa_names_7a",
+        "version": 7
+      },
+      {
+        "id": "cooler_world_names",
+        "version": 5
+      },
+      {
+        "id": "armed_dwarves",
+        "version": 2
+      },
+      {
+        "id": "detailed_environment",
+        "version": 24
+      },
+      {
+        "id": "detailed_weather",
+        "version": 18
+      },
+      {
+        "id": "lightly_detailed_grass",
+        "version": 2
+      },
+      {
+        "id": "soft_hills",
+        "version": 19
+      },
+      {
+        "id": "ketaros_stonesvariations",
+        "version": 10
+      },
+      {
+        "id": "deon_placeholder_seeds",
+        "version": 100
+      },
+      {
+        "id": "shaped_gloves",
+        "version": 2
+      },
+      {
+        "id": "metal_plate_floor",
+        "version": 102
+      },
+      {
+        "id": "dark_floors",
+        "version": 11
+      },
+      {
+        "id": "dark_depths",
+        "version": 1
+      },
+      {
+        "id": "dark_wells",
+        "version": 10
+      },
+      {
+        "id": "obvious_engravings",
+        "version": 1
+      },
+      {
+        "id": "reduced_grey_zfog_mod",
+        "version": 1
+      },
+      {
+        "id": "flowing_water",
+        "version": 10
+      },
+      {
+        "id": "flowing_waves",
+        "version": 13
+      },
+      {
+        "id": "better_combat_log",
+        "version": 2
+      },
+      {
+        "id": "real_month_display",
+        "version": 101
+      },
+      {
+        "id": "audible_alerts",
+        "version": 1007
+      },
+      {
+        "id": "better_prepare_carefully",
+        "version": 8
+      },
+      {
+        "id": "military-reequip",
+        "version": 2
+      },
+      {
+        "id": "advanced_agriculture",
+        "version": 509
+      },
+      {
+        "id": "advanced_orchards",
+        "version": 500
+      },
+      {
+        "id": "fantastic_trees_advanced_orchards_patch",
+        "version": 1
+      },
+      {
+        "id": "breeding_fix",
+        "version": 1
+      },
+      {
+        "id": "clickable_happiness_overlay",
+        "version": 6
+      },
+      {
+        "id": "soundsense_original",
+        "version": 2
+      },
+      {
+        "id": "deon_earthen_ui",
+        "version": 110
+      },
+      {
+        "id": "alternate_work_icons",
+        "version": 2
+      },
+      {
+        "id": "topples_workshop_icons",
+        "version": 62
+      },
+      {
+        "id": "loire_multihaul",
+        "version": 3
+      },
+      {
+        "id": "item-tagger",
+        "version": 10
+      },
+      {
+        "id": "smelt_by_product",
+        "version": 2
+      },
+      {
+        "id": "traducfr",
+        "version": 100
+      }
+    ],
+    "name": "PGM Full",
+    "vanilla_mods": [
+      "vanilla_text",
+      "vanilla_languages",
+      "vanilla_descriptors",
+      "vanilla_materials",
+      "vanilla_environment",
+      "vanilla_plants",
+      "vanilla_items",
+      "vanilla_buildings",
+      "vanilla_bodies",
+      "vanilla_creatures",
+      "vanilla_creatures_extinct",
+      "vanilla_entities",
+      "vanilla_reactions",
+      "vanilla_interactions",
+      "vanilla_descriptors_graphics",
+      "vanilla_plants_graphics",
+      "vanilla_items_graphics",
+      "vanilla_buildings_graphics",
+      "vanilla_creatures_extinct_graphics",
+      "vanilla_interactions_graphics",
+      "vanilla_world_map",
+      "vanilla_interface",
+      "vanilla_music",
+      "vanilla_procedural"
+    ]
+  }
+]

@@ -13,6 +13,7 @@ from tkinter import filedialog, messagebox, ttk
 import core
 import pack
 import navigation_bridge
+import animations_installer
 
 ROOT = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
 
@@ -33,6 +34,7 @@ class App:
         self.experimental = tk.BooleanVar(value=False)
         self.navigation_experimental = tk.BooleanVar(value=False)
         self.navigation_window = None
+        self.animations_window = None
         box = ttk.Frame(window, padding=22)
         box.pack(fill='both', expand=True)
         ttk.Label(box, text='PGM · Starter Quest Mods', font=('', 20, 'bold')).pack(anchor='w')
@@ -78,6 +80,7 @@ class App:
         ttk.Button(bottom, text='Installation guide', command=self.guide).pack(side='left')
         ttk.Button(bottom, text='Save report', command=self.report).pack(side='right')
         self.button(bottom, 'World map navigation…', self.navigation_dialog)
+        self.button(bottom, 'Animations & speed…', self.animations_dialog)
         window.protocol('WM_DELETE_WINDOW', self.close)
         self.log('Close the game before making changes. Modified local files are protected.\n'
                  'To update: download and open the new installer, select your game folder, then choose Install / update.\n'
@@ -168,6 +171,34 @@ class App:
         row=ttk.Frame(box);row.pack(fill='x',pady=8)
         for label,action in [('Check before install','check'),('Install navigation','install'),('Restore previous files','restore')]:
             self.button(row,label,lambda action=action:self.run(lambda:self.navigation(action)))
+
+    def animations_dialog(self):
+        if self.animations_window and self.animations_window.winfo_exists():
+            self.animations_window.deiconify();self.animations_window.lift();return
+        panel = tk.Toplevel(self.window)
+        self.animations_window = panel
+        panel.title('PGM — Animations & speed')
+        panel.geometry('700x280');panel.minsize(680,260)
+        panel.protocol('WM_DELETE_WINDOW',panel.withdraw)
+        box=ttk.Frame(panel,padding=20);box.pack(fill='both',expand=True)
+        ttk.Label(box,text='Optional animations and speed controls',font=('',15,'bold')).pack(anchor='w')
+        ttk.Label(box,text='Smooth dwarf walking, work gestures (mining, felling, building), speed buttons and an FPS counter. '
+                  'DFHack is required. Turn gestures off in game with: pgm-motion work off.',wraplength=640).pack(anchor='w',pady=12)
+        ttk.Label(box,text='Close the game first. Uses the game and DFHack folders selected in the main window; replaced files are backed up.',wraplength=640).pack(anchor='w',pady=8)
+        row=ttk.Frame(box);row.pack(fill='x',pady=8)
+        for label,action in [('Check before install','check'),('Install animations','install'),('Restore previous files','restore')]:
+            self.button(row,label,lambda action=action:self.run(lambda:self.animations(action)))
+
+    def animations(self,action):
+        game,hack=self.selected_game,self.selected_hack
+        if action=='check':
+            result=animations_installer.check(game,hack,self.system)
+            return '\n'.join(f'{k}: {v}' for k,v in sorted(result.items()))
+        if action=='install':
+            done=animations_installer.install(game,hack,self.system,core.game_closed)
+            return 'Animations installed (%d files). Start a fortress with DFHack.' % len(done)
+        done=animations_installer.uninstall(game,hack,core.game_closed)
+        return 'Previous files restored (%d).' % len(done)
 
     def navigation(self,action):
         return navigation_bridge.run(ROOT,self.system,self.selected_game,self.selected_hack,action,

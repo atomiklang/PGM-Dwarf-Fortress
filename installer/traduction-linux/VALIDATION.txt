@@ -1,0 +1,6 @@
+Bêta17 locale — retour Linux du20novembre2026.
+Tests natifs dialogues,7517champs+exemples,208familles,terminologie,commerce,4118textes végétaux,chroniques,127cas,20cas session/géométrie et sécurité : réussis.
+Démarrage isolé Linux : succès,50174entrées,1760modèles,605infobulles,DFHack et tests du widget réel de quêtes sur état fictif. Aucune erreur d’inventaire masquée acceptée par l’installation.
+Trois fichiers installés jeu fermé avec garde des versions et empreintes. Aucun monde joueur ouvert ou modifié ; rien publié.
+Preuve : Dossiers/Validation dialogues17/essai-linux-retour/result.json.
+Limites : pas de partie complète ni rendu exhaustif de tous dialogues générés.

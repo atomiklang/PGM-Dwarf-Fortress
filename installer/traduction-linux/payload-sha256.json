@@ -1,0 +1,9 @@
+{
+  "dfhack-config/scripts/traducfr-dfhack.lua": "51cb33488e8862058242cdd406f276a6c08c2d138e8bcf9b49f57a240033e00d",
+  "dfhack-config/scripts/traducfr-fps.lua": "5ba07960cde7cdd48d3635060aaaa457039eebdc9c44b032b9018b4fbc0534f3",
+  "libdfhooks_traducfr.so": "12818b43c4d19ef36b0d49dc99666927337443e13944ddb97131826bc8c5ac64",
+  "traducfr/corrections_fr.csv": "9fd8956b0a406e0f4c208197b5864046e94d42bdfca21f861f9f3d8772bfe4fc",
+  "traducfr/dictionnaire.csv": "325fb602718e738ce25f69aeca0d9ce979755391395440c02e216d3c9629998b",
+  "traducfr/modeles.txt": "520c44cf217381f145e1f612fc647f73adbfe56059e2edb32db531c1b03aeeef",
+  "traducfr/reglages.txt": "cde8a9a2a9643bc82a5d32dbc6b74ed2ac038de2c3234c1a3cee047a56fcc58c"
+}

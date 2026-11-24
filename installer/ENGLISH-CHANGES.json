@@ -1,0 +1,13 @@
+{
+  "source": "Installateur PGM19",
+  "status": "unpublished English candidate",
+  "language": "English",
+  "files": [
+    "app.py",
+    "core.py",
+    "pack.py",
+    "linux_upgrade.py"
+  ],
+  "changed_phrases": 80,
+  "game_translation_payload_changed": false
+}

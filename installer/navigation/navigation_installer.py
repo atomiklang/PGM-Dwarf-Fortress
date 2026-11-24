@@ -20,6 +20,9 @@ COMMON = (
     'hack/lua/worldmap-zoom/gesture.lua',
     'hack/lua/worldmap-zoom/input.lua',
     'hack/lua/worldmap-zoom/ui.lua',
+    'dfhack-config/scripts/pgm-worldmap-auto.lua',
+    'dfhack-config/init/dfhack.pgm-worldmap-auto.init',
+    'hack/lua/pgm/boucle.lua',
 )
 STATE = '.pgm-worldmap-navigation'
 CONTRACT = Path(__file__).with_name('installation-contract.json')

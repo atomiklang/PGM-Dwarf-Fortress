@@ -13,6 +13,8 @@ args = [sys.executable, '-m', 'PyInstaller', '--clean', '--noconfirm', '--onefil
         '--add-data', str(root / 'preparer-variantes.py') + sep + '.',
         '--add-data', str(root / 'presets') + sep + 'presets',
         '--add-data', str(root/'navigation') + sep + 'navigation',
+        '--add-data', str(root/'animations') + sep + 'animations',
+        '--hidden-import', 'animations_installer',
         '--hidden-import', 'navigation_bridge', '--hidden-import', 'argparse', '--hidden-import', 'stat', '--hidden-import', 'shutil']
 if sys.platform == 'linux':
     args += ['--hidden-import', 'fcntl', '--hidden-import', 'csv', '--hidden-import', 'uuid', '--hidden-import', 'struct', '--hidden-import', 'linux_upgrade', '--add-data', str(root / 'traduction-linux') + sep + 'traduction-linux']

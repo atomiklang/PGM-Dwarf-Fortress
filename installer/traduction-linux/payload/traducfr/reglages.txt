@@ -1,0 +1,9 @@
+# Reglages traducfr (v3.7)
+# Compteur FPS : position en cases (0,0 = coin en haut a gauche), couleurs 0-15 (15 = blanc, 0 = noir)
+fps_deplacer=1
+fps_x=0
+fps_y=0
+fps_couleur_texte=15
+fps_couleur_fond=0
+# Onglets dont le texte est decale d une case vers la gauche (separes par ;)
+decaler_gauche=Militaire;Groupe;Objet;Retour

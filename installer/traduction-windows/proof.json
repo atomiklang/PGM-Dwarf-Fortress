@@ -1,0 +1,29 @@
+{
+  "tested_payload": {
+    "dfhack-config/scripts/pgm-windows-infobulles.lua": "24fac42621e5a1cec20227e540616c73ed010b990b602c6fa35c234cc30f529e",
+    "dfhack-config/scripts/traducfr-dfhack.lua": "7776d6a99d59acd751039d9dfe097f084c1d466f0a95018815b388b912bfcf1f",
+    "dfhooks_pgm.dll": "50cf0a698284ce37fd2bd631514cc8b4ba31abfefd4a1ff8ad186c200142763a",
+    "pgm-hook/profile.bin": "aac0c7646daa471cf743dbef7a5de0dd2d200ccfc825a73dbbc78fe31eeea6e9",
+    "traducfr/dictionnaire.csv": "325fb602718e738ce25f69aeca0d9ce979755391395440c02e216d3c9629998b",
+    "traducfr/modeles.txt": "520c44cf217381f145e1f612fc647f73adbfe56059e2edb32db531c1b03aeeef"
+  },
+  "experimental": true,
+  "proton_test_passed": true,
+  "native_windows_validated": false,
+  "source": "Portage Windows29",
+  "gui_proof": "Dossiers/Windows29/final21.json",
+  "harness_proof": "Dossiers/Windows29/harness.json",
+  "harness_case_count": 1418,
+  "threaded_lookups": 4000,
+  "native_hook_boundaries": 2,
+  "tooltips": 609,
+  "player_saves_opened": false,
+  "paragraph_color_layout_parity": false,
+  "installer_disposable_tests": "Dossiers/Windows19/installer-tests.json",
+  "validation": "Portage Windows19/VALIDATION.json",
+  "no_game_or_dfhack_binaries_redistributed": true,
+  "profile_format": "PGMW17 retained unchanged; compatible53.17EXE/profile/loader SHA required",
+  "guard_runtime_proof_previous": "Dossiers/Windows17/garde-dffr.json and garde-profil.json",
+  "source_provenance": "Portage Windows19/SOURCE.json",
+  "minhook_license": "Portage Windows19/vendor/minhook/LICENSE.txt"
+}
