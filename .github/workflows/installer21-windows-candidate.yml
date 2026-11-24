@@ -2,7 +2,7 @@ name: PGM English assistant21 Windows candidate (artifacts only)
 on:
   push:
     branches: [candidate/installer21-windows]
-    paths: ['.github/workflows/installer21-windows-candidate.yml', 'installer/**']
+    paths: ['.github/workflows/installer21-windows-candidate.yml', 'installer/**', '.gitattributes']
 permissions:
   contents: read
 concurrency:
