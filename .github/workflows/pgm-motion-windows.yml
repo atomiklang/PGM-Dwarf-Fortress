@@ -33,7 +33,7 @@ jobs:
       - name: Configurer et compiler seulement pgm-motion
         shell: bash
         run: |
-          cmake -S dfhack -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCS=OFF -DBUILD_TESTS=OFF
+          cmake -S dfhack -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCS=OFF -DBUILD_TESTS=OFF -DPERL_EXECUTABLE=C:/Strawberry/perl/bin/perl.exe
           cmake --build build --target pgm-motion --parallel
       - name: Empreinte
         shell: bash
