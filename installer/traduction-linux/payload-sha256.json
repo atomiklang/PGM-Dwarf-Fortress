@@ -1,7 +1,7 @@
 {
-  "dfhack-config/scripts/traducfr-dfhack.lua": "5368c2d638fdcffbcdf0fef10517025d519bc92cd766b6764176e4b7b60cab5e",
+  "dfhack-config/scripts/traducfr-dfhack.lua": "b80677ed5db4335619097a4b277b86003324cb7a6b1eff00d6cf0ba07e3f2f2b",
   "dfhack-config/scripts/traducfr-fps.lua": "5ba07960cde7cdd48d3635060aaaa457039eebdc9c44b032b9018b4fbc0534f3",
-  "libdfhooks_traducfr.so": "5286c81e5d56abc905f6ccbe1d6eaeaf1467e86f2ad86fe3c989e471bd9c7855",
+  "libdfhooks_traducfr.so": "eaf83a71176fdc69af20d05565fddc407074d1d545af9998e1913911939f38a0",
   "traducfr/corrections_fr.csv": "381e823208bac793f8a2fbbded1524c8b9bacb3dda248ab7e52772ed2383aab6",
   "traducfr/dictionnaire.csv": "84b8032fe65b0d41ae694c7bc5d1b4775acbf92a605bed2f8b1928b1904399bb",
   "traducfr/modeles.txt": "11e6f4ab0d7b07b836e6ce8f8db06d49dbea014f50cda0554bf457921fa87520",

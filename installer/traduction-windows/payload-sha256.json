@@ -1,6 +1,6 @@
 {
   "dfhack-config/scripts/pgm-windows-infobulles.lua": "24fac42621e5a1cec20227e540616c73ed010b990b602c6fa35c234cc30f529e",
-  "dfhack-config/scripts/traducfr-dfhack.lua": "6a82fb3f2447d43b371a4c6654e4a5ba071a90e5ce7b1c87a738149fddee3743",
+  "dfhack-config/scripts/traducfr-dfhack.lua": "7af3cde40da37181a70bee3c45dd5703f98ca91c2e418b31087c7239b20a543c",
   "dfhooks_pgm.dll": "486a0554795ee92041c74889b5688b1eba5d7072bafc7eadd4e6cb14cbff051c",
   "pgm-hook/profile.bin": "aac0c7646daa471cf743dbef7a5de0dd2d200ccfc825a73dbbc78fe31eeea6e9",
   "traducfr/dictionnaire.csv": "84b8032fe65b0d41ae694c7bc5d1b4775acbf92a605bed2f8b1928b1904399bb",

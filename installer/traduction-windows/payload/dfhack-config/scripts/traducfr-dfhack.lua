@@ -2107,7 +2107,7 @@ if ok_ov and overlay then
     DrapeauLangue=defclass(DrapeauLangue,overlay.OverlayWidget)
     DrapeauLangue.ATTRS{
         desc='Drapeau FR/EN : cliquer pour changer la langue de la traduction PGM.',
-        default_pos={x=10,y=1},
+        default_pos={x=4,y=5},
         default_enabled=true,
         viewscreens={'title/Default'},
         frame={w=6,h=4},
