@@ -1,6 +1,6 @@
 # Installer PGM sous Windows
 
-**Télécharge [PGM-Installer-Windows-0.1.0-beta.6.exe](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.6/PGM-Installer-Windows-0.1.0-beta.6.exe), puis ouvre-le.** Aucun Python à installer. Parcours prévu pour Windows 64 bits, Dwarf Fortress 53.17 et DFHack 53.17-r1.
+**Télécharge [PGM-Installer-Windows-0.1.0-beta.7.exe](https://github.com/atomiklang/PGM-Dwarf-Fortress/releases/download/installer-v0.1.0-beta.7/PGM-Installer-Windows-0.1.0-beta.7.exe), puis ouvre-le.** Aucun Python à installer. Parcours prévu pour Windows 64 bits, Dwarf Fortress 53.17 et DFHack 53.17-r1.
 
 L’assistant5 est en anglais : les noms des boutons ci-dessous correspondent à son interface. Le contenu de traduction reste en bêta19.
 
