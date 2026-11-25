@@ -2095,3 +2095,36 @@ if ok_helpdb and helpdb then
         return long0(entry,width)
     end
 end
+
+-- PGM v30 : drapeau FR/EN sur l'ecran titre, a cote du bouton DFHack. Clic = changer de langue.
+local ok_ov,overlay=pcall(require,'plugins.overlay')
+if ok_ov and overlay then
+    local B,W,R=COLOR_BLUE,COLOR_WHITE,COLOR_RED
+    local DRAPEAUX={
+        fr={{B,B,W,W,R,R},{B,B,W,W,R,R},{B,B,W,W,R,R}},
+        en={{B,B,R,R,B,B},{R,R,R,R,R,R},{B,B,R,R,B,B}},
+    }
+    DrapeauLangue=defclass(DrapeauLangue,overlay.OverlayWidget)
+    DrapeauLangue.ATTRS{
+        desc='Drapeau FR/EN : cliquer pour changer la langue de la traduction PGM.',
+        default_pos={x=10,y=1},
+        default_enabled=true,
+        viewscreens={'title/Default'},
+        frame={w=6,h=4},
+    }
+    function DrapeauLangue:onRenderBody(dc)
+        local fr=actif()
+        for y,ligne in ipairs(DRAPEAUX[fr and 'fr' or 'en']) do
+            for x,c in ipairs(ligne) do dc:seek(x-1,y-1):pen({ch=' ',bg=c,fg=c}):char(' ') end
+        end
+        dc:seek(0,3):pen({fg=COLOR_WHITE,bg=COLOR_BLACK}):string(fr and '  FR  ' or '  EN  ')
+    end
+    function DrapeauLangue:onInput(keys)
+        if keys._MOUSE_L and self:getMousePos() then
+            local f=io.open(dfhack.getDFPath()..'/traducfr/langue_demande','wb')
+            if f then f:write('bascule');f:close() end
+            return true
+        end
+    end
+    OVERLAY_WIDGETS={drapeau=DrapeauLangue}
+end
