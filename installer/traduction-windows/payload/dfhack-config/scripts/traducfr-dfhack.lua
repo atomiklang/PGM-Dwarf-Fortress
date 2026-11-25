@@ -515,3 +515,1583 @@ if type(dfhack.run_script_with_env)=='function' then
         end
     end
 end
+
+-- PGM v30 : aide DFHack en francais (traducfr/aide_dfhack.txt, cp850).
+-- Format : "@@ nom" puis "court: resume" puis l'aide complete. Outil absent -> aide anglaise intacte.
+local AIDE_FR=nil
+local AIDE_DONNEES=[==[
+@@ 3dveins
+court: R‚‚crit les filons pour qu'ils s'‚tendent en 3D.
+@@ adaptation
+court: RŠgle l'adaptation aux cavernes d'une cr‚ature.
+@@ add-recipe
+court: Ajoute des recettes d'artisanat … une civilisation.
+@@ add-spatter
+court: Ajoute poisons et effets magiques aux armes.
+@@ add-thought
+court: Ajoute une pens‚e … la cr‚ature choisie.
+@@ advtools
+court: Outils pratiques pour le mode aventure.
+@@ agitation-rebalance
+court: Faune agit‚e et invasions de cavernes moins tenaces.
+@@ alias
+court: Cr‚e des raccourcis pour d'autres commandes DFHack.
+@@ allneeds
+court: R‚sume les besoins d'un nain ou de toute la forteresse.
+@@ animal-control
+court: Voir, abattre ou castrer des groupes d'animaux.
+@@ aquifer
+court: Ajoute, retire ou modifie des aquifŠres.
+@@ armoks-blessing
+court: Donne des caract‚ristiques sup‚rieures aux nains.
+@@ assign-attributes
+court: RŠgle les attributs physiques et mentaux.
+@@ assign-beliefs
+court: RŠgle les croyances et valeurs d'une cr‚ature.
+@@ assign-facets
+court: RŠgle les traits de personnalit‚.
+@@ assign-goals
+court: RŠgle les objectifs et rˆves d'une cr‚ature.
+@@ assign-minecarts
+court: Attribue des wagonnets aux itin‚raires de transport.
+@@ assign-preferences
+court: Voir ou r‚gler les pr‚f‚rences d'une cr‚ature.
+@@ assign-skills
+court: RŠgle les comp‚tences d'une cr‚ature.
+@@ autobutcher
+court: Abat automatiquement le b‚tail en surplus.
+@@ autocheese
+court: Lance la fabrication de fromage selon le lait en stock.
+@@ autochop
+court: Coupe des arbres quand le stock de b–ches baisse.
+autochop
+========
+
+tiquettes : fort | auto | plants
+
+Commande : "autochop"
+
+  Coupe des arbres quand le stock de b–ches baisse.
+
+Marque automatiquement des arbres … couper quand les b–ches manquent. Il peut aussi garder certains terriers sans arbres : les caravanes ont toujours un chemin jusqu'au d‚p“t, et aucun arbre ne pousse contre vos murs pour offrir un passage aux envahisseurs.
+
+Une fois par jour de jeu, autochop compte vos b–ches et marque des arbres. Les b–ches interdites ou inaccessibles (zones cach‚es, sous l'eau...) ne comptent pas, et les arbres inaccessibles ne sont jamais marqu‚s.
+
+Pour la fenˆtre de r‚glage, voir gui/autochop.
+
+
+Utilisation
+-----------
+
+   enable autochop
+   autochop [status]
+   autochop (designate|undesignate)
+   autochop target <max> [<min>]
+   autochop (chop|nochop) <terrier>[,<terrier>...]
+   autochop (clearcut|noclearcut) <terrier>[,<terrier>...]
+   autochop (protect|unprotect) <type>[,<type>...] <terrier>[,<terrier>...]
+
+
+Exemples
+--------
+
+Garder environ 200 b–ches en stock, coup‚es partout o— c'est accessible :
+
+   enable autochop
+
+Garder environ 500 b–ches, coup‚es dans le terrier "TreeFarm", et garder d‚gag‚s le chemin des caravanes et les abords du mur ("CaravanPath" et "OuterWall") :
+
+   enable autochop
+   autochop target 500
+   autochop chop TreeFarm
+   autochop clearcut CaravanPath,OuterWall
+
+Retirer d'un terrier ("PicnicArea") tous les arbres qui ne donnent pas de nourriture :
+
+   autochop clearcut PicnicArea
+   autochop protect brewable,edible,cookable PicnicArea
+   autochop designate
+
+
+Commandes
+---------
+
+"status"
+   Affiche le r‚glage actuel et les statistiques utiles.
+
+"designate"
+   Marque tout de suite des arbres selon le r‚glage, mˆme si "autochop" n'est pas activ‚.
+
+"undesignate"
+   Retire le marquage de tous les arbres.
+
+"target <max> [<min>]"
+   Nombre de b–ches voulu en stock. Sans minimum, il vaut 20 % de moins que le maximum. Par d‚faut "200" (minimum "160").
+
+"(no)chop <terrier>[,<terrier>...]"
+   Ne coupe que dans ces terriers au lieu de toute la carte. Terriers par nom ou par identifiant.
+
+"(no)clearcut <terrier>[,<terrier>...]"
+   Garde ces terriers sans arbres : tout arbre qui y apparaŒt est marqu‚ … couper en priorit‚ 2.
+
+"(un)protect <type>[,<type>...] <terrier>[,<terrier>...]"
+   pargne les arbres qui donnent ces nourritures : "brewable" (… brasser), "edible" (comestible), "cookable" (… cuisiner).
+@@ autoclothing
+court: GŠre les ordres de fabrication de vˆtements.
+autoclothing
+============
+
+tiquettes : fort | auto | workorders
+
+Commande : "autoclothing"
+
+  GŠre les ordres de fabrication de vˆtements.
+
+D‚finissez un ® uniforme ¯ pour vos civils : "autoclothing" suit le stock de ces vˆtements (y compris ceux d‚j… port‚s) et cr‚e des ordres de travail quand le stock passe sous le seuil voulu par citoyen.
+
+Pour choisir entre autoclothing et tailor, voir la derniŠre partie.
+
+
+Utilisation
+-----------
+
+   autoclothing
+   autoclothing <matiŠre> <objet>
+   autoclothing <matiŠre> <objet> <quantit‚>
+   autoclothing clear <matiŠre> <objet>
+
+"<matiŠre>" : "cloth" (tissu), "silk" (soie), "yarn" (laine) ou "leather" (cuir). "<objet>" : tout ce que votre civilisation sait fabriquer, comme "dress" (robe) ou "mitten" (moufle).
+
+La quantit‚ est **par citoyen** : gardez des valeurs faibles. "1" en fait un par citoyen, "2" donne … chacun un vˆtement de rechange. "1" suffit en g‚n‚ral.
+
+Sans paramŠtre, affiche le r‚sum‚ des vˆtements g‚r‚s et la situation de la forteresse. Avec une matiŠre et un objet mais sans quantit‚, affiche le r‚glage actuel.
+
+
+Exemples
+--------
+
+"autoclothing cloth "short skirt" 1"
+   Chaque citoyen aura une jupe courte en tissu (tant qu'il y a du tissu).
+
+"autoclothing cloth dress"
+   Affiche le nombre de robes en tissu pr‚vu par citoyen.
+
+"autoclothing clear cloth "short skirt""
+   Arrˆte la fabrication des jupes courtes en tissu r‚gl‚e plus haut.
+
+
+Lequel activer : autoclothing ou tailor ?
+-----------------------------------------
+
+Les deux cr‚ent des ordres pour les vˆtements n‚cessaires, mais ne choisissent pas de la mˆme fa‡on quand et quoi commander.
+
+Activez "autoclothing" si :
+
+* vous voulez r‚gler chaque type de vˆtement pour d‚cider pr‚cis‚ment ce que portent vos citoyens ;
+* vous voulez une r‚serve de vˆtements avant d'en avoir besoin.
+
+Activez tailor si :
+
+* vous voulez des citoyens habill‚s, peu importe comment ;
+* vous voulez un outil qui marche bien sans r‚glage.
+
+Vous pouvez activer les deux : r‚glez quelques types dans "autoclothing" (par exemple des robes pour presque tout le monde) et laissez tailor g‚rer le reste.
+@@ autodump
+court: Rassemble ou d‚truit les objets marqu‚s … jeter.
+@@ autofarm
+court: Choisit automatiquement les cultures des champs.
+@@ autofish
+court: GŠre la pˆche selon le stock de poisson.
+@@ autolabor
+court: GŠre automatiquement les m‚tiers des nains.
+@@ autonestbox
+court: Place les femelles pondeuses dans les nichoirs.
+autonestbox
+===========
+
+tiquettes : fort | auto | animals
+
+Commande : "autonestbox"
+
+  Place les femelles pondeuses dans les nichoirs.
+
+Cr‚ez des enclos/pƒturages sur les cases de nichoirs construits. Si l'enclos fait plus de 1x1, le nichoir doit ˆtre dans le coin en haut … gauche. Un seul animal par enclos, quelle que soit sa taille. Les pondeuses qui broutent (comme les oiseaux-‚lans) sont ignor‚es : elles mourraient de faim sur 1x1. Seuls les animaux domestiques, ou apprivois‚s avec un dresseur attitr‚, sont plac‚s : une pondeuse sauvage … moiti‚ dress‚e pourrait saccager vos nichoirs en redevenant sauvage.
+
+
+Utilisation
+-----------
+
+"enable autonestbox"
+   Cherche en continu les pondeuses sans enclos et les place dans les nichoirs.
+
+"autonestbox"
+   Affiche l'‚tat actuel.
+
+"autonestbox now"
+   Lance une recherche et un placement tout de suite, mˆme si le module n'est pas activ‚.
+@@ autonick
+court: Donne des surnoms uniques au hasard aux nains.
+autonick
+========
+
+tiquettes : fort | productivity | units
+
+Commande : "autonick"
+
+  Donne des surnoms uniques au hasard aux nains.
+
+Les surnoms sont tir‚s au hasard dans le fichier "dfhack-config/autonick.txt", que vous pouvez remplir avec vos noms pr‚f‚r‚s.
+
+Les nains qui ont d‚j… un surnom le gardent, et personne d'autre ne re‡oit ce surnom.
+
+S'il y a moins de surnoms que de nains, les nains restants n'en ont pas.
+
+
+Utilisation
+-----------
+
+   autonick all [<options>]
+
+Avec la commande "repeat", les nouveaux migrants re‡oivent un surnom automatiquement :
+
+   repeat -name autonick -time 3 -timeUnits months -command [ autonick all ]
+
+
+Options
+-------
+
+"-q", "--quiet"
+   N'indique pas combien de nains ont re‡u un surnom.
+
+
+Format du fichier
+-----------------
+
+Le fichier "dfhack-config/autonick.txt" est simple :
+
+* un surnom par ligne ;
+* les lignes vides, celles qui commencent par "#" et les doublons sont ignor‚s.
+
+Ajoutez tous les surnoms que vous voulez !
+@@ autoslab
+court: Grave des dalles pour les citoyens fant“mes.
+@@ autotraining
+court: Envoie les nains s'entraŒner pour leur besoin martial.
+@@ ban-cooking
+court: Empˆche de cuisiner les ingr‚dients utiles.
+ban-cooking
+===========
+
+tiquettes : fort | productivity | items | plants
+
+Commande : "ban-cooking"
+
+  Empˆche de cuisiner les ingr‚dients utiles.
+
+Certains ingr‚dients ont d'autres usages importants. Les graines se cuisinent, mais si vous les cuisinez toutes, vos fermiers n'auront plus rien … planter. L'alcool aussi, mais vos nains n'auront alors plus rien (de bon) … boire.
+
+Dans l'‚cran Cuisine, vous pouvez interdire chaque type d'ingr‚dient un par un. Pour prot‚ger tout l'alcool, il faut filtrer sur ® Boissons ¯ puis cliquer sur chaque type affich‚. Seuls les types en stock apparaissent : un nouvel alcool acquis plus tard devra ˆtre interdit … son tour.
+
+"ban-cooking" interdit d'un coup des familles entiŠres (par exemple tous les alcools), mˆme ceux que vous n'avez pas encore : ils seront d‚j… interdits … leur arriv‚e. Il n'interdit jamais ce qui ne sert qu'… manger, comme la viande ou les noix non plantables. Lancez de pr‚f‚rence "ban-cooking all" dŠs le d‚but d'une forteresse ; vous pouvez l'ajouter au d‚marrage automatique dans gui/control-panel.
+
+Pour autoriser de nouveau un type, cliquez sur l'ic“ne ® cuisiner ¯ dans l'‚cran Cuisine, ou autorisez une famille entiŠre avec l'option "--unban".
+
+
+Utilisation
+-----------
+
+   ban-cooking <type|all> [<type> ...] [<options>]
+
+Types possibles :
+
+* "booze" (alcools)
+* "brew" (plantes … brasser)
+* "fruit" (fruits)
+* "honey" (miel)
+* "milk" (lait)
+* "mill" (plantes … moudre)
+* "oil" (huile)
+* "seeds" (graines plantables et ce qui en donne)
+* "tallow" (suif)
+* "thread" (fil)
+
+Dans le jeu de base, rien de ce qui se moud ou donne du fil ne se cuisine : ces types ne servent qu'avec des mods qui en ajoutent.
+
+
+Exemples
+--------
+
+"ban-cooking oil tallow"
+   Interdit de cuisiner toutes les huiles et tous les suifs.
+
+"ban-cooking all"
+   Interdit de cuisiner tout ce qui a un autre usage. Peut se lancer au d‚marrage via gui/control-panel.
+
+
+Options
+-------
+
+"-u", "--unban"
+   Autorise de nouveau les types indiqu‚s.
+
+"-v", "--verbose"
+   Affiche chaque interdiction.
+@@ blueprint
+court: Enregistre la carte dans un plan quickfort.
+@@ bodyswap
+court: Prend le contr“le de n'importe quelle cr‚ature visible.
+@@ brainwash
+court: Donne une personnalit‚ id‚ale … un nain.
+@@ build-now
+court: Termine instantan‚ment les constructions.
+@@ buildingplan
+court: Planifie des bƒtiments, avec ou sans mat‚riaux.
+@@ burial
+court: Cr‚e des tombes pour les cercueils sans zone.
+burial
+======
+
+tiquettes : fort | productivity | buildings
+
+Commande : "burial"
+
+  Cr‚e des tombes pour les cercueils sans zone.
+
+Cr‚e une tombe de 1x1 pour chaque cercueil construit qui n'est dans aucune zone.
+
+
+Utilisation
+-----------
+
+   "burial [<options>]"
+
+
+Exemples
+--------
+
+"burial"
+   Cr‚e une tombe pour tous, pour chaque cercueil sans zone de la carte.
+
+"burial -z"
+   Cr‚e les tombes seulement au niveau actuel.
+
+"burial -c"
+   Tombes r‚serv‚es aux citoyens.
+
+"burial -p"
+   Tombes r‚serv‚es aux animaux de compagnie.
+
+"burial -cp"
+   Tombes sans inhumation automatique (citoyens et animaux) : les d‚funts sont attribu‚s … la main.
+
+
+Options
+-------
+
+"-z", "--cur-zlevel"
+   Seulement au niveau actuel.
+
+"-c", "--citizens-only"
+   Inhumation automatique des citoyens seulement.
+
+"-p", "--pets-only"
+   Inhumation automatique des animaux de compagnie seulement.
+@@ burrow
+court: Modifie rapidement les terriers et leurs occupants.
+@@ caravan
+court: Modifie les caravanes pr‚sentes sur la carte.
+@@ catsplosion
+court: Provoque des grossesses.
+@@ changeitem
+court: Change la matiŠre, la qualit‚ ou le type d'un objet.
+@@ changelayer
+court: Change la matiŠre d'une couche g‚ologique entiŠre.
+@@ changevein
+court: Change la matiŠre d'un filon.
+@@ cleanconst
+court: Nettoie les mat‚riaux de construction.
+@@ cleaners
+court: Commandes pour nettoyer les ‚claboussures.
+@@ cleanowned
+court: Confisque et jette les d‚chets poss‚d‚s par les nains.
+cleanowned
+==========
+
+tiquettes : fort | productivity | items
+
+Commande : "cleanowned"
+
+  Confisque et jette les d‚chets poss‚d‚s par les nains.
+
+Les nains renoncent … leurs objets ‚parpill‚s ou trŠs us‚s, qui sont ensuite marqu‚s … jeter. Vos nains abandonnent enfin leur nourriture pourrie et leurs pagnes en lambeaux pour aller en chercher des neufs !
+
+
+Utilisation
+-----------
+
+   cleanowned [<types>] [dryrun]
+
+Sans paramŠtre, "cleanowned" confisque et jette les objets pourris et la nourriture poss‚d‚e laiss‚e par terre. Avec "dryrun", il affiche seulement ce qu'il ferait, sans rien confisquer.
+
+Vous pouvez ajouter d'autres types d'objets :
+
+"scattered"
+   Tous les objets ‚parpill‚s par terre.
+
+"x"
+   Les objets us‚s (x) et plus.
+
+"X"
+   Les objets trŠs us‚s (X) et plus.
+
+"nodump"
+   Les nains lƒchent les objets confisqu‚s, sans qu'ils soient marqu‚s … jeter.
+
+Ou bien confisquez tous les objets poss‚d‚s avec "all".
+
+
+Exemple
+-------
+
+"cleanowned scattered X"
+   Confisque et jette la nourriture pourrie ou abandonn‚e, les d‚chets par terre et les objets trŠs us‚s (X) et plus.
+@@ clear-smoke
+court: Retire toute la fum‚e de la carte.
+@@ clear-webs
+court: Retire toutes les toiles de la carte.
+@@ cls
+court: Efface l'‚cran du terminal.
+@@ colonies
+court: GŠre les colonies de vermine et les ruches.
+@@ combat-harden
+court: RŠgle l'aguerrissement au combat d'une cr‚ature.
+@@ combine
+court: Regroupe les objets empilables.
+combine
+=======
+
+tiquettes : fort | productivity | items | plants | stockpile
+
+Commande : "combine"
+
+  Regroupe les objets empilables.
+
+® D‚fragmente ¯ vos objets sans cr‚er de piles d‚mesur‚es. Dans chaque stock, les objets semblables sont regroup‚s en piles moins nombreuses et plus grandes. Les objets hors des stocks, ou dans des stocks diff‚rents, ne sont pas regroup‚s.
+
+
+Utilisation
+-----------
+
+   combine (all|here) [<options>]
+
+
+Exemples
+--------
+
+"combine"
+   Affiche l'aide.
+
+"combine all --dry-run"
+   Montre ce qui serait regroup‚, tous types et tous stocks.
+
+"combine all"
+   Regroupe les piles de tous types dans tous les stocks.
+
+"combine all --types=meat,plant"
+   Regroupe les piles de viande et de plantes dans tous les stocks.
+
+"combine here"
+   Regroupe les piles du stock choisi.
+
+
+Commandes
+---------
+
+"all"
+   Tous les stocks.
+
+"here"
+   Le stock choisi, celui de l'objet choisi, ou celui de la liste d'objets affich‚e.
+
+
+Options
+-------
+
+"-d", "--dry-run"
+   Montre ce qui serait regroup‚ sans rien faire.
+
+"-t", "--types <types s‚par‚s par des virgules>"
+   Types d'objets … regrouper. Par d‚faut "all". Types possibles :
+
+   all :
+      tous les types ci-dessous.
+
+   ammo :
+      munitions. 25 au maximum.
+
+   drink :
+      boissons en tonneaux ou en pots. 25 au maximum.
+
+   fat :
+      fromage, graisse, suif et autres. 5 au maximum.
+
+   fish :
+      poisson cru ou pr‚par‚, ainsi que tous les oeufs. 5 au maximum.
+
+   food :
+      repas pr‚par‚s. 20 au maximum.
+
+   meat :
+      viande. 5 au maximum.
+
+   parts :
+      morceaux de cadavres. 30 par matiŠre au maximum.
+
+   plant :
+      plantes et leurs produits. 5 au maximum.
+
+   powders :
+      teintures et autres poudres (sauf sable et plƒtre). 10 au maximum.
+
+"-q", "--quiet"
+   N'affiche pas le r‚sum‚ final.
+
+"-v", "--verbose n"
+   Affichage d‚taill‚ pour le d‚bogage, n de 1 … 4.
+
+
+Remarques
+---------
+
+Un objet n'est pas regroup‚ si :
+
+1. il n'est pas dans un stock ;
+2. c'est du sable ou du plƒtre ;
+3. il est pourri, interdit, marqu‚ … jeter ou … fondre, en feu, enferm‚, poss‚d‚ par un marchand, un ennemi ou un nain, ou pris dans une toile ;
+4. c'est un morceau de cadavre non d‚coup‚.
+
+Dans un contenant li‚ … un stock, une pile ne peut pas d‚passer le volume du contenant.
+
+Un objet est regroup‚ avec des objets semblables s'il :
+
+1. a la mˆme race et caste (s'il en a) et le mˆme type d'objet ;
+2. a le mˆme type, la mˆme matiŠre et la mˆme qualit‚. Un chef-d'oeuvre n'est regroup‚ qu'avec ceux du mˆme artisan.
+@@ confirm
+court: Demande confirmation avant les actions destructrices.
+@@ control-panel
+court: Configure DFHack et gŠre ses outils actifs.
+@@ createitem
+court: Cr‚e n'importe quel objet.
+@@ cursecheck
+court: RepŠre les cr‚atures maudites.
+@@ deathcause
+court: Indique la cause de la mort d'une cr‚ature.
+@@ deep-embark
+court: Commence une forteresse en profondeur.
+@@ deramp
+court: Retire les rampes marqu‚es pour suppression.
+@@ deteriorate
+court: Fait pourrir cadavres, vˆtements ou nourriture.
+@@ die
+court: Quitte DF tout de suite, sans sauvegarder.
+@@ dig
+court: Commandes pour marquer les cases … creuser.
+@@ dig-now
+court: Termine instantan‚ment le creusement marqu‚.
+@@ diplomacy
+court: Voir ou modifier les relations diplomatiques.
+@@ disable
+court: D‚sactive un outil DFHack … effet durable.
+@@ dwarfvet
+court: Permet de soigner les animaux … l'h“pital.
+@@ edgescroll
+court: Fait d‚filer la carte quand la souris touche le bord.
+@@ elevate-mental
+court: Donne des attributs mentaux id‚aux … un nain.
+@@ elevate-physical
+court: Donne des attributs physiques id‚aux … un nain.
+@@ embark-anyone
+court: S'installer avec n'importe quelle civilisation.
+@@ embark-skills
+court: RŠgle les comp‚tences des nains … l'installation.
+@@ emigration
+court: Les nains stress‚s peuvent quitter la forteresse.
+@@ empty-bin
+court: Vide le contenu des contenants par terre.
+@@ enable
+court: Active un outil DFHack … effet durable.
+@@ entomb
+court: Met n'importe quel cadavre dans une tombe.
+@@ export-world-map
+court: Exporte la carte du monde pour des outils externes.
+@@ export-worldgen
+court: Exporte les paramŠtres de cr‚ation du monde.
+@@ exportlegends
+court: Exporte les l‚gendes d‚taill‚es.
+@@ exterminate
+court: Tue des cr‚atures.
+@@ extinguish
+court: teint les incendies.
+@@ fastdwarf
+court: Nains rapides qui finissent tout instantan‚ment.
+@@ feature
+court: GŠre la d‚couverte des ‚l‚ments de la carte.
+@@ fillneeds
+court: Satisfait temporairement les besoins d'une cr‚ature.
+@@ filltraffic
+court: Remplit une zone de circulation depuis le curseur.
+@@ firestarter
+court: Met le feu.
+@@ fix/archery-practice
+court: R‚pare carquois et munitions pour le tir … l'arc.
+@@ fix/blood-del
+court: Retire les liquides inutiles des caravanes.
+@@ fix/civil-war
+court: Met fin … une guerre civile.
+@@ fix/codex-pages
+court: Ajoute des pages aux ‚crits qui n'en ont pas.
+@@ fix/corrupt-jobs
+court: Retire les tƒches corrompues (id -1).
+@@ fix/dead-units
+court: Retire les morts de la liste pour les migrants.
+@@ fix/drop-webs
+court: Fait tomber les toiles flottantes.
+@@ fix/dry-buckets
+court: Rend utilisables les seaux d'eau abandonn‚s.
+@@ fix/empty-wheelbarrows
+court: Vide les brouettes bloqu‚es.
+@@ fix/engravings
+court: R‚pare les cases qu'on ne peut plus graver.
+@@ fix/general-strike
+court: Empˆche les nains de refuser de travailler.
+@@ fix/loyaltycascade
+court: Arrˆte les nains qui se battent entre eux.
+@@ fix/noexert-exhaustion
+court: Les cr‚atures NOEXERT ne se fatiguent plus.
+@@ fix/occupancy
+court: R‚pare les cases occup‚es par erreur.
+@@ fix/ownership
+court: R‚pare les liens de propri‚t‚.
+@@ fix/population-cap
+court: Fait respecter la limite de population.
+@@ fix/protect-nicks
+court: Empˆche l'effacement des surnoms.
+@@ fix/retrieve-units
+court: Fait entrer les cr‚atures bloqu‚es hors carte.
+@@ fix/sleepers
+court: R‚veille les dormeurs d'un camp bloqu‚s.
+@@ fix/stable-temp
+court: Corrige les baisses de FPS dues … la temp‚rature.
+@@ fix/stuck-instruments
+court: D‚bloque les instruments bugg‚s.
+@@ fix/stuck-merchants
+court: Renvoie les marchands bloqu‚s au bord de la carte.
+@@ fix/stuck-squad
+court: Permet de secourir une escouade perdue.
+@@ fix/stuck-worship
+court: D‚bloque les nains coinc‚s en priŠre.
+@@ fix/stuck-written-materials
+court: D‚bloque les ‚crits bugg‚s.
+@@ fix/stuckdoors
+court: Permet de fermer les portes rest‚es ouvertes.
+@@ fix/symbol-unstick
+court: D‚bloque les symboles de noblesse.
+@@ fix/wildlife
+court: Fait sortir la faune bloqu‚e pour de nouvelles vagues.
+@@ flashstep
+court: T‚l‚porte l'aventurier au curseur.
+@@ flows
+court: Compte les zones o— coulent des liquides.
+@@ forbid
+court: Interdit ou liste les objets interdits.
+@@ force
+court: D‚clenche des ‚v‚nements du jeu.
+@@ forceequip
+court: Place des objets dans l'inventaire d'une cr‚ature.
+@@ fpause
+court: Force la pause.
+@@ full-heal
+court: Soigne complŠtement la cr‚ature choisie.
+@@ gaydar
+court: Montre l'orientation amoureuse des cr‚atures.
+@@ geld
+court: Castre ou d‚castre des animaux.
+@@ getplants
+court: Marque des arbres … couper et des plantes … cueillir.
+getplants
+=========
+
+tiquettes : fort | productivity | plants
+
+Commande : "getplants"
+
+  Marque des arbres … couper et des plantes … cueillir.
+
+Indiquez par leur nom les arbres … couper et les arbustes … cueillir.
+
+
+Utilisation
+-----------
+
+"getplants [-t|-s|-f] [<filtres>]"
+   Liste les identifiants d'arbres et d'arbustes, ‚ventuellement filtr‚s.
+
+"getplants <id> [<id> ...] [<options>]"
+   Marque les arbres et arbustes de ces types … couper ou cueillir.
+
+
+Exemples
+--------
+
+"getplants"
+   Liste tous les identifiants.
+
+"getplants -f -a"
+   Cueille toutes les plantes de la carte qui donnent des graines … cultiver.
+
+"getplants NETHER_CAP -n 10"
+   Marque 10 chapeaux du n‚ant … couper.
+
+"getplants --brewable -a"
+   Marque tous les arbustes qu'on peut brasser en alcool.
+
+"getplants --brewable"
+   Liste les plantes … brasser.
+
+
+Options
+-------
+
+"-t"
+   Arbres seulement.
+
+"-s"
+   Arbustes seulement.
+
+"-f"
+   Seulement les arbustes qui donnent des graines … cultiver.
+
+"-a"
+   Toutes les plantes (en respectant "-t", "-s", "-f").
+
+"-c"
+   Retire les marquages au lieu de les poser.
+
+"-x"
+   Inverse la s‚lection : toutes les plantes sauf celles indiqu‚es.
+
+"-v"
+   Affiche le nombre de marquages par plante.
+
+"-n <nombre>"
+   Au plus ce nombre de plantes par espŠce.
+
+"-d", "--dry-run"
+   Indique combien de marquages seraient faits, sans rien changer.
+
+"--brewable"
+   Plantes qu'on peut brasser en alcool.
+
+"--edible"
+   Plantes dont une partie se mange crue.
+
+"--oil"
+   Plantes dont les graines, noix ou fruits donnent de l'huile.
+
+"--cloth"
+   Plantes qui donnent du fil.
+
+"--dye"
+   Plantes qui donnent de la teinture.
+
+Les filtres se combinent : une plante qui r‚pond … l'un d'eux est retenue. Ils s'appliquent … toute la s‚lection : "getplants --brewable -x QUARRY_BUSH" marque toutes les plantes … brasser sauf les buissons de carriŠre.
+@@ ghostly
+court: Rend l'aventurier fant“me ou non.
+@@ gui/adv-finder
+court: Trouve et suit personnages et artefacts.
+@@ gui/aquifer
+court: Voir, ajouter, retirer ou modifier des aquifŠres.
+@@ gui/autobutcher
+court: Abat automatiquement le b‚tail en surplus.
+@@ gui/autochop
+court: Coupe des arbres quand le stock de b–ches baisse.
+@@ gui/autodump
+court: T‚l‚porte ou d‚truit des objets.
+@@ gui/autofarm
+court: RŠgle les seuils de cultures d'autofarm.
+@@ gui/autofish
+court: GŠre la pˆche selon le stock de poisson.
+@@ gui/autotraining
+court: Fenˆtre de r‚glage d'autotraining.
+@@ gui/biomes
+court: Affiche et examine les biomes de la carte.
+@@ gui/blueprint
+court: Enregistre la carte dans un plan quickfort.
+@@ gui/civ-alert
+court: Met vite les civils … l'abri.
+@@ gui/confirm
+court: Choisit les confirmations actives.
+@@ gui/control-panel
+court: Configure DFHack et gŠre ses outils actifs.
+@@ gui/cp437-table
+court: Clavier virtuel pour ‚crire … la souris.
+@@ gui/create-item
+court: Fait apparaŒtre des objets.
+@@ gui/design
+court: Marquage avec des formes (cercles, lignes...).
+@@ gui/embark-anywhere
+court: S'installer n'importe o—.
+@@ gui/export-world-map
+court: Exporte la carte du monde pour des outils externes.
+@@ gui/family-affairs
+court: GŠre les couples et provoque des grossesses.
+@@ gui/gm-editor
+court: Examine et modifie les donn‚es du jeu.
+@@ gui/gm-unit
+court: Examine et modifie une cr‚ature.
+@@ gui/journal
+court: Journal de la forteresse, ‚diteur de texte.
+@@ gui/keybinds
+court: GŠre visuellement les raccourcis DFHack.
+@@ gui/launcher
+court: Lanceur de commandes DFHack avec aide int‚gr‚e.
+@@ gui/liquids
+court: Peint des liquides sur la carte.
+@@ gui/mass-remove
+court: S‚lectionne en masse ce qu'il faut retirer.
+@@ gui/masspit
+court: D‚signe des cr‚atures … jeter dans une fosse.
+@@ gui/mod-manager
+court: GŠre les mods actifs.
+@@ gui/notes
+court: Panneau de notes li‚es … la carte.
+@@ gui/notify
+court: Affiche les notifications importantes.
+@@ gui/overlay
+court: D‚place les widgets DFHack … l'‚cran.
+@@ gui/pathable
+court: Montre les cases accessibles depuis le curseur.
+@@ gui/petitions
+court: Liste les accords de guildes et de temples.
+@@ gui/prerelease-warning
+court: Pr‚vient si DFHack est une version d'essai.
+@@ gui/quantum
+court: Cr‚e facilement des stocks quantiques.
+@@ gui/quickcmd
+court: Lance vite des commandes enregistr‚es.
+@@ gui/quickfort
+court: Applique des plans … la forteresse.
+@@ gui/rename
+court: Modifie les noms dans la langue du jeu.
+@@ gui/reveal
+court: R‚vŠle des cases de la carte.
+@@ gui/sandbox
+court: Cr‚e des cr‚atures, des arbres ou des objets.
+@@ gui/seedwatch
+court: GŠre graines et cuisine selon le stock de graines.
+@@ gui/settings-manager
+court: Importe et exporte les r‚glages de DF.
+@@ gui/siegemanager
+court: GŠre les engins de siŠge d'un coup d'oeil.
+@@ gui/sitemap
+court: Liste les gens, lieux et artefacts et y va.
+@@ gui/spectate
+court: Mode spectateur automatique.
+@@ gui/suspendmanager
+court: Suspend et reprend les tƒches intelligemment.
+@@ gui/teleport
+court: T‚l‚porte des cr‚atures n'importe o—.
+@@ gui/tiletypes
+court: ModŠle la carte case par case.
+@@ gui/unit-info-viewer
+court: Infos d‚taill‚es sur une cr‚ature.
+@@ gui/unit-syndromes
+court: D‚tails des syndromes.
+@@ help
+court: Affiche l'aide d'une commande ou d'un module.
+@@ hermit
+court: Tente le d‚fi de l'ermite, seul dans la forteresse.
+@@ hfs-pit
+court: Creuse un puits droit vers les enfers.
+@@ hide
+court: Cache la fenˆtre du terminal DFHack.
+@@ hide-interface
+court: Cache l'interface.
+@@ hide-tutorials
+court: Cache les didacticiels des nouvelles forteresses.
+@@ hotkeys
+court: Affiche les raccourcis DFHack de l'‚cran actuel.
+@@ husbandry
+court: Traite et tond les animaux automatiquement.
+@@ idle-crafting
+court: Les nains fabriquent seuls quand ils en ont besoin.
+@@ immortal-cravings
+court: Les immortels peuvent manger et boire.
+@@ infinite-sky
+court: Ajoute automatiquement des niveaux de ciel.
+@@ install-info
+court: Exporte des infos DFHack pour signaler un bug.
+@@ instruments
+court: Recettes et ordres de fabrication d'instruments.
+@@ item
+court: Actions en masse sur des groupes d'objets.
+@@ justice
+court: Modifie le systŠme judiciaire.
+@@ keybinding
+court: Cr‚e des raccourcis pour des commandes DFHack.
+@@ kill-lua
+court: Arrˆte proprement les scripts Lua en cours.
+@@ labormanager
+court: GŠre les m‚tiers des nains par les ‚quipes.
+@@ lair
+court: vite la dispersion des objets d'un site repris.
+@@ launch
+court: Projette vos ennemis d'un suplex volant.
+@@ lever
+court: Examine et actionne les leviers.
+@@ light-aquifers-only
+court: Transforme tous les aquifŠres en aquifŠres l‚gers.
+@@ liquids
+court: Place du magma, de l'eau ou de l'obsidienne.
+@@ list-agreements
+court: Liste les accords de guildes et de temples.
+@@ list-waves
+court: Montre les vagues de migrants et leur histoire.
+@@ load
+court: Charge et enregistre un module.
+@@ locate-ore
+court: Cherche les minerais sur la carte.
+locate-ore
+==========
+
+tiquettes : fort | armok | productivity | map
+
+Commande : "locate-ore"
+
+  Cherche les minerais sur la carte.
+
+Trouve une case d'un minerai donn‚ et la marque … creuser. Pour creuser **toutes** les cases de ce minerai, placez le curseur clavier dessus et lancez digtype.
+
+Par d‚faut, seuls les filons d‚j… d‚couverts par vos nains sont cherch‚s.
+
+Chercher un m‚tal peut trouver un minerai qui en contient plusieurs : chercher l'argent peut trouver de la t‚tra‚drite, qui contient argent et cuivre.
+
+
+Utilisation
+-----------
+
+"locate-ore [list] [<options>]"
+   Liste les minerais pr‚sents sur la carte.
+
+"locate-ore <type> [<options>]"
+   Trouve une case du minerai, centre la vue dessus et la marque … creuser.
+
+
+Options
+-------
+
+"-a", "--all"
+   Cherche aussi dans les filons non d‚couverts.
+
+
+Exemples
+--------
+
+"locate-ore"
+   Liste les minerais d‚couverts.
+
+   locate-ore hematite
+   locate-ore iron
+   locate-ore silver --all
+@@ logistics
+court: Trie et achemine les objets des stocks surveill‚s.
+@@ ls
+court: Liste les commandes DFHack disponibles.
+@@ machine-toggle
+court: Modifie plaques de pression et engrenages construits.
+@@ make-legendary
+court: Rend l‚gendaires les comp‚tences du nain choisi.
+@@ make-monarch
+court: Couronne la cr‚ature choisie.
+@@ makeown
+court: Fait de la cr‚ature choisie un citoyen.
+@@ markdown
+court: Exporte le texte affich‚ en fichier Markdown.
+@@ migrants-now
+court: D‚clenche une vague de migrants.
+@@ misery
+court: Rend les citoyens plus malheureux.
+@@ multicmd
+court: Lance plusieurs commandes DFHack.
+@@ necronomicon
+court: Trouve les livres des secrets de la vie et de la mort.
+@@ nestboxes
+court: ProtŠge les oeufs f‚cond‚s dans les nichoirs.
+nestboxes
+=========
+
+tiquettes : fort | auto | animals
+
+  ProtŠge les oeufs f‚cond‚s dans les nichoirs.
+
+Interdit automatiquement les oeufs f‚cond‚s qui couvent dans un nichoir, pour que les nains ne viennent pas les ramasser pour les manger. Les oeufs ‚closent normalement, mˆme interdits.
+
+Pour choisir quels oeufs prot‚ger, placez les nichoirs … prot‚ger dans un terrier et lancez "nestboxes burrow <nom_du_terrier>". "nestboxes all" revient … la protection de tous les oeufs f‚cond‚s.
+
+
+Utilisation
+-----------
+
+   enable nestboxes
+   nestboxes burrow <nom_du_terrier>
+   nestbox all
+@@ notes
+court: GŠre les notes li‚es … la carte.
+@@ on-new-fortress
+court: Lance des commandes au d‚but d'une forteresse.
+@@ once-per-save
+court: Lance des commandes une seule fois par monde.
+@@ open-legends
+court: Ouvre les l‚gendes depuis la forteresse ou l'aventure.
+@@ orders
+court: GŠre les ordres de travail.
+orders
+======
+
+tiquettes : fort | productivity | workorders
+
+Commande : "orders"
+
+  GŠre les ordres de travail.
+
+
+Utilisation
+-----------
+
+"orders list"
+   Liste les ordres d‚j… export‚s, bibliothŠque d'ordres comprise.
+
+"orders export <nom>"
+   Enregistre tous les ordres de travail actuels dans un fichier.
+
+"orders import <nom>"
+   Importe les ordres indiqu‚s. Ils s'ajoutent aux ordres existants, qui ne sont pas effac‚s.
+
+"orders clear"
+   Supprime tous les ordres de travail de la forteresse.
+
+"orders recheck [this]"
+   Repasse en ® V‚rification ¯ (au lieu de ® Actif ¯) tous les ordres dont les conditions peuvent ˆtre rev‚rifi‚es. Avec "this", seul l'ordre dont la page des conditions est ouverte est concern‚. Le gestionnaire r‚‚value alors les conditions. Utile quand les objets n‚cessaires ont disparu depuis le lancement de l'ordre et que les annulations de tƒches s'enchaŒnent.
+
+"orders sort"
+   Trie les ordres par fr‚quence pour que les ordres r‚p‚t‚s ne bloquent pas les ordres uniques : d'abord les ordres uniques, puis annuels, saisonniers, mensuels et enfin quotidiens.
+
+Pour garder les ordres toujours tri‚s, ajoutez cette commande au fichier "dfhack-config/init/onMapLoad.init" :
+
+   repeat -name orders-sort -time 1 -timeUnits days -command [ orders sort ]
+
+Les ordres export‚s sont enregistr‚s dans le dossier "dfhack-config/orders", o— vous pouvez les consulter, les modifier ou les supprimer.
+
+
+Exemples
+--------
+
+"orders export mesordres"
+   Exporte les ordres actuels dans "dfhack-config/orders/mesordres.json".
+
+"orders import library/basic"
+   Importe de la bibliothŠque les ordres qui gardent la forteresse pourvue en produits de base.
+
+
+Panneaux (overlays)
+-------------------
+
+Le module orders ajoute plusieurs panneaux. Activez-les dans l'onglet ® Overlays ¯ de gui/control-panel, d‚placez ceux qui sont visibles avec gui/overlay.
+
+
+orders.importexport
+~~~~~~~~~~~~~~~~~~~
+
+Ajoute un panneau … l'‚cran des ordres de travail, avec des raccourcis pour exporter, importer, trier, effacer et rev‚rifier les conditions. Les raccourcis se cliquent aussi comme des boutons. L'effacement demande confirmation.
+
+
+orders.recheck
+~~~~~~~~~~~~~~
+
+Dans l'‚cran des conditions d'un ordre, un petit panneau permet de rev‚rifier les conditions de cet ordre seulement. Utile quand les conditions ‚taient vraies au lancement mais ne le sont plus, et que l'ordre s'annule sans cesse.
+
+
+orders.skillrestrictions et orders.laborrestrictions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pour les ateliers *sans* maŒtre d'atelier, un curseur limite les ouvriers selon leur niveau de comp‚tence.
+
+Faute de place, certains niveaux sont regroup‚s avec le rang sup‚rieur :
+
+* ® Comp‚tent ¯ comprend ® Correct ¯
+* ® Habile ¯ comprend ® Qualifi‚ ¯
+* ® Expert ¯ comprend ® Adepte ¯
+* ® Accompli ¯ comprend ® Professionnel ¯
+* ® MaŒtre ¯ comprend ® Excellent ¯
+* ® Grand maŒtre ¯ comprend ® Haut maŒtre ¯
+
+Pour les ateliers qui traitent plusieurs m‚tiers, une liste permet de choisir les m‚tiers accept‚s : l'atelier ne prend alors que les ordres g‚n‚raux correspondants (la liste d‚pend de l'atelier).
+
+Par exemple, toutes les forges re‡oivent par d‚faut les ordres d'armes, d'armures et de ferronnerie. Avec ces restrictions, une forge peut se consacrer aux armes, une autre aux armures ou … la ferronnerie, chacune avec son maŒtre l‚gendaire.
+
+De mˆme, les ateliers d'artisan peuvent se sp‚cialiser dans la pierre, le bois ou l'os.
+
+Une tƒche attribu‚e … la main … l'atelier est toujours faite : ces restrictions ne valent que pour les ordres g‚n‚raux de l'‚cran des ordres de travail.
+
+Ces r‚glages existaient avant la version 50 et existent toujours dans le jeu : DFHack leur donne simplement une interface.
+
+
+orders.*rightclick
+~~~~~~~~~~~~~~~~~~
+
+Am‚liorations invisibles : chap ou clic droit annule une saisie sans quitter l'‚cran.
+
+
+La bibliothŠque d'ordres
+------------------------
+
+DFHack fournit des ordres prˆts … importer :
+
+
+library/basic
+~~~~~~~~~~~~~
+
+Les besoins de base de la forteresse :
+
+* repas et produits alimentaires (et sous-produits comme l'huile)
+* alcool, hydromel
+* fil, tissu, teinture
+* pots, bacs, cruches, seaux, chopes
+* sacs en cuir, tissu, soie et laine
+* objets d'artisanat, totems et shleggings … partir des restes inutilisables
+* m‚canismes, cages
+* attelles, b‚quilles
+* lessive, savon
+* cendre, potasse
+* lits, brouettes, wagonnets
+* papier, rouleaux
+
+Importez-la dŠs que vous avez assez de nains, juste aprŠs la premiŠre vague de migrants par exemple.
+
+Ces ordres ne comprennent ni traite, ni tonte, ni fromage, faute de conditions adapt‚es dans le jeu. Activez "automilk", "autoshear" et autocheese dans gui/control-panel pour ces tƒches.
+
+Les cruches sont en bois : tant que vous ne faites pas d'autres ® outils ¯ en bois, un stock de produits finis limit‚ aux outils en bois servira de stock … cruches.
+
+Note d'Armok : ® Des shleggings ? Oui, des shleggings. ¯
+
+
+library/furnace
+~~~~~~~~~~~~~~~
+
+Objets qui demandent de la chaleur, s‚par‚s de "library/basic" pour vous laisser installer d'abord des fourneaux … magma si vous voulez ‚conomiser. Comprend :
+
+* charbon de bois (et fonte de houille et de lignite)
+* perlasse
+* sable
+* verre vert, incolore et cristal
+* traitement de l'adamantine
+* fonte d'objets
+
+Il manque les ordres de plƒtre tant que le bug DF 11803 n'est pas corrig‚.
+
+
+library/military
+~~~~~~~~~~~~~~~~
+
+Fonte en grande quantit‚ des minerais militaires, armes et armures :
+
+* sacs … dos, outres, carquois et armures en cuir
+* capes en soie
+* carreaux en os et en bois
+* fonte du platine, de l'argent, de l'acier, du bronze, du bronze au bismuth et du cuivre (et de ce qu'il faut pour eux)
+* carreaux en bronze, bronze au bismuth et cuivre
+* armes et armures en acier, argent, fer, bronze au bismuth, bronze et cuivre, en utilisant les meilleurs mat‚riaux disponibles
+* boucliers en bois (sans m‚tal disponible)
+
+Avec un stock qui accepte les armes et armures de moins que chef-d'oeuvre et automelt activ‚ (comme l'‚tage industriel de Dreamfort), ces ordres am‚liorent peu … peu l'‚quipement jusqu'au chef-d'oeuvre. Pr‚voyez beaucoup de combustible (ou des forges … magma) avant d'activer "automelt" !
+
+· n'importer que si vous devez ‚quiper une arm‚e.
+
+
+library/smelting
+~~~~~~~~~~~~~~~~
+
+Fonte de tous les minerais, y compris ceux de "library/military" mais avec des limites plus basses. Tous les minerais sont couverts mˆme sans "library/military" ; si les deux sont import‚es, "library/military" passe en priorit‚.
+
+
+library/rockstock
+~~~~~~~~~~~~~~~~~
+
+Garde un petit stock de tous les meubles en pierre, pour meubler … la demande guildes, bibliothŠques, temples et autres piŠces avec buildingplan : vos ma‡ons assurent le stock.
+
+
+library/glassstock
+~~~~~~~~~~~~~~~~~~
+
+Comme "library/rockstock", mais en verre. Avec une verrerie en marche, c'est plus durable car le sable ne s'‚puise jamais. Importez les deux pour un m‚lange de meubles en pierre et en verre.
+
+Quelques objets impossibles en pierre ne sont produits que par "library/glassstock" :
+
+* tubes et vis pour des pompes … vis r‚sistantes au magma
+* fenˆtres
+* terrariums (au lieu des cages en bois)
+@@ overlay
+court: GŠre les widgets affich‚s … l'‚cran.
+@@ pet-uncapper
+court: Modifie la limite d'animaux de compagnie.
+@@ plant
+court: Fait pousser ou retire arbustes et arbres.
+@@ plug
+court: Liste les modules et indique s'ils sont actifs.
+@@ points
+court: RŠgle les points disponibles … l'installation.
+@@ pop-control
+court: Limite la taille des vagues de migrants.
+@@ position
+court: Indique la position du curseur et de la souris.
+@@ pref-adjust
+court: Voir ou r‚gler les pr‚f‚rences d'un nain.
+@@ preserve-rooms
+court: Garde les chambres des absents et des nobles.
+@@ preserve-tombs
+court: Garde les tombes attribu‚es aprŠs la mort.
+@@ prioritize
+court: Augmente la priorit‚ des tƒches importantes.
+@@ probe
+court: Affiche les propri‚t‚s internes de la case choisie.
+@@ prospector
+court: Analyse les ressources naturelles.
+@@ putontable
+court: Pose un objet sur une table.
+@@ questport
+court: T‚l‚porte au curseur du journal de quˆtes.
+@@ quickfort
+court: Applique des plans … la forteresse.
+@@ quicksave
+court: Sauvegarde automatique imm‚diate.
+@@ quickstart-guide
+court: Guide de d‚marrage rapide de DFHack.
+@@ region-pops
+court: Modifie les populations animales r‚gionales.
+@@ regrass
+court: Fait repousser l'herbe et la mousse des cavernes.
+@@ rejuvenate
+court: Remet … z‚ro l'ƒge d'une cr‚ature.
+@@ reload
+court: Recharge un module.
+@@ remove-stress
+court: R‚duit le stress des nains.
+@@ remove-wear
+court: Retire l'usure des objets de la forteresse.
+@@ repeat
+court: Relance une commande DFHack … intervalles r‚guliers.
+@@ resize-armor
+court: Ajuste la taille des armures et vˆtements.
+@@ resurrect-adv
+court: RamŠne … la vie un aventurier mort.
+@@ reveal
+court: R‚vŠle la carte.
+@@ reveal-adv-map
+court: R‚vŠle ou cache la carte du monde.
+@@ reveal-hidden-sites
+court: R‚vŠle tous les sites du monde.
+@@ reveal-hidden-units
+court: R‚vŠle les cr‚atures cach‚es.
+@@ sc-script
+court: Lance des commandes quand l'‚tat du jeu change.
+@@ script
+court: Ex‚cute un fichier de commandes DFHack.
+@@ seedwatch
+court: GŠre graines et cuisine selon le stock de graines.
+@@ set-orientation
+court: Modifie les penchants amoureux d'une cr‚ature.
+@@ set-timeskip-duration
+court: RŠgle la dur‚e de mise … jour du monde avant partie.
+@@ setfps
+court: RŠgle la limite de FPS de l'affichage.
+@@ show
+court: Affiche la fenˆtre du terminal DFHack.
+@@ showmood
+court: Montre les objets voulus par une humeur ‚trange.
+@@ smooth-movement
+court: Anime les d‚placements en douceur.
+@@ sort
+court: Recherche et tri dans les listes du jeu.
+@@ source
+court: Cr‚e une source infinie de magma ou d'eau.
+@@ spectate
+court: Mode spectateur automatique.
+@@ startdwarf
+court: Change le nombre de nains au d‚part.
+@@ starvingdead
+court: vite l'accumulation infinie de morts-vivants.
+@@ stockflow
+court: Lance des ordres selon la place libre des stocks.
+@@ stockpiles
+court: Importe, exporte ou modifie les r‚glages de stocks.
+@@ stonesense
+court: Visualiseur 3D isom‚trique.
+@@ store-owned
+court: Fait ranger leurs objets aux nains.
+@@ strangemood
+court: D‚clenche une humeur ‚trange.
+@@ stripcaged
+court: Retire les objets des prisonniers en cage.
+stripcaged
+==========
+
+tiquettes : fort | productivity | items
+
+Commande : "stripcaged"
+
+  Retire les objets des prisonniers en cage.
+
+vite de passer en revue chaque cage pour marquer les objets … jeter. Pratique pour r‚cup‚rer les graines rest‚es dans les cages aprŠs le dressage. Surtout, il sert … retirer armes et armures des prisonniers : aprŠs "stripcaged", vos nains portent les objets au d‚potoir, les cages sont propres et les prisonniers d‚pouill‚s.
+
+Pour ne pas attendre vos nains, utilisez autodump.
+
+
+Utilisation
+-----------
+
+   stripcaged list
+   stripcaged items|weapons|armor|all [here|<id de cage> ...] [<options>]
+
+
+Exemples
+--------
+
+"stripcaged list"
+   Liste toutes les cages et leur contenu.
+
+"stripcaged all"
+   Jette tous les objets de toutes les cages, port‚s ou non.
+
+"stripcaged items"
+   Jette les objets pos‚s dans les cages, comme les graines du dressage.
+
+"stripcaged weapons"
+   Jette les armes port‚es par les cr‚atures en cage.
+
+"stripcaged armor here --skip-forbidden"
+   Jette les armures non interdites port‚es par la cr‚ature de la cage choisie.
+
+"stripcaged all 25321 34228"
+   Vide les cages indiqu‚es.
+
+"stripcaged items here --include-pets --include-vermin"
+   Jette les objets de la cage choisie, vermine apprivois‚e ou non comprise.
+
+
+Options
+-------
+
+"--include-pets", "--include-vermin"
+   Pour le jeu, la vermine vivante (apprivois‚e ou non) est un objet. Elle n'est pas jet‚e par d‚faut, car elle risque de s'enfuir ou d'ˆtre mang‚e par vos chats. Ces options la jettent quand mˆme.
+
+"-f", "--skip-forbidden"
+   Par d‚faut, les objets … jeter sont autoris‚s. Avec cette option, seuls les objets d‚j… autoris‚s sont trait‚s : vous pouvez par exemple autoriser … la main les objets pr‚cieux (comme l'acier) depuis le menu des stocks, puis lancer "stripcaged".
+@@ superdwarf
+court: Rend un nain surnaturellement rapide.
+@@ suspend
+court: Suspend les constructions.
+@@ suspendmanager
+court: Suspend et reprend les tƒches intelligemment.
+@@ sync-windmills
+court: Synchronise ou varie les moulins … vent.
+@@ tags
+court: Liste les cat‚gories d'outils ou leurs outils.
+@@ tailor
+court: Garde des vˆtements neufs pour vos nains.
+tailor
+======
+
+tiquettes : fort | auto | workorders
+
+Commande : "tailor"
+
+  Garde des vˆtements neufs pour vos nains.
+
+Une fois par jour, examine les vˆtements de la forteresse. S'il y a des vˆtements neufs, les nains en guenilles se les voient confisquer (comme avec cleanowned) et s'habillent de neuf.
+
+S'il n'y a pas assez de vˆtements, des ordres de travail sont cr‚‚s avec les matiŠres disponibles : beaucoup de soie mais pas de tissu ? "tailor" ne commande que des vˆtements en soie.
+
+Pour choisir entre tailor et autoclothing, voir la comparaison dans l'aide d'autoclothing.
+
+
+Utilisation
+-----------
+
+   enable tailor
+   tailor [status]
+   tailor now
+   tailor materials <matiŠre> [<matiŠre> ...]
+   tailor confiscate [true|false]
+   tailor dye [true|false]
+
+Par d‚faut, l'ordre de pr‚f‚rence des matiŠres est :
+
+   silk cloth yarn leather
+
+(soie, tissu, laine, cuir). "tailor materials" limite les matiŠres et leur ordre. Par d‚faut, "tailor" confisque (retire la propri‚t‚ et marque … jeter) les vˆtements en lambeaux dŠs qu'il y a de quoi les remplacer ; "tailor confiscate" change ce comportement. Les nains portent ainsi moins longtemps des guenilles et en sont moins contrari‚s, mais les guenilles finissent au d‚potoir, interdites, ce qui peut gˆner.
+
+"tailor" sait utiliser le tissu d'adamantine (mot-cl‚ "adamantine"), mais pas par d‚faut, car il est en g‚n‚ral trop pr‚cieux. Il ne gŠre pas les tissus des mods qui ont leurs propres r‚actions de fabrication.
+
+Avec la gestion des teintures, "tailor" commande aussi la teinture des tissus n‚cessaires et la fabrication des teintures. Elle est d‚sactiv‚e par d‚faut.
+
+
+Exemples
+--------
+
+"enable tailor"
+   Remplace les vˆtements en lambeaux avec les r‚glages par d‚faut.
+
+"tailor now"
+   Lance tout de suite un examen et les commandes, activ‚ ou non.
+
+"tailor materials silk cloth yarn"
+   N'utilise que la soie, le tissu et la laine, dans cet ordre, et garde le cuir pour les armures.
+
+
+Limites
+-------
+
+Les matiŠres de type tissu ajout‚es par des mods ne sont pas g‚r‚es : leurs r‚actions ne savent pas ajuster la taille pour les autres races. Le jeu ne le fait que pour ses r‚actions de base.
+
+Les teintures faites au moulin ou … la meule ne sont pas command‚es : le jeu ne permet pas de commander ® moudre une plante ¯ d'une matiŠre pr‚cise.
+
+Pour l'instant, n'importe quelle teinture disponible est utilis‚e, quelle que soit sa couleur. Le choix des couleurs viendra peut-ˆtre plus tard.
+@@ tame
+court: Apprivoise et dresse des animaux.
+@@ teleport
+court: T‚l‚porte une cr‚ature n'importe o—.
+@@ tiletypes
+court: Peint des types de cases sur la carte.
+@@ timestream
+court: Corrige la chute de FPS des vieilles forteresses.
+@@ toggle-kbd-cursor
+court: Active ou cache le curseur clavier.
+@@ trackstop
+court: Modifie butoirs et rouleaux aprŠs construction.
+@@ traduction-switch
+court: Passe la traduction du fran‡ais … l'anglais et inversement.
+@@ troubleshoot-item
+court: Examine les propri‚t‚s de l'objet choisi.
+@@ tubefill
+court: Remplit … nouveau l'adamantine extraite.
+@@ twaterlvl
+court: Affiche ou cache la profondeur des liquides.
+@@ tweak
+court: Ensemble de r‚glages et de correctifs.
+@@ type
+court: Indique comment une commande est faite.
+@@ undump-buildings
+court: Annule le jet des mat‚riaux de bƒtiments.
+@@ unforbid
+court: Autorise tous les objets.
+unforbid
+========
+
+tiquettes : fort | productivity | items
+
+Commande : "unforbid"
+
+  Autorise tous les objets.
+
+Autorise vite et simplement tous les objets. TrŠs utile aprŠs un siŠge pour nettoyer (ou pour jeter l'‚quipement des prisonniers en cage avec stripcaged).
+
+
+Utilisation
+-----------
+
+   unforbid all [<options>]
+
+
+Options
+-------
+
+"-u", "--include-unreachable"
+   Autorise aussi les objets inaccessibles.
+
+"-q", "--quiet"
+   N'affiche que les erreurs.
+
+"-X", "--include-worn"
+   Inclut les objets us‚s (X) et en lambeaux (XX).
+@@ ungeld
+court: Annule la castration d'un animal.
+@@ uniform-unstick
+court: Fait revoir leur uniforme aux militaires.
+@@ unload
+court: D‚charge un module de la m‚moire.
+@@ unretire-anyone
+court: Jouer l'aventure avec n'importe quel personnage.
+@@ warn-stranded
+court: Signale les citoyens isol‚s des autres.
+@@ weather
+court: Change la m‚t‚o.
+@@ work-now
+court: R‚duit le temps d'attente des nains entre deux tƒches.
+@@ workorder
+court: Cr‚e des ordres de travail.
+]==]
+local function aide_charger()
+    if AIDE_FR then return AIDE_FR end
+    AIDE_FR={}
+    local src=rawget(_G,'__PGM_AIDE_DONNEES') or AIDE_DONNEES
+    if type(src)~='string' then return AIDE_FR end
+    local nom,court,lignes=nil,nil,nil
+    local function fin()
+        if nom then AIDE_FR[nom]={court=court,long=table.concat(lignes,'\n'):gsub('%s+$','')} end
+    end
+    for l in (src..'\n'):gmatch('([^\n]*)\n') do
+        l=l:gsub('\r$','')
+        local n=l:match('^@@ (%S+)%s*$')
+        if n then fin();nom,court,lignes=n,nil,{}
+        elseif nom and not court and l:match('^court: ') then court=l:sub(8)
+        elseif nom then lignes[#lignes+1]=l end
+    end
+    fin()
+    return AIDE_FR
+end
+local function aide_couper(texte,largeur)
+    largeur=largeur or 80
+    local out={}
+    for ligne in (texte..'\n'):gmatch('([^\n]*)\n') do
+        if #ligne<=largeur then out[#out+1]=ligne
+        else
+            local indent=ligne:match('^(%s*)')
+            local cur=''
+            for mot in ligne:gmatch('%S+') do
+                if cur=='' then cur=indent..mot
+                elseif #cur+1+#mot>largeur then out[#out+1]=cur;cur=indent..mot
+                else cur=cur..' '..mot end
+            end
+            if cur~='' then out[#out+1]=cur end
+        end
+    end
+    return table.concat(out,'\n')
+end
+local ok_helpdb,helpdb=pcall(require,'helpdb')
+if ok_helpdb and helpdb then
+    if not helpdb.__pgm_aide_court then
+        helpdb.__pgm_aide_court=helpdb.get_entry_short_help
+        helpdb.__pgm_aide_long=helpdb.get_entry_long_help
+    end
+    local court0,long0=helpdb.__pgm_aide_court,helpdb.__pgm_aide_long
+    helpdb.get_entry_short_help=function(entry)
+        local a=actif() and aide_charger()[entry]
+        if a and a.court then return a.court end
+        return court0(entry)
+    end
+    helpdb.get_entry_long_help=function(entry,width)
+        local a=actif() and aide_charger()[entry]
+        if a and a.long and a.long~='' then return aide_couper(a.long,width) end
+        return long0(entry,width)
+    end
+end

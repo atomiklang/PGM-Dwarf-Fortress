@@ -273,7 +273,7 @@ def install(game, dfhack):
         restore(game, state)
         raise
     print('Installed PGM Linux translation. Launch the game through Steam with DFHack.')
-    print('F12 switches FR/EN. Check traducfr/traducfr.log after startup.')
+    print('F12 or Ctrl+Alt+F (or the DFHack command traduction-switch) switches FR/EN. Check traducfr/traducfr.log after startup.')
 
 
 def make_plan_without_init(game, dfhack):

@@ -205,21 +205,12 @@ end
 
 function ZoomScreen:onInput(keys)
     if keys.LEAVESCREEN or keys._MOUSE_R then
-        -- PGM: Esc / right-click behave like the native map (close it), not only the zoom layer.
-        local native=self.context.screen
-        local key=keys.LEAVESCREEN and 'LEAVESCREEN' or {_MOUSE_R=true,_MOUSE_R_DOWN=true}
-        self:dismiss()
-        esc_debug={requested=true}
-        local function try(n)
-            local top=dfhack.gui.getDFViewscreen(true)
-            esc_debug['try'..n]=tostring(top and top._type)
-            if not df.viewscreen_worldst:is_instance(top) and not df.viewscreen_choose_start_sitest:is_instance(top) then return end
-            if n==1 then gui.simulateInput(top,key)
-            elseif n==2 then gui.simulateInput(top,{_MOUSE_R=true,_MOUSE_R_DOWN=true})
-            elseif n==3 then dfhack.screen.dismiss(top);return end
-            if n<3 then dfhack.timeout(2,'frames',function() try(n+1) end) end
-        end
-        dfhack.timeout(1,'frames',function() try(1) end)
+        -- PGM v30 : Esc / clic droit transmis UNE fois au jeu, comme la carte native
+        -- (ferme un menu ouvert, ou la carte). Plus de fermeture forcée de l'écran du jeu,
+        -- qui quittait Dwarf Fortress. Si le jeu change d'écran, le zoom se ferme seul (onIdle).
+        self:cancel_gesture()
+        self:sendInputToParent(keys.LEAVESCREEN and {LEAVESCREEN=true} or {_MOUSE_R=true,_MOUSE_R_DOWN=true})
+        self.ui_dirty=true
         return true
     end
     if self.gesture then self:update_gesture();return true end
@@ -248,6 +239,12 @@ function ZoomScreen:onInput(keys)
     if keys.CURSOR_RIGHT or keys.CUSTOM_D then dx=2 end
     if keys.CURSOR_UP or keys.CUSTOM_W then dy=-2 end
     if keys.CURSOR_DOWN or keys.CUSTOM_S then dy=2 end
+    -- PGM v30 : molette au-dessus d'un menu (listes, légendes, paramètres) -> rendue au jeu.
+    if (keys.CONTEXT_SCROLL_UP or keys.CONTEXT_SCROLL_DOWN or keys.CONTEXT_SCROLL_PAGEUP or keys.CONTEXT_SCROLL_PAGEDOWN)
+            and not self:map_pointer() then
+        self:sendInputToParent(keys);self.ui_dirty=true
+        return true
+    end
     if dx~=0 or dy~=0 then self.camera:pan(dx,dy);self:sync()
     elseif keys.CONTEXT_SCROLL_UP or keys.STRING_A043 then self:zoom_at_pointer(self.camera:next_zoom(1))
     elseif keys.CONTEXT_SCROLL_DOWN or keys.STRING_A045 then self:zoom_at_pointer(self.camera:next_zoom(-1)) end

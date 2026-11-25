@@ -7,3 +7,6 @@ fps_couleur_texte=15
 fps_couleur_fond=0
 # Onglets dont le texte est decale d une case vers la gauche (separes par ;)
 decaler_gauche=Militaire;Groupe;Objet;Retour
+# Touches pour passer du francais a l'anglais (exemples : F12, F10, ctrl+F12, ctrl+alt+f, aucune)
+touche_langue=F12
+touche_langue2=ctrl+alt+f
